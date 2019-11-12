@@ -1,15 +1,8 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-  - [General API Information](#general-api-information)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Public Rest API for Phemex
 
 ## General API Information
-* The base endpoint is: **https://api.phemex.com**
+* The base endpoint is: **https://api.phemex.com** or for the testnet is:  **https://testnet-api.phemex.com** 
 * All endpoints return a JSON object.
 * Phemex provides HTTP Rest API for client to operate Orders, and use WebSocket API to publish order event and positions to client side.
 
