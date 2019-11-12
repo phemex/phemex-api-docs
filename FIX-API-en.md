@@ -1,6 +1,6 @@
 # Phemex FIX API
-
 =======
+
 # Introduction
 FIX (Financial Information eXchange) is a standard electronic messaging protocol which can be used to place orders, receive order updates and executions, and cancel orders. Our FIX api is based on the FIX 4.2 specification and modeled after FIX implementations of other popular cryptocurrency exchanges.
 FIX endpoint URL: *tcp+ssl://fix.phemex.com:port*
