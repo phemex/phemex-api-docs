@@ -1,14 +1,10 @@
 
 # Phemex API Reference
 
-## Phemex Rest API Reference
-* Rest API reference (English): https://github.com/phemex/phemex-api-docs/blob/master/REST-API-en.md
+## Phemex Public API Reference
+* Public Rest API and WebSocket API reference (English): https://github.com/phemex/phemex-api-docs/blob/master/Public-API-en.md
 * Sample: https://github.com/phemex/java-client
 
-
-## Phemex Websocket API Reference
-
-* Websocket API reference (English): https://github.com/phemex/phemex-api-docs/blob/master/Websocket-API-en.md
 
 ## Phemex FIX API Reference
 
