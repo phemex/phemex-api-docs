@@ -186,7 +186,7 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 |-------------|--------|------------------|-----------------|
 | side        | String | Price level side | bid, ask        |
 | price       | Integer| Price            |                 |
-| qty         | Integer| Price level size. Non-zero qty denotes insert or update the price level, and qty 0 denotes remove the price level |                 |
+| qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates the price level deletion |                 |
 | sequence    | Integer| Latest message sequence |          |
 | depth       | Integer| Market depth     |                 |
 | type        | String | Message type     | snapshot, incremental |
