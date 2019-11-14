@@ -120,13 +120,13 @@ DELETE /orders/all
 
 * Response:
 ```json
-{"error":null,"id":<id>,"result":"pong"}
+{"error": null, "id": <id>, "result": "pong"}
 ```
 
 * Sample：
 ```json
 > {"id": 1234, "method": "server.ping", "params": []}
-< {"error":null,"id":1234,"result":"pong"}
+< {"error": null, "id": 1234, "result": "pong"}
 ```
 
 ### API User Authentication
@@ -150,7 +150,7 @@ While for client private account/position/order data, the client should send use
 
 ```json
 > {"method": "user.auth", "params": ["API", "806066b0-f02b-4d3e-b444-76ec718e1023", "8c939f7a6e6716ab7c4240384e07c81840dacd371cdcf5051bb6b7084897470e", 157009123213], "id": 1234}
-< {"error":null,"id":1234,"result":{"status":"success"}}
+< {"error": null, "id": 1234, "result": {"status": "success"}}
 ```
 
 
@@ -164,13 +164,13 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 
 * Response
 ```json
-{"error":null,"id":<id>,"result":{"status":"success"}}
+{"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
 * Sample：
 ```json
 > {"id":1234, "method": "orderbook.subscribe", "params": ["BTCUSD"]}
-< {"error":null,"id":1234,"result":{"status":"success"}}
+< {"error": null, "id": 1234, "result": {"status": "success"}}
 ```
 
 
@@ -179,7 +179,7 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 * Message Format：
  
 ```json
-{"book":{"asks":[["<price>","<qty>"],["<prie>","<qty>"]],"bids":[["<price>","<qty>"],["<prie>","<qty>"]]},"depth":"<depth>","sequence":<sequence>,"symbol":"<symbol>","type":"<type>"}
+{"book": {"asks": [[<price>, <qty>], [<prie>, <qty>]], "bids": [[<price>, <qty>], [<prie>, <qty>]]}, "depth": <depth>, "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -193,9 +193,9 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 * Sample：
  
 ```json
-< {"book":{"asks":[[112710000,6239]],"bids":[]},"depth":100,"sequence":11433,"symbol":"BTCUSD","type":"incremental"}
-< {"book":{"asks":[[112710000,6240],[112720000,10715],[112730000,5508],[112740000,10369],[112760000,6531],[112770000,4050],[112780000,11655],[112790000,2926],[112820000,12345],[112840000,4974],[112850000,14943],[112860000,9094],[112870000,3197],[112880000,2110],[112900000,2680],[112910000,7115],[112920000,8283],[112940000,12006],[112950000,23126],[112960000,8337],[112970000,6194],[112980000,3211],[112990000,15660],[113010000,4768],[113020000,10700],[113040000,9493],[113050000,9116],[113060000,3244],[113070000,4517],[113080000,7165],[113090000,8266],[113100000,8791],[113110000,25330],[113140000,14207],[113150000,5405],[113180000,6729],[113190000,13190],[113200000,3161],[113210000,21047],[113220000,6500],[113230000,14260],[113240000,6406],[113250000,3131],[113260000,1419],[113270000,11411],[113280000,9944],[113290000,6412],[113300000,2499],[113310000,10922],[113320000,6241],[113330000,20190],[113340000,9612],[113350000,3231],[113360000,14082],[113370000,6354],[113380000,10542],[113390000,5454],[113400000,10179],[113410000,2098],[113420000,10847],[113430000,6607],[113440000,4511],[113460000,1053],[113470000,7307],[113490000,13161],[113500000,9660],[113510000,13346],[113520000,2990],[113530000,7860],[113540000,4258],[113560000,13760],[113570000,12311],[113580000,9341],[113590000,7730],[113600000,1222],[113610000,31722],[113620000,24895],[113630000,15907],[113660000,2318],[113690000,4303],[113710000,6089],[113720000,16478],[113740000,14026],[113750000,13597],[113760000,13939],[113770000,5800],[113780000,23854],[113800000,9615],[113810000,5727],[113820000,3469],[113840000,7026],[113860000,4679],[113880000,6702],[113890000,9760],[113900000,17147],[113910000,11451],[113920000,2270],[113940000,13231],[113960000,15123],[113980000,1113]],"bids":[[98065000,100],[98005000,1990],[88030000,18470],[88010000,6072],[87990000,14041],[87980000,9960],[87970000,5657],[87960000,8121],[87950000,9124],[87940000,6169],[87930000,11073],[87920000,30521],[87890000,8602],[87870000,6539],[87840000,29245],[87800000,25975],[87790000,14806],[87760000,8329],[87750000,4409],[87740000,10169],[87730000,12616],[87720000,6236],[87700000,10262],[87690000,5127],[87670000,4954],[87660000,16190],[87650000,5179],[87640000,8840],[87630000,7351],[87620000,6411],[87610000,4325],[87600000,15220],[87590000,1502],[87570000,18821],[87560000,23083],[87540000,22458],[87530000,13219],[87520000,14664],[87510000,12328],[87500000,1686],[87490000,17736],[87480000,8427],[87470000,18272],[87460000,16570],[87450000,18492],[87440000,3767],[87430000,3834],[87410000,18767],[87390000,6325],[87380000,9262],[87370000,7588],[87360000,9796],[87330000,4574],[87320000,9038],[87260000,5742],[87250000,18739],[87240000,8384],[87220000,13103],[87210000,11590],[87200000,14449],[87190000,2644],[87180000,6027],[87170000,2612],[87160000,5295],[87150000,19365],[87140000,7487],[87120000,2259],[87110000,2734],[87080000,15210],[87060000,7814],[87050000,5401],[87040000,9451],[87030000,14342],[87010000,13314],[87000000,20168],[86990000,4162],[86970000,6188],[86960000,11235],[86940000,1702],[86930000,1990],[86920000,2853],[86910000,14572],[86900000,8002],[86890000,3164],[86880000,9704],[86870000,13546],[86860000,8925],[86850000,4511],[86830000,11265],[86820000,12288],[86810000,18203],[86800000,14108],[86790000,2533],[86780000,14546],[86760000,5742],[86750000,15569],[86730000,2830],[86720000,13425],[86710000,13759],[86700000,16944]]},"depth":100,"sequence":11438,"symbol":"BTCUSD","type":"snapshot"}
-
+< {"book":{"asks":[[86765000,19609],[86770000,7402],[86775000,3807],[86780000,7395],[86785000,3599],[86790000,7253],[86795000,4019],[86800000,4366],[86805000,3216],[86810000,3107],[86815000,7453],[86820000,1771],[86825000,895],[86830000,3420],[86835000,1818],[86840000,1272],[86845000,1064],[86850000,195],[86855000,1630],[86860000,1017],[86865000,3509],[86870000,1105],[86875000,1262],[86880000,893],[86885000,862],[86890000,1030],[86895000,2315],[86900000,2994],[86905000,2026],[86910000,3387],[86915000,1382],[86920000,1202],[86925000,3150],[86930000,1773],[86935000,1778],[86940000,1384],[86945000,1842],[86950000,1019],[86955000,2660],[86960000,1599],[86965000,920],[86970000,1834],[86975000,752],[86980000,1384],[86985000,2471],[86990000,2133],[86995000,2981],[87000000,1091],[87005000,994],[87010000,1217],[87015000,1098],[87020000,526],[87025000,1779],[87030000,1098],[87035000,892],[87040000,2168],[87045000,822],[87050000,2410],[87055000,630],[87060000,1684],[87065000,2556],[87070000,19],[87080000,1445],[87085000,29],[87105000,2002],[87115000,658],[87120000,660],[87905000,991]],"bids":[[86760000,18995],[86755000,6451],[86750000,5311],[86745000,6867],[86740000,6180],[86735000,3127],[86730000,4852],[86725000,6213],[86720000,3902],[86715000,4510],[86710000,10063],[86705000,1118],[86700000,1891],[86695000,767],[86690000,20920],[86685000,2535],[86680000,1105],[86675000,645],[86670000,1424],[86665000,1773],[86660000,1464],[86655000,1160],[86650000,1462],[86645000,2446],[86640000,538],[86635000,506],[86630000,2291],[86625000,2981],[86620000,1712],[86615000,984],[86610000,1058],[86605000,1261],[86600000,1074],[86595000,1408],[86590000,717],[86585000,1582],[86580000,1950],[86575000,1540],[86570000,2960],[86565000,598],[86560000,759],[86555000,1266],[86550000,1943],[86545000,259],[86540000,2106],[86535000,2365],[86530000,857],[86525000,1200],[86520000,2371],[86515000,2103],[86510000,1468],[86505000,747],[86500000,1369],[86495000,2121],[86490000,3674],[86485000,1345],[86480000,1290],[86475000,1716],[86470000,1851],[86465000,1861],[86460000,1092],[86435000,21],[86430000,986],[86420000,1202],[86415000,22],[86405000,1199],[86390000,470],[86365000,920],[86360000,192],[86355000,474],[86350000,1838],[86335000,1104],[86285000,2205],[86280000,2390],[86275000,95],[86255000,2836],[86250000,589],[86240000,424],[86235000,937],[86225000,374],[86220000,1591],[86215000,517],[86210000,559],[86205000,702],[86190000,54]]},"depth":100,"sequence":1191904,"symbol":"BTCUSD","type":"snapshot"}
+< {"book":{"asks":[[86775000,4621]],"bids":[]},"depth":100,"sequence":1191905,"symbol":"BTCUSD","type":"incremental"}
+< {"book":{"asks":[],"bids":[[86755000,8097]]},"depth":100,"sequence":1191906,"symbol":"BTCUSD","type":"incremental"}
 ```
 
 ###  Unsubscribe OrderBook
@@ -210,7 +210,7 @@ It unsubscribes all orderbook related subscriptions.
 * Response:
 
 ```json
-{"error":null,"id":1234,"result":{"status":"success"}}
+{"error": null, "id": 1234, "result": {"status": "success"}}
 ```
 
 
@@ -226,7 +226,7 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 * Response:
 
 ```json
-{"error":null,"id":<id>,"result":{"status":"success"}}
+{"error": null, "id": <id>, "result": {"status": "success"}}
 
 ```
 
@@ -234,7 +234,7 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 
 ```json
 > {"id": 1234, "method": "trade.subscribe", "params": ["BTCUSD"]}
-< {"error":null,"id":1234,"result":{"status":"success"}}
+< {"error": null, "id": 1234, "result": {"status": "success"}}
 ```
 
 
@@ -242,14 +242,16 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 #### Trade Message Format：
 
 ```json
-{"trades":[["<timestamp>","<side>","<price>","<qty>"],["<timestamp>","<side>","<prie>","<qty>"]],"sequence":<sequence>,"timestamp":"<timestamp2>","symbol":"<symbol>","type":"<type>"}
+{"trades":[[<timestamp>, "<side>", <price>, <qty>], [<timestamp>, "<side>", <price>, <qty>]], "sequence": <sequence>, "timestamp": <timestamp2>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | timestamp2  | Integer| transaction timestmap in nanoseconds for the message ||
 | timestamp   | Integer| timestamp in nanoseconds for each trade ||
-| side        | String | trade side       | bid, ask        |
+| side        | String | execution taker side| bid, ask        |
+| price       | Integer| execution price  |                 |
+| qty         | Integer| execution size   |                 |
 | sequence    | Integer| latest message sequence ||
 | symbol      | String | trade symbol     ||
 | type        | String | message type     |snapshot, incremental |
@@ -257,8 +259,8 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 
 * Sample
 ```json
-< {"sequence":4,"symbol":"BTCUSD","timestamp":1568689385584237387,"trades":[[1568689385584237387,"sell","999","1"],[1568689385584237387,"sell","999","1"],[1568689385584237387,"buy","1000","1"],[1568689385584237387,"buy","1000","1"],[1568690355567123,"sell","999","1"],[1568689385584232,"sell","999","1"],[1568689385584111,"sell","999","10"]],"type":"snapshot"}
-< {"sequence":10,"symbol":"BTCUSD","timestamp":1568727884871777954,"trades":[[1568727884871288,"sell","999","1"]],"type":"incremental"}
+< {"sequence":1167852,"symbol":"BTCUSD","trades":[[1573716998128563478,"Buy",86735000,56],[1573716995033682864,"Buy",86735000,52],[1573716991485285958,"Buy",86735000,51],[1573716988636291347,"Buy",86735000,12]],"type":"snapshot"}
+< {"sequence":1188273,"symbol":"BTCUSD","trades":[[1573717116484024241,"Buy",86730000,21]],"type":"incremental"}
 ```
 
 ### Unsubscribe  Trade
@@ -273,7 +275,7 @@ It unsubscribes will trade subscriptions.
 * Response:
 
 ```json
-{"error":null,"id":1234,"result":{"status":"success"}}
+{"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
 
@@ -289,13 +291,13 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Response:
 
 ```json
-{"error":null,"id":1234,"result":{"status":"success"}}
+{"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
 * Sample
 ```json
 > {"id": 1234, "method": "aop.subscribe", "params": []}
-< {"error":null,"id":1234,"result":{"status":"success"}}
+< {"error": null, "id": 1234, "result": {"status": "success"}}
 ```
 
 
@@ -320,7 +322,8 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Sample:
 
 ```json
-<  {"accounts":[{"accountBalanceEv":96049635244492,"accountID":659220002,"bonusBalanceEv":0,"currency":"USD","totalUsedBalanceEv":1032761766,"userID":65922}],"orders":[{"accountID":659220002,"action":"New","actionTimeNs":0,"addedSeq":394480,"bonusChangedAmountEv":0,"clOrdID":"1573124279267067022","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":0,"cumValueEv":0,"curAccBalanceEv":96049635244492,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":18132,"curPosTerm":376,"curPosValueEv":168912309,"curRiskLimitEv":5000000000,"cxlRejReason":0,"displayQty":0,"execFeeEv":0,"execID":"00000000-0000-0000-0000-000000000000","execPriceEp":0,"execQty":0,"execSeq":394480,"execStatus":"New","execValueEv":0,"feeRateEr":0,"leavesQty":297,"leavesValueEv":2773237,"message":"No error","nthItem":1,"ordStatus":"New","ordType":"Limit","orderID":"85906b94-3784-4e15-ac19-590bc5af4aff","orderQty":297,"pegOffsetValueEp":0,"priceEp":1867500,"relatedPosTerm":376,"relatedReqNum":66987,"side":"Sell","stopLossEp":0,"stopPxEp":0,"symbol":"ETHUSD","takeProfitEp":0,"timeInForce":"PostOnly","totalItems":1,"transactTimeNs":1573131627774194463,"userID":0,"vsAccountID":0,"vsUserID":0}],"positions":[{"accountID":659220002,"assignedPosBalanceEv":0,"avgEntryPriceEp":1863140,"bankruptCommEv":34,"bankruptPriceEp":500,"buyLeavesQty":427619,"buyLeavesValueEv":3967934705,"buyValueToCostEr":5146250,"createdAtNs":0,"crossSharedBalanceEv":96048602482726,"cumClosedPnlEv":-169296225,"cumFundingFeeEv":0,"cumTransactFeeEv":97346,"currency":"USD","dataVer":66991,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":394480,"freeCostEv":-146741524,"freeQty":0,"initMarginReqEr":5000000,"lastFundingTime":1573117589973342546,"lastTermEndTime":1573130627750900195,"leverageEr":0,"liquidationPriceEp":500,"maintMarginReqEr":1000000,"makerFeeRateEr":0,"markPriceEp":1861319,"orderCostEv":204199840,"posCostEv":8565966,"positionMarginEv":96048611213787,"positionStatus":"Normal","riskLimitEv":5000000000,"sellLeavesQty":137554,"sellLeavesValueEv":1284157893,"sellValueToCostEr":5153750,"side":"Buy","size":18132,"symbol":"ETHUSD","takerFeeRateEr":0,"term":376,"transactTimeNs":1573131627774194463,"unrealisedPnlEv":-165129,"updatedAtNs":0,"usedBalanceEv":212930935,"userID":65922,"valueEv":168912309}],"sequence":257977,"timestamp":1573131627776792763,"type":"incremental"}
+< {"accounts":[{"accountBalanceEv":100000024,"accountID":675340001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":1222,"userID":67534}],"orders":[{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711481897337000,"addedSeq":1110523,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711480091","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":2,"cumValueEv":23018,"curAccBalanceEv":100000005,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":2,"curPosTerm":1,"curPosValueEv":23018,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":2,"execFeeEv":-5,"execID":"92301512-7a79-5138-b582-ac185223727d","execPriceEp":86885000,"execQty":2,"execSeq":1131034,"execStatus":"MakerFill","execValueEv":23018,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","nthItem":4,"ordStatus":"Filled","ordType":"Limit","orderID":"e9a45803-0af8-41b7-9c63-9b7c417715d9","orderQty":2,"pegOffsetValueEp":0,"priceEp":86885000,"relatedPosTerm":1,"relatedReqNum":2,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","totalItems":7,"tradeType":"Trade","transactTimeNs":1573712555309040417,"userID":67534,"vsAccountID":590000001,"vsUserID":0},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711490507067000,"addedSeq":1110980,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711488668","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":3,"cumValueEv":34530,"curAccBalanceEv":100000013,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":5,"curPosTerm":1,"curPosValueEv":57548,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":3,"execFeeEv":-8,"execID":"80899855-5b95-55aa-b84e-8d1052f19886","execPriceEp":86880000,"execQty":3,"execSeq":1131408,"execStatus":"MakerFill","execValueEv":34530,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","nthItem":2,"ordStatus":"Filled","ordType":"Limit","orderID":"7e03cd6b-e45e-48d9-8937-8c6628e7a79d","orderQty":3,"pegOffsetValueEp":0,"priceEp":86880000,"relatedPosTerm":1,"relatedReqNum":3,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","totalItems":3,"tradeType":"Trade","transactTimeNs":1573712559100655668,"userID":67534,"vsAccountID":590000001,"vsUserID":0},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711499282604000,"addedSeq":1111025,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711497265","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":4,"cumValueEv":46048,"curAccBalanceEv":100000024,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":9,"curPosTerm":1,"curPosValueEv":103596,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":-11,"execID":"0be06645-90b8-5abe-8eb0-dca8e852f82f","execPriceEp":86865000,"execQty":4,"execSeq":1132422,"execStatus":"MakerFill","execValueEv":46048,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","nthItem":2,"ordStatus":"Filled","ordType":"Limit","orderID":"66753807-9204-443d-acf9-946d15d5bedb","orderQty":4,"pegOffsetValueEp":0,"priceEp":86865000,"relatedPosTerm":1,"relatedReqNum":4,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","totalItems":3,"tradeType":"Trade","transactTimeNs":1573712618104628671,"userID":67534,"vsAccountID":590000001,"vsUserID":0}],"positions":[{"accountID":675340001,"assignedPosBalanceEv":0,"avgEntryPriceEp":86875941,"bankruptCommEv":75022,"bankruptPriceEp":90000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":99998802,"cumClosedPnlEv":0,"cumFundingFeeEv":0,"cumTransactFeeEv":-24,"currency":"BTC","dataVer":4,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1132422,"freeCostEv":0,"freeQty":-9,"initMarginReqEr":1000000,"lastFundingTime":1573703858883133252,"lastTermEndTime":0,"leverageEr":0,"liquidationPriceEp":90000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":86786292,"orderCostEv":0,"posCostEv":1115,"positionMarginEv":99925002,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":9,"symbol":"BTCUSD","takerFeeRateEr":0,"term":1,"transactTimeNs":1573712618104628671,"unrealisedPnlEv":-107,"updatedAtNs":0,"usedBalanceEv":1222,"userID":67534,"valueEv":103596}],"sequence":1310812,"timestamp":1573716998131003833,"type":"snapshot"}
+< {"accounts":[{"accountBalanceEv":99999989,"accountID":675340001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":1803,"userID":67534}],"orders":[{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":0,"cumValueEv":0,"curAccBalanceEv":100000024,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":9,"curPosTerm":1,"curPosValueEv":103596,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":0,"execID":"00000000-0000-0000-0000-000000000000","execPriceEp":0,"execQty":0,"execSeq":1192303,"execStatus":"New","execValueEv":0,"feeRateEr":0,"leavesQty":4,"leavesValueEv":46098,"message":"No error","nthItem":1,"ordStatus":"New","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","totalItems":3,"transactTimeNs":1573717286765896560,"userID":67534,"vsAccountID":0,"vsUserID":0},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":4,"cumValueEv":46098,"curAccBalanceEv":99999989,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":13,"curPosTerm":1,"curPosValueEv":149694,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":35,"execID":"8d1848a2-5faf-52dd-be71-9fecbc8926be","execPriceEp":86770000,"execQty":4,"execSeq":1192303,"execStatus":"TakerFill","execValueEv":46098,"feeRateEr":75000,"lastLiquidityInd":"RemovedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","nthItem":3,"ordStatus":"Filled","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","totalItems":3,"tradeType":"Trade","transactTimeNs":1573717286765896560,"userID":67534,"vsAccountID":590000001,"vsUserID":0}],"positions":[{"accountID":675340001,"assignedPosBalanceEv":0,"avgEntryPriceEp":86843828,"bankruptCommEv":75056,"bankruptPriceEp":130000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":99998186,"cumClosedPnlEv":0,"cumFundingFeeEv":0,"cumTransactFeeEv":11,"currency":"BTC","dataVer":5,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1192303,"freeCostEv":0,"freeQty":-13,"initMarginReqEr":1000000,"lastFundingTime":1573703858883133252,"lastTermEndTime":0,"leverageEr":0,"liquidationPriceEp":130000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":86732335,"orderCostEv":0,"posCostEv":1611,"positionMarginEv":99924933,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":13,"symbol":"BTCUSD","takerFeeRateEr":0,"term":1,"transactTimeNs":1573717286765896560,"unrealisedPnlEv":-192,"updatedAtNs":0,"usedBalanceEv":1803,"userID":67534,"valueEv":149694}],"sequence":1315725,"timestamp":1573717286767188294,"type":"incremental"}
 
 ```
 
@@ -336,7 +339,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Response:
 
 ```json
-{"error":null,"id":<id>,"result":{"status":"success"}}
+{"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
 
