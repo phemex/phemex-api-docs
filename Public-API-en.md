@@ -179,14 +179,14 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 * Message Format：
  
 ```json
-{"book": {"asks": [[<price>, <qty>], [<prie>, <qty>]], "bids": [[<price>, <qty>], [<prie>, <qty>]]}, "depth": <depth>, "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
+{"book": {"asks": [[<price>, <qty>], [<price>, <qty>]], "bids": [[<price>, <qty>], [<price>, <qty>]]}, "depth": <depth>, "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | side        | String | Price level side | bid, ask        |
 | price       | Integer| Price            |                 |
-| qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates the price level deletion |                 |
+| qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates price level deletion |                 |
 | sequence    | Integer| Latest message sequence |          |
 | depth       | Integer| Market depth     |                 |
 | type        | String | Message type     | snapshot, incremental |
