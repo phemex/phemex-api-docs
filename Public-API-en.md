@@ -244,12 +244,11 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 #### Trade Message Format：
 
 ```json
-{"trades":[[<timestamp>, "<side>", <price>, <qty>], [<timestamp>, "<side>", <price>, <qty>]], "sequence": <sequence>, "timestamp": <timestamp2>, "symbol": "<symbol>", "type": "<type>"}
+{"trades":[[<timestamp>, "<side>", <price>, <qty>], [<timestamp>, "<side>", <price>, <qty>]], "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
-| timestamp2  | Integer| Transaction timestmap in nanoseconds for the message ||
 | timestamp   | Integer| Timestamp in nanoseconds for each trade ||
 | side        | String | Execution taker side| bid, ask        |
 | price       | Integer| Execution price  |                 |
