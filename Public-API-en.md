@@ -51,6 +51,18 @@ Every HTTP Rest Request must have the following Headers:
    * Request Expiry: 154567778
    * Signature: HMacSha256( /orders + currency=BTC + 154567778 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
    
+## Price/Ratio/Value Scales
+Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
+* Fields with post-fix "Ep" are scaled prices
+* Fields with post-fix "Er" are scaled ratios
+* Fields with post-fix "Ev" are scaled values
+
+| Symbol | Price scale | Ratio scale | Value scale |
+|--------|-------------|-------------|-------------|
+| BTCUSD | 10,000      | 100,000,000 | 100,000,000 |
+| ETHUSD | 10,000      | 100,000,000 |      10,000 |
+| XRPUSD | 10,000      | 100,000,000 |      10,000 |
+
    
 ## REST API List
 
