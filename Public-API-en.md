@@ -197,7 +197,7 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | side        | String | Price level side | bid, ask        |
-| price       | Integer| Price            |                 |
+| price       | Integer| Scaled price     |                 |
 | qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates price level deletion |                 |
 | sequence    | Integer| Latest message sequence |          |
 | depth       | Integer| Market depth     |                 |
@@ -263,7 +263,7 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 |-------------|--------|------------------|-----------------|
 | timestamp   | Integer| Timestamp in nanoseconds for each trade ||
 | side        | String | Execution taker side| bid, ask        |
-| price       | Integer| Execution price  |                 |
+| price       | Integer| Scaled execution price  |                 |
 | qty         | Integer| Execution size   |                 |
 | sequence    | Integer| Latest message sequence ||
 | symbol      | String | Trade symbol     ||
