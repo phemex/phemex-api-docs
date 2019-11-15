@@ -114,11 +114,11 @@ DELETE /orders/all
 
 ### Heartbeat
 * Request：
-```json
+```
 {"id": <id>, "method": "server.ping", "params": []}
 ```
 
-* Response:
+* :
 ```json
 {"error": null, "id": <id>, "result": "pong"}
 ```
@@ -135,7 +135,7 @@ While for client private account/position/order data, the client should send use
 
 * Request
 
-```json
+```
 {"method": "user.auth", "params": ["API", "<token>", "<signature>", <expiry>], "id": 1234}
 ```
 
@@ -158,12 +158,12 @@ While for client private account/position/order data, the client should send use
 When Client subscribe to OrderBook, Data Gateway will immediately send the current Order Book snapshot to client. 
 
 * Request 
-```json
+```
 {"id": <id>, "method": "orderbook.subscribe", "params": ["<symbol>"]}
 ```
 
 * Response
-```json
+```
 {"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
@@ -178,7 +178,7 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 
 * Message Format：
  
-```json
+```
 {"book": {"asks": [[<price>, <qty>], [<price>, <qty>]], "bids": [[<price>, <qty>], [<price>, <qty>]]}, "depth": <depth>, "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
@@ -205,14 +205,14 @@ It unsubscribes all orderbook related subscriptions.
 
 * Request
 
-```json
-{"id": 1234, "method": "orderbook.unsubscribe", "params": []}
+```
+{"id": <id>, "method": "orderbook.unsubscribe", "params": []}
 ```
 
 * Response:
 
-```json
-{"error": null, "id": 1234, "result": {"status": "success"}}
+```
+{"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
 
@@ -221,13 +221,13 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 
 * Request
 
-```json
+```
 {"id": <id>, "method": "trade.subscribe", "params": ["<symbol>"]}
 ```
 
 * Response:
 
-```json
+```
 {"error": null, "id": <id>, "result": {"status": "success"}}
 
 ```
@@ -243,7 +243,7 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 
 #### Trade Message Format：
 
-```json
+```
 {"trades":[[<timestamp>, "<side>", <price>, <qty>], [<timestamp>, "<side>", <price>, <qty>]], "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
 ```
 
@@ -269,13 +269,13 @@ It unsubscribes will trade subscriptions.
 
 * Request
 
-```json
+```
 {"id": <id>, "method": "trade.unsubscribe", "params": []}
 ```
 
 * Response:
 
-```json
+```
 {"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
@@ -285,13 +285,13 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 * Request
 
-```json
+```
 {"id": <id>, "method": "aop.subscribe", "params": []}
 ```
 
 * Response:
 
-```json
+```
 {"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
@@ -332,14 +332,14 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 ### Unsubscribe Account-Order-Position (AOP)
 * Request：
 
-```json
+```
 {"id": <id>, "method": "aop.unsubscribe", "params": []}
 
 ```
 
 * Response:
 
-```json
+```
 {"error": null, "id": <id>, "result": {"status": "success"}}
 ```
 
