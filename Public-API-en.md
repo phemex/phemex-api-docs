@@ -131,7 +131,7 @@ DELETE /orders/all
 ```
 
 * :
-```json
+```
 {"error": null, "id": <id>, "result": "pong"}
 ```
 
