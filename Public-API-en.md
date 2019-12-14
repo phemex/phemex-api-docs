@@ -128,9 +128,9 @@ DELETE /orders/all
 * Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3 heartbeat intervals*.
 
 ## API Rate Limits
-* Every Client has subscription limit up to 20 per-connection.
-* When client exccedes the subscription limit, the connection will be dropped by DataGW.
-
+* Each Client has concurrent connection limit to *5* in maximum.
+* Each connection has subscription limit to *20* in maximum.
+* Each connection has throttle limit to *10* request/s.
 
 ## WebSocket API List
 
@@ -150,11 +150,6 @@ DELETE /orders/all
 > {"id": 1234, "method": "server.ping", "params": []}
 < {"error": null, "id": 1234, "result": "pong"}
 ```
-
-## Websocket API Limits
-* Each Client has concurrent connection limit to *5* in maximum.
-* Each connection has subscription limit to *20* in maximum.
-* Each connection has throttle limit to *10* request/s.
 
 ### API User Authentication
 Market trade/orderbook are published publicly without user authentication.
