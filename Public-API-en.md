@@ -18,8 +18,8 @@
 ## HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
-* x-phemex-access-token : This is public API Token from Phemex site.
-* x-phemex-request-expiry : This describes the Unix EPoch millisecond to expire the request, normally it should be (Now() + 1 minute)
+* x-phemex-access-token : This is  API-KEY (id field) from Phemex site.
+* x-phemex-request-expiry : This describes the Unix EPoch SECONDS to expire the request, normally it should be (Now() + 1 minute)
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 
@@ -31,25 +31,35 @@ Every HTTP Rest Request must have the following Headers:
 
 ## Endpoint security type
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
-* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `secretKey` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
+* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
+* `apiSecret` = `Base64::urlDecode(API Secret)`
 * The `signature` is **case sensitive**.
-
 
 ### Signature Example 1: HTTP GET Request
 * API REST Request URL: https://api.phemex.com/accounts/accountPositions?currency=BTC
    * Request Path: /accounts/accountPositions
    * Request Query: currency=BTC
    * Request Body: <null>
-   * Request Expiry: 154567778
-   * Signature: HMacSha256( /accounts/accountPositions + currency=BTC + 154567778 )
+   * Request Expiry: 1575735514
+   * Signature: HMacSha256( /accounts/accountPositions + currency=BTC + 1575735514 )
 
-### Signature Example 2: HTTP POST Request
+### Singature Example 2: HTTP GET Request with multiple query string
+* API REST Request URL: https://api.phemex.com/orders/activeList?ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD 
+    * Request Path: /orders/activeList
+    * Request Query: ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD
+    * Request Body: <null>
+    * Request Expire: 1575735951603
+    * Signature: HMacSha256(/orders/activeList + ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD + 1575735951603)
+    * signed string is `/orders/activeListordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD1575735951603`
+
+### Signature Example 3: HTTP POST Request
 * API REST Request URL: https://api.phemex.com/orders
    * Request Path: /orders
    * Request Query: <null>
    * Request Body: {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0}
-   * Request Expiry: 154567778
-   * Signature: HMacSha256( /orders + currency=BTC + 154567778 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
+   * Request Expiry: 1575735514
+   * Signature: HMacSha256( /orders + currency=BTC + 1575735514 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
+
    
 ## Price/Ratio/Value Scales
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
