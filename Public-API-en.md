@@ -141,6 +141,11 @@ DELETE /orders/all
 < {"error": null, "id": 1234, "result": "pong"}
 ```
 
+## Websocket API Limits
+* Each Client has concurrent connection limit to *5* in maximum.
+* Each connection has subscription limit to *20* in maximum.
+* Each connection has throttle limit to *10* request/s.
+
 ### API User Authentication
 Market trade/orderbook are published publicly without user authentication.
 While for client private account/position/order data, the client should send user.auth message to Data Gateway to authenticate the session.
