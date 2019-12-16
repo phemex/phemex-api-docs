@@ -178,7 +178,7 @@ This message is sent by the server in response to an invalid client message.
 # Order Status Request (H)
 This message is initiated by the client to request to query order status. An order status resposne will be responded and all the open orders will be restated with latest state.
 
-*Note conditional order is not supported by this request*
+*Note conditional order is not supported by this request.*
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
@@ -201,13 +201,13 @@ This message is sent by the Phemex FIX gateway in response to Order Status Reque
 # Order Mass Cancel Request (q)
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
 
-*Note conditional order is not supported by this request*
+*Note conditional order is not supported by this request.*
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | q = Order Mass Cancel Request |
 | 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
-| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol |
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol. |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
 
 # Order Mass Cancel Report (r)
@@ -218,9 +218,9 @@ This message is sent by the Phemex FIX gateway in response to Order Mass Cancel 
 | 35 | MsgType         | Y        | r = Order Mass Cancel Report |
 | 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
-| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol |
-| 531| MassCancelResponse    | Y  | Indicates the action taken on the cancel request: 0 = Cancel request rejected, 1 = Cancel orders for a security |
-| 532| MassCancelRejectReason| N  | The code Indicating the reason why the Mass Cancel Request was rejected: 8 = Invalid or Unknown Market Segment(8), 99 = Other. Required if: Mass Cancel Response = Cancel Request Rejected |
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol. |
+| 531| MassCancelResponse    | Y  | Indicates the action taken on the cancel request: 0 = Cancel request rejected, 1 = Cancel orders for a security. |
+| 532| MassCancelRejectReason| N  | The code Indicating the reason why the Mass Cancel Request was rejected: 8 = Invalid or Unknown Market Segment(8), 99 = Other. Required if: Mass Cancel Response = Cancel Request Rejected. |
 | 533| TotalAffectedOrders	 | Y  | Optional field used to indicate the total number of orders affected by the Order Mass Cancel Request. |
 | 58 | Text            | N        | Free text. |
 
