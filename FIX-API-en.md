@@ -196,7 +196,7 @@ This message is sent by the Phemex FIX gateway in response to Order Status Reque
 | 55 | Symbol          | Y        | Order Symbol |
 | 68 | TotNoOrders	   | Y        | Total orders will be restated |
 
-### 35=q Order Mass Cancel Request ###
+# Order Mass Cancel Request (q)
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
 
 |Tag | Name            | Required | Description|
@@ -206,7 +206,7 @@ This message is initiated by the client to request to cancel all open orders. An
 | 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
 
-### 35=r Order Mass Cancel report ###
+# Order Mass Cancel Report (r)
 This message is sent by the Phemex FIX gateway in response to Order Mass Cancel Request.
 
 |Tag | Name            | Required | Description|
