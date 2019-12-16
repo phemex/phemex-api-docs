@@ -578,7 +578,11 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Response:
 
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
+{
+  "id": <id>,
+  "method": "aop.unsubscribe",
+  "params": []
+}
 ```
 
 
