@@ -178,6 +178,8 @@ This message is sent by the server in response to an invalid client message.
 # Order Status Request (H)
 This message is initiated by the client to request to query order status. An order status resposne will be responded and all the open orders will be restated with latest state.
 
+*Note conditional order is not supported by this request*
+
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | H = Order Status Request |
@@ -198,6 +200,8 @@ This message is sent by the Phemex FIX gateway in response to Order Status Reque
 
 # Order Mass Cancel Request (q)
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
+
+*Note conditional order is not supported by this request*
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
