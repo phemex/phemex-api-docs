@@ -21,7 +21,7 @@ This documentation uses ; to represent the FIX field separator (byte 0x01). It s
 | 9  | BodyLength     | Y        | Number of bytes after this field up to and including the delimiter immediately preceding the CheckSum.|
 | 35 | MsgType        | Y        | Message type |
 | 49 | SenderCompID   | Y        | Comp ID of the party sending the message. It is also used as Client API key (for messages from the client) |
-| 56 | TargetCompID   | PHEMEX   | Comp ID of the party the message is sent to. Must be set to "PHEMEX" (for messages from the client)|
+| 56 | TargetCompID   | Y        | Comp ID of the party the message is sent to. Must be set to "PHEMEX" (for messages from the client)|
 
 Messages should also include a sequence number MsgSeqNum (34) and a timestamp SendingTime (52). Sequence numbers start at 1 and must be incremented with every message. Messages with duplicate or out-of-order sequence numbers will be rejected. Sequence number need to be reset if error happens.
 
@@ -69,7 +69,7 @@ The resulting hash should be hex-encoded.
 
     signature = hmac.new(api_secret.encode(), sign_target.encode(), 'sha256').hexdigest()
 
-## response
+## Response
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
@@ -119,7 +119,6 @@ This message is initiated by the client to send a limit or market order.
 If the order is accepted, an ExecutionReport (8) with ExecType=0 (New Ack) will be returned. Otherwise, an ExecutionReport with ExecType=8 (Rejected) will be returned.
 
 # Order Cancel Request (F)
-
 This message is initiated by the client to request to cancel an order.
 
 |Tag | Name            | Required | Description|
@@ -133,7 +132,6 @@ This message is initiated by the client to request to cancel an order.
 If the order is successfully cancelled, an ExecutionReport (8) with ExecType=4 (Cancelled) will be returned. Otherwise, an OrderCancelReject (9) will be returned.
 
 # Order Cancel Reject (9)
-
 This message is initiated by the Phemex gateway to notify the client that an OrderCancelRequest (F) failure.
 
 |Tag | Name            | Required | Description|
@@ -146,8 +144,7 @@ This message is initiated by the Phemex gateway to notify the client that an Ord
 |434 | CxlRejResponseTo| Y        | Indicates whether the message is being generated as an amend reject or a cancel reject: 1 = Order Cancel Request. |
 
 # Execution Report (8)
-
-This Phemex FIX gateway will sned this execution report for New Order (D), Order Cancel (F) requests or any order status report.
+The Phemex FIX gateway will sned this execution report for New Order (D), Order Cancel (F) requests or any order status report.
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
@@ -164,10 +161,11 @@ This Phemex FIX gateway will sned this execution report for New Order (D), Order
 | 151| LeavesQty       | Y        | Open order quantity. |
 | 31 | LastPx          | N        | Execution price. Only present if this message was the result of a fill. |
 | 32 | LastQty         | N        | Execution size. Only present if this message was the result of a fill. |
+| 893| LastFragment    | N        | Indicates if this message is the last of a fragmented set of messages. |
 | 58 | Text            | N        | Free text. |
 
 # Reject (3)
-Sent by the server in response to an invalid message.
+This message is sent by the server in response to an invalid client message.
 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
@@ -176,3 +174,49 @@ Sent by the server in response to an invalid message.
 | 371| RefTagID        | N        | Tag number of the rejected field. |
 | 372| RefMsgType      | N        | Message type of the rejected message. |
 | 58 | Text            | N        | Free text. |
+
+# Order Status Request (H)
+This message is initiated by the client to request to query order status. An order status resposne will be responded and all the open orders will be restated with latest state.
+
+|Tag | Name            | Required | Description|
+|----|-----------------|----------|------------|
+| 35 | MsgType         | Y        | H = Order Status Request |
+| 11 | ClOrdID         | Y        | Client-assigned order ID of the order. |
+| 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol. |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+
+# Order status response (HR)
+This message is sent by the Phemex FIX gateway in response to Order Status Request.
+
+|Tag | Name            | Required | Description|
+|----|-----------------|----------|------------|
+| 35 | Type            | Y        | HR = Order status response |
+| 11 | ClOrdID         | Y        | The same as sent request. |
+| 37 | OrderID         | N        | Order ID,  |
+| 55 | Symbol          | Y        | Order Symbol |
+| 68 | TotNoOrders	   | Y        | Total orders will be restated |
+
+### 35=q Order Mass Cancel Request ###
+This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
+
+|Tag | Name            | Required | Description|
+|----|-----------------|----------|------------|
+| 35 | MsgType         | Y        | q = Order Mass Cancel Request |
+| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+
+### 35=r Order Mass Cancel report ###
+This message is sent by the Phemex FIX gateway in response to Order Mass Cancel Request.
+
+|Tag | Name            | Required | Description|
+|----|-----------------|----------|------------|
+| 35 | MsgType         | Y        | r = Order Mass Cancel Report |
+| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol |
+| 531| MassCancelResponse    | Y  | Indicates the action taken on the cancel request: 0 = Cancel request rejected, 1 = Cancel orders for a security |
+| 532| MassCancelRejectReason| N  | The code Indicating the reason why the Mass Cancel Request was rejected: 8 = Invalid or Unknown Market Segment(8), 99 = Other. Required if: Mass Cancel Response = Cancel Request Rejected |
+| 533| TotalAffectedOrders	 | Y  | Optional field used to indicate the total number of orders affected by the Order Mass Cancel Request. |
+| 58 | Text            | N        | Free text. |
+
