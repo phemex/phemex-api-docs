@@ -114,7 +114,7 @@ This message is initiated by the client to send a limit or market order.
 | 44 | Price           | N        | Price of order. Required if OrdType (40) = 2 = Limit. |
 | 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell. |
 | 59 | TimeInForce     | Y        | Time qualifier of the order: 1 = Good Till Cancel = GTC, 3 = Immediate or Cancel = IOC, 4 = Fill or Kill = FOK. |
-| 18 | ExecInst        | N        | Indicates the order is: E = Reduce only, 6 = Post only,  normal new order if not supplied. |
+| 18 | ExecInst        | N        | Indicates the order is: E = Reduce only, 6 = Post only,  normal new order if not present. |
 
 If the order is accepted, an ExecutionReport (8) with ExecType=0 (New Ack) will be returned. Otherwise, an ExecutionReport with ExecType=8 (Rejected) will be returned.
 
