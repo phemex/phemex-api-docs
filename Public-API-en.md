@@ -218,7 +218,7 @@ While for client private account/position/order data, the client should send use
 
 
 ### Subscribe OrderBook 
-When Client subscribe to OrderBook, Data Gateway will immediately send the current Order Book snapshot to client. 
+On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later order book updates will be published. 
 
 * Request 
 ```
@@ -339,7 +339,7 @@ It unsubscribes all orderbook related subscriptions.
 
 
 ### Subscribe Trade
-After each Trade Subscribe, Data Gateway will publish the 1000 history trades and latest trades to the client 
+On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
 
 * Request
 
@@ -467,7 +467,7 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 ```
 
 ### Unsubscribe  Trade
-It unsubscribes will trade subscriptions.
+It unsubscribes all trade subscriptions.
 
 * Request
 
@@ -589,7 +589,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 
 ### Subscribe 24-hour metrics
-DataGW will publish 24-hour metrics for all symbols every 5 seconds.
+On each successful subscription, DataGW will publish 24-hour metrics for all symbols every 5 seconds.
 
 * Request
 
@@ -605,11 +605,12 @@ DataGW will publish 24-hour metrics for all symbols every 5 seconds.
 
 ```
 {
+  "error": null,
   "id": <id>,
-  "method": "market24h.unsubscribe",
-  "params": []
+  "result": {
+    "status": "success"
+  }
 }
-
 ```
 
 * Sample:
@@ -675,5 +676,32 @@ DataGW will publish 24-hour metrics for all symbols every 5 seconds.
     "volume": 4419810
   },
   "timestamp": 1576490244024818000
+}
+```
+
+### Unsubscribe  24-hour Metrics
+It unsubscribes 24-hour metrics subscription.
+
+* Request
+
+```
+{
+  "id": <id>,
+  "method": "market24h.unsubscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
+```
+
+* Response:
+
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
 }
 ```
