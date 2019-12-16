@@ -84,21 +84,20 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 POST /orders
 
 {
-"actionBy":"FromOrderPlacement",
-"symbol":"BTCUSD",
-"clOrdID":"uuid-1573058952273",
-"side":"Sell",
-"priceEp":93185000,
-"orderQty":7,
-"ordType":"Limit",
-"reduceOnly":false,
-"triggerType":"UNSPECIFIED",
-"pegPriceType":"UNSPECIFIED",
-"timeInForce":"GoodTillCancel",
-"takeProfitEp":0,
-"stopLossEp":0
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSD",
+  "clOrdID": "uuid-1573058952273",
+  "side": "Sell",
+  "priceEp": 93185000,
+  "orderQty": 7,
+  "ordType": "Limit",
+  "reduceOnly": false,
+  "triggerType": "UNSPECIFIED",
+  "pegPriceType": "UNSPECIFIED",
+  "timeInForce": "GoodTillCancel",
+  "takeProfitEp": 0,
+  "stopLossEp": 0
 }
-
 ```
 
 * HTTP Response:
@@ -137,18 +136,35 @@ DELETE /orders/all
 ### Heartbeat
 * Request：
 ```
-{"id": <id>, "method": "server.ping", "params": []}
+{
+  "id": <id>,
+  "method": "server.ping",
+  "params": []
+}
 ```
 
-* :
+* Response:
 ```
-{"error": null, "id": <id>, "result": "pong"}
+{
+  "error": null,
+  "id": <id>,
+  "result": "pong"
+}
 ```
 
 * Sample：
 ```json
-> {"id": 1234, "method": "server.ping", "params": []}
-< {"error": null, "id": 1234, "result": "pong"}
+> {
+  "id": 1234,
+  "method": "server.ping",
+  "params": []
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": "pong"
+}
 ```
 
 ### API User Authentication
@@ -158,7 +174,16 @@ While for client private account/position/order data, the client should send use
 * Request
 
 ```
-{"method": "user.auth", "params": ["API", "<token>", "<signature>", <expiry>], "id": 1234}
+{
+  "method": "user.auth",
+  "params": [
+    "API",
+    "<token>",
+    "<signature>",
+    <expiry>
+  ],
+  "id": 1234
+}
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -171,8 +196,24 @@ While for client private account/position/order data, the client should send use
 * Sample:
 
 ```json
-> {"method": "user.auth", "params": ["API", "806066b0-f02b-4d3e-b444-76ec718e1023", "8c939f7a6e6716ab7c4240384e07c81840dacd371cdcf5051bb6b7084897470e", 157009123213], "id": 1234}
-< {"error": null, "id": 1234, "result": {"status": "success"}}
+> {
+  "method": "user.auth",
+  "params": [
+    "API",
+    "806066b0-f02b-4d3e-b444-76ec718e1023",
+    "8c939f7a6e6716ab7c4240384e07c81840dacd371cdcf5051bb6b7084897470e",
+    157009123213
+  ],
+  "id": 1234
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 
@@ -181,18 +222,43 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 
 * Request 
 ```
-{"id": <id>, "method": "orderbook.subscribe", "params": ["<symbol>"]}
+{
+  "id": <id>,
+  "method": "orderbook.subscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
 ```
 
 * Response
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 * Sample：
 ```json
-> {"id":1234, "method": "orderbook.subscribe", "params": ["BTCUSD"]}
-< {"error": null, "id": 1234, "result": {"status": "success"}}
+> {
+  "id": 1234,
+  "method": "orderbook.subscribe",
+  "params": [
+    "BTCUSD"
+  ]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 
@@ -201,7 +267,31 @@ When Client subscribe to OrderBook, Data Gateway will immediately send the curre
 * Message Format：
  
 ```
-{"book": {"asks": [[<price>, <qty>], [<price>, <qty>]], "bids": [[<price>, <qty>], [<price>, <qty>]]}, "depth": <depth>, "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
+{
+  "book": {
+    "asks": [
+      [
+        <price>,
+        <qty>
+      ],
+      .
+      .
+      .
+    ],
+    "bids": [
+      [
+        <price>,
+        <qty>
+      ],
+      .
+      .
+      .
+    ]
+  },
+  "depth": <depth>,
+  "sequence": <sequence>,
+  "symbol": "<symbol>",
+
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -228,13 +318,23 @@ It unsubscribes all orderbook related subscriptions.
 * Request
 
 ```
-{"id": <id>, "method": "orderbook.unsubscribe", "params": []}
+{
+  "id": <id>,
+  "method": "orderbook.unsubscribe",
+  "params": []
+}
 ```
 
 * Response:
 
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 
@@ -244,29 +344,66 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 * Request
 
 ```
-{"id": <id>, "method": "trade.subscribe", "params": ["<symbol>"]}
+{
+  "id": <id>,
+  "method": "trade.subscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
 ```
 
 * Response:
 
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
-
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 * Sample:
 
 ```json
-> {"id": 1234, "method": "trade.subscribe", "params": ["BTCUSD"]}
-< {"error": null, "id": 1234, "result": {"status": "success"}}
+> {
+  "id": 1234,
+  "method": "trade.subscribe",
+  "params": [
+    "BTCUSD"
+  ]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
 ```
-
-
 
 #### Trade Message Format：
 
 ```
-{"trades":[[<timestamp>, "<side>", <price>, <qty>], [<timestamp>, "<side>", <price>, <qty>]], "sequence": <sequence>, "symbol": "<symbol>", "type": "<type>"}
+{
+  "trades": [
+    [
+      <timestamp>,
+      "<side>",
+      <price>,
+      <qty>
+    ],
+    .
+    .
+    .
+  ],
+  "sequence": <sequence>,
+  "symbol": "<symbol>",
+  "type": "<type>"
+}
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -282,8 +419,51 @@ After each Trade Subscribe, Data Gateway will publish the 1000 history trades an
 
 * Sample
 ```json
-< {"sequence":1167852,"symbol":"BTCUSD","trades":[[1573716998128563478,"Buy",86735000,56],[1573716995033682864,"Buy",86735000,52],[1573716991485285958,"Buy",86735000,51],[1573716988636291347,"Buy",86735000,12]],"type":"snapshot"}
-< {"sequence":1188273,"symbol":"BTCUSD","trades":[[1573717116484024241,"Buy",86730000,21]],"type":"incremental"}
+< {
+  "sequence": 1167852,
+  "symbol": "BTCUSD",
+  "trades": [
+    [
+      1573716998128563500,
+      "Buy",
+      86735000,
+      56
+    ],
+    [
+      1573716995033683000,
+      "Buy",
+      86735000,
+      52
+    ],
+    [
+      1573716991485286000,
+      "Buy",
+      86735000,
+      51
+    ],
+    [
+      1573716988636291300,
+      "Buy",
+      86735000,
+      12
+    ]
+  ],
+  "type": "snapshot"
+}
+
+< {
+  "sequence": 1188273,
+  "symbol": "BTCUSD",
+  "trades": [
+    [
+      1573717116484024300,
+      "Buy",
+      86730000,
+      21
+    ]
+  ],
+  "type": "incremental"
+}
 ```
 
 ### Unsubscribe  Trade
@@ -292,13 +472,25 @@ It unsubscribes will trade subscriptions.
 * Request
 
 ```
-{"id": <id>, "method": "trade.unsubscribe", "params": []}
+{
+  "id": <id>,
+  "method": "trade.subscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
 ```
 
 * Response:
 
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 
@@ -308,19 +500,40 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Request
 
 ```
-{"id": <id>, "method": "aop.subscribe", "params": []}
+{
+  "id": <id>,
+  "method": "aop.subscribe",
+  "params": []
+}
 ```
 
 * Response:
 
 ```
-{"error": null, "id": <id>, "result": {"status": "success"}}
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 * Sample
 ```json
-> {"id": 1234, "method": "aop.subscribe", "params": []}
-< {"error": null, "id": 1234, "result": {"status": "success"}}
+> {
+  "id": 1234,
+  "method": "aop.subscribe",
+  "params": []
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
 ```
 
 
@@ -355,8 +568,11 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 * Request：
 
 ```
-{"id": <id>, "method": "aop.unsubscribe", "params": []}
-
+{
+  "id": <id>,
+  "method": "aop.unsubscribe",
+  "params": []
+}
 ```
 
 * Response:
@@ -366,3 +582,92 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 ```
 
 
+### Subscribe 24-hour metrics
+DataGW will publish 24-hour metrics for all symbols every 5 seconds.
+
+* Request
+
+```
+{
+  "id": <id>,
+  "method": "market24h.subscribe",
+  "params": []
+}
+```
+
+* Response:
+
+```
+{
+  "id": <id>,
+  "method": "market24h.unsubscribe",
+  "params": []
+}
+
+```
+
+* Sample:
+
+```json
+> {
+  "method": "market24h.subscribe",
+  "params": [],
+  "id": 1234
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+#### 24-hour Metric Message Format：
+
+```
+{
+  "market24h": {
+    "close": <24h close price>,
+    "high": <24h highest price>,
+    "low": <24h lowest price>,
+    "open": <24h open price>,
+    "openInterest": <open interest>,
+    "symbol": "<symbol>",
+    "turnover": <turnover>,
+    "volume": <volume>
+  },
+  "timestamp": <timestamp>
+}
+```
+
+| Field       | Type   | Description      | Possible values |
+|-------------|--------|------------------|-----------------|
+| timestamp         | Integer| Last update timestamp in nanoseconds ||
+| symbol            | String | Trade symbol     ||
+| 24h open price    | Integer| open price for last 24 hours |                 |
+| 24h highest price | Integer| highest price in last 24 hours |                 |
+| 24h lowest price  | Integer| lowest price in last 24 hours |                 |
+| 24h close price   | Integer| close price for last 24 hours |                 |
+| 24h turnover      | Integer| turnover for last 24 hours |                 |
+| 24h volume        | Integer| volume for last 24 hours |                 |
+| open interest     | Integer| current open interest for the related symbol|                 |
+  
+* Sample:
+
+```json
+< {
+  "market24h": {
+    "close": 70485000,
+    "high": 71465000,
+    "low": 70225000,
+    "open": 71300000,
+    "openInterest": 153502,
+    "symbol": "BTCUSD",
+    "turnover": 62419527476,
+    "volume": 4419810
+  },
+  "timestamp": 1576490244024818000
+}
+```
