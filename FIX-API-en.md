@@ -187,7 +187,7 @@ This message is initiated by the client to request to query order status. An ord
 | 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol. |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
 
-# Order status response (HR)
+# Order Status Response (HR)
 This message is sent by the Phemex FIX gateway in response to Order Status Request.
 
 |Tag | Name            | Required | Description|
