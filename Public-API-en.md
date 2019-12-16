@@ -652,14 +652,14 @@ On each successful subscription, DataGW will publish 24-hour metrics for all sym
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | timestamp         | Integer| Last update timestamp in nanoseconds ||
-| symbol            | String | Trade symbol     ||
-| 24h open price    | Integer| open price for last 24 hours |                 |
-| 24h highest price | Integer| highest price in last 24 hours |                 |
-| 24h lowest price  | Integer| lowest price in last 24 hours |                 |
-| 24h close price   | Integer| close price for last 24 hours |                 |
-| 24h turnover      | Integer| turnover for last 24 hours |                 |
-| 24h volume        | Integer| volume for last 24 hours |                 |
-| open interest     | Integer| current open interest for the related symbol|                 |
+| symbol            | String | Trade symbol     | BTCUSD, ETHUSD, XRPUSD |
+| 24h open price    | Integer| Open price for last 24 hours |                 |
+| 24h highest price | Integer| Highest price in last 24 hours |                 |
+| 24h lowest price  | Integer| Lowest price in last 24 hours |                 |
+| 24h close price   | Integer| Close price for last 24 hours |                 |
+| 24h turnover      | Integer| Turnover for last 24 hours |                 |
+| 24h volume        | Integer| Volume for last 24 hours |                 |
+| open interest     | Integer| Current open interest for the related symbol|                 |
   
 * Sample:
 
