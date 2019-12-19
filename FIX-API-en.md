@@ -178,7 +178,9 @@ This message is sent by the server in response to an invalid client message.
 | 58 | Text            | N        | Free text. |
 
 # Order Status Request (H)
-This message is initiated by the client to request to query order status. An order status resposne will be responded and all the open orders will be restated with latest state.
+This message is initiated by the client to request to query order status. The Phemex FIX gateway will respond with Execution Report (8) message(s) with ExecType (150) = I for all the matched orders.
+If OrderID present, the Phemex FIX gateway returns the single order matching the given symbol and OrderID. Otherwise it returns all the open orders matching the given symbol.
+If no order found, the Phemex FIX gateway returns an Execution Report (8) message with ExecType (150) = Rejected and OrdRejReason (103) = Unknown order.
 
 *Note conditional order is not supported by this request.*
 
@@ -188,17 +190,6 @@ This message is initiated by the client to request to query order status. An ord
 | 11 | ClOrdID         | Y        | Client-assigned order ID of the order. |
 | 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol. |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
-
-# Order Status Response (HR)
-This message is sent by the Phemex FIX gateway in response to Order Status Request.
-
-|Tag | Name            | Required | Description|
-|----|-----------------|----------|------------|
-| 35 | Type            | Y        | HR = Order status response |
-| 11 | ClOrdID         | Y        | The same as sent request. |
-| 37 | OrderID         | N        | Order ID,  |
-| 55 | Symbol          | Y        | Order Symbol |
-| 68 | TotNoOrders	   | Y        | Total orders will be restated |
 
 # Order Mass Cancel Request (q)
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
