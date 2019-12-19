@@ -178,9 +178,12 @@ This message is sent by the server in response to an invalid client message.
 | 58 | Text            | N        | Free text. |
 
 # Order Status Request (H)
-This message is initiated by the client to request to query order status. The Phemex FIX gateway will respond with Execution Report (8) message(s) with ExecType (150) = I for all the matched orders.
-If OrderID present, the Phemex FIX gateway returns the single order matching the given symbol and OrderID. Otherwise it returns all the open orders matching the given symbol.
-If no order found, the Phemex FIX gateway returns an Execution Report (8) message with ExecType (150) = Rejected and OrdRejReason (103) = Unknown order.
+This message is initiated by the client to request to query order status.
+
+The Phemex FIX gateway will respond with Execution Report (8) message(s) with ExecType (150) = I for all the matched orders.
+
+* If order ID present, the Phemex FIX gateway returns the single order matching the given symbol and order ID. Otherwise it returns all the open orders matching the given symbol.
+* If no order found, the Phemex FIX gateway returns an Execution Report (8) message with ExecType (150) = Rejected and OrdRejReason (103) = Unknown order.
 
 *Note conditional order is not supported by this request.*
 
