@@ -163,6 +163,7 @@ The Phemex FIX gateway will sned this execution report for New Order (D), Order 
 | 151| LeavesQty       | Y        | Open order quantity. |
 | 31 | LastPx          | N        | Execution price. Only present if this message was the result of a fill. |
 | 32 | LastQty         | N        | Execution size. Only present if this message was the result of a fill. |
+| 103| OrdRejReason    | N        | Code to identify reason for order rejection.  5 = Unknown Order if no order found for OrderStatusRequest(H). |
 | 893| LastFragment    | N        | Indicates if this message is the last of a fragmented set of messages. |
 | 58 | Text            | N        | Free text. |
 
