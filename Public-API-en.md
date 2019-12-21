@@ -1,4 +1,3 @@
-
 # Phemex Public API
 
 ## General Public API Information

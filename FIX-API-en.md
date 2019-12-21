@@ -5,8 +5,8 @@ FIX API
 
 FIX (Financial Information eXchange) is a standard electronic messaging protocol which can be used to place orders, receive order updates and executions, and cancel orders. Our FIX API is based on the FIX 4.2 specification and modeled after FIX implementations of other popular cryptocurrency exchanges.
 
-* TestNet FIX endpoint URL: **tcp+ssl://fixapi.testnet.phemex.com:port**
-* MainNet FIX endpoint URL: **tcp+ssl://fixapi.phemex.com:port**
+* TestNet FIX endpoint URL: **tcp+ssl://testnet-fixapi.phemex.com:<port>**
+* MainNet FIX endpoint URL: **tcp+ssl://fixapi.phemex.com:<port>**
 
 Clients should connect to the endpoint using SSL.
 Sequence numbers are started from 1 for each session, Resend request and sequence reset messages are supported.
