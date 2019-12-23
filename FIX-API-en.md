@@ -162,7 +162,7 @@ The Phemex FIX gateway will sned this execution report for New Order (D), Order 
 | 39 | OrdStatus       | Y        | Order Status after applying the transaction that is being communicated: 0 = New, 1 = Partially Filled, 2 = Fully Filled, 4 = Canceled. |
 | 14 | CumQty          | Y        | Cumulative execution size. |
 | 151| LeavesQty       | Y        | Open order quantity. |
-| 6  | AvgPx           | N        | Calculated average price of all fills on this order. The value would be zero if no executions. |
+| 6  | AvgPx           | N        | Calculated average price of all fills on this order. The value would be zero if no executions. Applicable for order status execution report only. |
 | 31 | LastPx          | N        | Execution price. Only present if this message was the result of a fill. |
 | 32 | LastQty         | N        | Execution size. Only present if this message was the result of a fill. |
 | 103| OrdRejReason    | N        | Code to identify reason for order rejection.  5 = Unknown Order if no order found for OrderStatusRequest(H). |
