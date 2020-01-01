@@ -181,7 +181,7 @@ This message is sent by the server in response to an invalid client message.
 | 58 | Text            | N        | Free text. |
 
 # Order Status Request (H)
-This message is initiated by the client to request to query order status.
+This message is initiated by the client to request to query **open order** status.
 
 The Phemex FIX gateway will respond with Execution Report (8) message(s) with ExecType (150) = I for all the matched orders.
 
