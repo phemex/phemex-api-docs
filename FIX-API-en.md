@@ -60,7 +60,7 @@ The resulting hash should be hex-encoded.
     api_key = 'YOUR_API_KEY'
     api_secret = 'YOUR_API_SECRET'
 
-    # use value of the Logon message tag 52 (sending time) 
+    # use value of the Logon message tag 52 (SendingTime) 
     sending_time = datetime.now().strftime('%Y%m%d-%H:%M:%S')
 
     sign_target = '\x01'.join([
