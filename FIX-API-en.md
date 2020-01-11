@@ -1,4 +1,4 @@
-##### Table of Contents
+## Table of Contents
 * [Introduction](#introduction)
 * [Messages](#messages)
   * [Logon (A)](#logon)
