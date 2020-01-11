@@ -253,7 +253,7 @@ GET /exchange/public/products
 | initMarginEr         | Integer| Scaled initial margin ratio                |                        |
 | maintMarginEr        | Integer| Scaled maintainance margin ratio           |                        |
 | defaultRiskLimitEv   | Integer| Scaled default risk limit value (Position + Order) |                |
-| deleverage           | Integer| Indicator if deleverage enabled            |                        |
+| deleverage           | Boolean| Indicates if deleverage enabled            |                        |
 | makerFeeRateEr       | Integer| Scaled maker fee ratio                     |                        |
 | takerFeeRateEr       | Integer| Scaled taker fee ratio                     |                        |
 | fundingInterval      | Integer| Funding interval in hours                  | 8                      |
