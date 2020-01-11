@@ -138,7 +138,7 @@ GET /exchange/public/products
       "maxPriceEp": <maxPriceEp>,
       "lotSize": <lotSize>,
       "tickSize": "<tickSize>",
-      "contractSize": <contractSize>,
+      "contractSize": "<contractSize>",
       "priceScale": <priceScale>,
       "ratioScale": <ratioScale>,
       "valueScale": <valueScale>,
@@ -170,7 +170,7 @@ GET /exchange/public/products
 | maxPriceEp           | Integer| The maximum allowed order price for the contract.   |               |
 | lotSize              | Integer| Contract lot size.                         |                        |
 | tickSize             | Integer| Contract tick size.                        |                        |
-| contractSize         | Integer| Underlying size in quote currency.         |                        |
+| contractSize         | String | The value of contract.                     |                        |
 | priceScale           | Integer| Price scaling fator.                       |                        |
 | ratioScale           | Integer| Ratio scaling fator.                       |                        |
 | valueScale           | Integer| Value scaling fator.                       |                        |
@@ -200,7 +200,7 @@ GET /exchange/public/products
       "maxPriceEp": 100000000000000,
       "lotSize": 1,
       "tickSize": "0.5",
-      "contractSize": 1,
+      "contractSize": "1 USD",
       "priceScale": 4,
       "ratioScale": 8,
       "valueScale": 8,
@@ -224,7 +224,7 @@ GET /exchange/public/products
       "maxPriceEp": 200000000,
       "lotSize": 1,
       "tickSize": "0.05",
-      "contractSize": 0.005,
+      "contractSize": "0.005 ETH",
       "priceScale": 4,
       "ratioScale": 8,
       "valueScale": 4,
@@ -248,7 +248,7 @@ GET /exchange/public/products
       "maxPriceEp": 2000000,
       "lotSize": 1,
       "tickSize": "0.0001",
-      "contractSize": 5,
+      "contractSize": "5 XRP", 
       "priceScale": 4,
       "ratioScale": 8,
       "valueScale": 4,
