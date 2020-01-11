@@ -162,28 +162,28 @@ GET /exchange/public/products
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | String | Contract Symbol name.                      | BTCUSD, ETHUSD, XRPUSD |
-| underlyingSymbol     | String | The underlying index symbol.               | .BTC, .ETH, .XRP       |
-| quoteCurrency        | String | The currency for price quoting.            | USD                    |
-| settlementCurrency   | String | The settlement currency.                   | BTC, USD               |
-| maxOrderQty          | Integer| The maximum order size for the contract.   |                        |
-| maxPriceEp           | Integer| The maximum allowed order price for the contract.   |               |
-| lotSize              | Integer| Contract lot size.                         |                        |
-| tickSize             | Integer| Contract tick size.                        |                        |
-| contractSize         | String | The value of contract.                     |                        |
-| priceScale           | Integer| Price scaling fator.                       |                        |
-| ratioScale           | Integer| Ratio scaling fator.                       |                        |
-| valueScale           | Integer| Value scaling fator.                       |                        |
-| defaultLeverage      | Integer| Account default leverage.                  |                        |
-| maxLeverage          | Integer| Allowed maximum leverage.                  |                        |
-| initMarginEr         | Integer| Scaled initial margin ratio.               |                        |
-| maintMarginEr        | Integer| Scaled maintainance margin ratio.          |                        |
-| defaultRiskLimitEv   | Integer| Scaled default risk limit value (Position + Order).|                |
-| deleverage           | Integer| Indicator if deleverage enabled.           |                        |
-| makerFeeRateEr       | Integer| Scaled maker fee ratio.                    |                        |
-| takerFeeRateEr       | Integer| Scaled taker fee ratio.                    |                        |
-| fundingInterval      | Integer| Funding interval in hours.                 | 8                      |
-| description          | String | Contract description.                      |                        |
+| symbol               | String | Contract Symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| underlyingSymbol     | String | The underlying index symbol                | .BTC, .ETH, .XRP       |
+| quoteCurrency        | String | The currency for price quoting             | USD                    |
+| settlementCurrency   | String | The settlement currency                    | BTC, USD               |
+| maxOrderQty          | Integer| The maximum order size for the contract    |                        |
+| maxPriceEp           | Integer| The maximum allowed order price for the contract    |               |
+| lotSize              | Integer| Contract lot size                          |                        |
+| tickSize             | Integer| Contract tick size                         |                        |
+| contractSize         | String | The value of contract                      |                        |
+| priceScale           | Integer| Price scaling fator                        |                        |
+| ratioScale           | Integer| Ratio scaling fator                        |                        |
+| valueScale           | Integer| Value scaling fator                        |                        |
+| defaultLeverage      | Integer| Account default leverage                   |                        |
+| maxLeverage          | Integer| Allowed maximum leverage                   |                        |
+| initMarginEr         | Integer| Scaled initial margin ratio                |                        |
+| maintMarginEr        | Integer| Scaled maintainance margin ratio           |                        |
+| defaultRiskLimitEv   | Integer| Scaled default risk limit value (Position + Order) |                |
+| deleverage           | Integer| Indicator if deleverage enabled            |                        |
+| makerFeeRateEr       | Integer| Scaled maker fee ratio                     |                        |
+| takerFeeRateEr       | Integer| Scaled taker fee ratio                     |                        |
+| fundingInterval      | Integer| Funding interval in hours                  | 8                      |
+| description          | String | Contract description                       |                        |
 
 * Sample：
 ```json
@@ -295,14 +295,14 @@ GET /md/ticker/24hr?symbol=<symbol>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| open price  | Integer| The scaled open price in last 24 hours.    |              |
-| high price  | Integer| The scaled highest price in last 24 hours. |              |
-| low price   | Integer| The scaled lowest price in last 24 hours.  |              |
-| close price | Integer| The scaled close price in last 24 hours.   |              |
-| open interest| Integer| current open interest.                    |              |
-| symbol      | String | Contract symbol name.                      | BTCUSD, ETHUSD, XRPUSD |
-| turnover    | Integer| The scaled turnover value in last 24 hours.|              |
-| volume      | Integer| Symbol trade volume in last 24 hours.      |              |
+| open price  | Integer| The scaled open price in last 24 hours     |              |
+| high price  | Integer| The scaled highest price in last 24 hours  |              |
+| low price   | Integer| The scaled lowest price in last 24 hours   |              |
+| close price | Integer| The scaled close price in last 24 hours    |              |
+| open interest| Integer| current open interest                     |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| turnover    | Integer| The scaled turnover value in last 24 hours |              |
+| volume      | Integer| Symbol trade volume in last 24 hours       |              |
 
 * Sample：
 ```json
@@ -395,7 +395,7 @@ While for client private account/position/order data, the client should send use
 | type        | String | Token type       | API             |
 | token       | String | Access token     |                 |
 | signature   | String | Signature generated by a funtion as HMacSha256(access-token + expiry) ||
-| expiry      | Integer| Expiry in epoch second which is between now and now+5 minutes. ||
+| expiry      | Integer| Expiry in epoch second which is between now and now+5 minutes  ||
 
 * Sample:
 

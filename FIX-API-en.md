@@ -21,7 +21,7 @@ This documentation uses ; to represent the FIX field separator (byte 0x01). It s
 |Tag | Name           | Required | Description|
 |----|----------------|----------|------------|
 | 8  | BeginString    | Y        | Must be set to "FIX.4.2"|
-| 9  | BodyLength     | Y        | Number of bytes after this field up to and including the delimiter immediately preceding the CheckSum.|
+| 9  | BodyLength     | Y        | Number of bytes after this field up to and including the delimiter immediately preceding the CheckSum |
 | 35 | MsgType        | Y        | Message type |
 | 49 | SenderCompID   | Y        | Comp ID of the party sending the message. It is also used as Client API key (for messages from the client) |
 | 56 | TargetCompID   | Y        | Comp ID of the party the message is sent to. Must be set to "PHEMEX" (for messages from the client)|
@@ -78,8 +78,8 @@ The resulting hash should be hex-encoded.
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        |            |
-| 98 | EncryptMethod   | Y        | Method of encryption. |
-| 108| HeartBInt       | Y        | Session heartbeat interval in seconds. |
+| 98 | EncryptMethod   | Y        | Method of encryption  |
+| 108| HeartBInt       | Y        | Session heartbeat interval in seconds  |
 
 # HeartBeat (0)
 This message can be initiated by both the client and the Phemex FIX gateway with 30 seconds interval.
@@ -87,7 +87,7 @@ This message can be initiated by both the client and the Phemex FIX gateway with
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 0 = HeartBeat |
-| 112| TestReqID       | N        | Required if the heartbeat is a response to a TestRequest (35=1). The value in this field should echo the TestReqID (112) received in the TestRequest. |
+| 112| TestReqID       | N        | Required if the heartbeat is a response to a TestRequest (35=1). The value in this field should echo the TestReqID (112) received in the TestRequest  |
 
 # TestRequest (1)
 This message can be initiated by both the client and the Phemex FIX gateway.
@@ -95,7 +95,7 @@ This message can be initiated by both the client and the Phemex FIX gateway.
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 1 = TestRequest |
-|112 | TestReqID       | Y        | Identifier included in Test Request message to be returned in resulting Heartbeat. |
+|112 | TestReqID       | Y        | Identifier included in Test Request message to be returned in resulting Heartbeat  |
 
 # Logout (5)
 This message can be initiated by both client and the Phemex FIX gateway.
@@ -111,14 +111,14 @@ This message is initiated by the client to send a limit or market order.
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | D = New Order Single |
 | 21 | HandlInst       | Y        | Must be set to "1" (AutomatedExecutionNoIntervention). |
-| 11 | ClOrdID         | Y        | Client specified identifier of the order. Must be unique within the session. |
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
-| 40 | OrdType         | Y        | Order type applicable to the order: 1 = Market, 2 = Limit. |
-| 38 | OrderQty        | Y        | Total order quantity of the order. |
-| 44 | Price           | N        | Price of order. Required if OrdType (40) = 2 = Limit. |
-| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell. |
-| 59 | TimeInForce     | Y        | Time qualifier of the order: 1 = Good Till Cancel = GTC, 3 = Immediate or Cancel = IOC, 4 = Fill or Kill = FOK. |
-| 18 | ExecInst        | N        | Indicates the order is: E = Reduce only, 6 = Post only,  normal new order if not present. |
+| 11 | ClOrdID         | Y        | Client specified identifier of the order. Must be unique within the session  |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
+| 40 | OrdType         | Y        | Order type applicable to the order: 1 = Market, 2 = Limit  |
+| 38 | OrderQty        | Y        | Total order quantity of the order  |
+| 44 | Price           | N        | Price of order. Required if OrdType (40) = 2 = Limit  |
+| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell  |
+| 59 | TimeInForce     | Y        | Time qualifier of the order: 1 = Good Till Cancel = GTC, 3 = Immediate or Cancel = IOC, 4 = Fill or Kill = FOK  |
+| 18 | ExecInst        | N        | Indicates the order is: E = Reduce only, 6 = Post only,  normal new order if not present  |
 
 If the order is accepted, an ExecutionReport (8) with ExecType=0 (New Ack) will be returned. Otherwise, an ExecutionReport with ExecType=8 (Rejected) will be returned.
 
@@ -128,10 +128,10 @@ This message is initiated by the client to request to cancel an order.
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | F = Order Cancel Request |
-| 11 | ClOrdID         | Y        | Client-assigned order ID of the order. |
-| 41 | OrigClOrdID     | Y        | Client Order ID of the order being canceled. |
-| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell. |
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+| 11 | ClOrdID         | Y        | Client-assigned order ID of the order  |
+| 41 | OrigClOrdID     | Y        | Client Order ID of the order being canceled  |
+| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell  |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
 
 If the order is successfully cancelled, an ExecutionReport (8) with ExecType=4 (Cancelled) will be returned. Otherwise, an OrderCancelReject (9) will be returned.
 
@@ -141,11 +141,11 @@ This message is initiated by the Phemex gateway to notify the client that an Ord
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 9 = Order Cancel Reject|
-| 11 | ClOrdID         | Y        | Client identifier as specified in the Cancel request. |
-| 41 | OrigClOrdID     | Y        | Original Client specified identifier of the order. |
+| 11 | ClOrdID         | Y        | Client identifier as specified in the Cancel request  |
+| 41 | OrigClOrdID     | Y        | Original Client specified identifier of the order  |
 | 39 | OrdStatus       | Y        | 8 = Rejected|
-| 58 | Text            | Y        | Order cancel reject reason description. |
-|434 | CxlRejResponseTo| Y        | Indicates whether the message is being generated as an amend reject or a cancel reject: 1 = Order Cancel Request. |
+| 58 | Text            | Y        | Order cancel reject reason description  |
+|434 | CxlRejResponseTo| Y        | Indicates whether the message is being generated as an amend reject or a cancel reject: 1 = Order Cancel Request  |
 
 # Execution Report (8)
 The Phemex FIX gateway will sned this execution report for New Order (D), Order Cancel (F) requests or any order status report.
@@ -153,22 +153,22 @@ The Phemex FIX gateway will sned this execution report for New Order (D), Order 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 8 = Execution Report |
-| 11 | ClOrdID         | Y        | Client identifier as specified in the Cancel request. |
-| 37 | OrderID         | Y        | Order ID as assigned by the exchange. |
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
-| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell. |
-| 38 | OrderQty        | Y        | Total order quantity of the order. |
-| 44 | Price           | N        | Price of order. Required if OrdType (40) = 2 = Limit. |
-| 150| ExecType        | Y        | Execution Type that indicates the reason for the generation of the Execution Report: 0 = New, 1 = Partially Filled, 2 = Fully Filled, 4 = Canceled, 8 = Rejected. |
-| 39 | OrdStatus       | Y        | Order Status after applying the transaction that is being communicated: 0 = New, 1 = Partially Filled, 2 = Fully Filled, 4 = Canceled. |
-| 14 | CumQty          | Y        | Cumulative execution size. |
-| 151| LeavesQty       | Y        | Open order quantity. |
-| 6  | AvgPx           | N        | Calculated average price of all fills on this order. The value would be zero if no executions. |
-| 31 | LastPx          | N        | Execution price. Only present if this message was the result of a fill. |
-| 32 | LastQty         | N        | Execution size. Only present if this message was the result of a fill. |
-| 103| OrdRejReason    | N        | Code to identify reason for order rejection.  5 = Unknown Order if no order found for OrderStatusRequest(H). |
-| 893| LastFragment    | N        | Indicates if this message is the last of a fragmented set of messages. |
-| 58 | Text            | N        | Free text. |
+| 11 | ClOrdID         | Y        | Client identifier as specified in the Cancel request  |
+| 37 | OrderID         | Y        | Order ID as assigned by the exchange  |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
+| 54 | Side            | Y        | Side of the order. Possible values:  1 = Buy, 2 = Sell  |
+| 38 | OrderQty        | Y        | Total order quantity of the order  |
+| 44 | Price           | N        | Price of order. Required if OrdType (40) = 2 = Limit  |
+| 150| ExecType        | Y        | Execution Type that indicates the reason for the generation of the Execution Report: 0 = New, 1 = Partially Filled, 2 = Fully Filled, 4 = Canceled, 8 = Rejected  |
+| 39 | OrdStatus       | Y        | Order Status after applying the transaction that is being communicated: 0 = New, 1 = Partially Filled, 2 = Fully Filled, 4 = Canceled  |
+| 14 | CumQty          | Y        | Cumulative execution size  |
+| 151| LeavesQty       | Y        | Open order quantity  |
+| 6  | AvgPx           | N        | Calculated average price of all fills on this order. The value would be zero if no executions  |
+| 31 | LastPx          | N        | Execution price. Only present if this message was the result of a fill  |
+| 32 | LastQty         | N        | Execution size. Only present if this message was the result of a fill  |
+| 103| OrdRejReason    | N        | Code to identify reason for order rejection.  5 = Unknown Order if no order found for OrderStatusRequest(H)  |
+| 893| LastFragment    | N        | Indicates if this message is the last of a fragmented set of messages  |
+| 58 | Text            | N        | Free text  |
 
 # Reject (3)
 This message is sent by the server in response to an invalid client message.
@@ -176,10 +176,10 @@ This message is sent by the server in response to an invalid client message.
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 3 = Reject |
-| 45 | RefSeqNum       | Y        | Sequence number of the message which caused the rejection. |
-| 371| RefTagID        | N        | Tag number of the rejected field. |
-| 372| RefMsgType      | N        | Message type of the rejected message. |
-| 58 | Text            | N        | Free text. |
+| 45 | RefSeqNum       | Y        | Sequence number of the message which caused the rejection  |
+| 371| RefTagID        | N        | Tag number of the rejected field  |
+| 372| RefMsgType      | N        | Message type of the rejected message  |
+| 58 | Text            | N        | Free text  |
 
 # Order Status Request (H)
 This message is initiated by the client to request to query **open order** status.
@@ -194,9 +194,9 @@ The Phemex FIX gateway will respond with Execution Report (8) message(s) with Ex
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | H = Order Status Request |
-| 11 | ClOrdID         | Y        | Client-assigned order ID of the order. |
-| 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol. |
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+| 11 | ClOrdID         | Y        | Client-assigned order ID of the order  |
+| 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol  |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
 
 # Order Mass Cancel Request (q)
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
@@ -206,9 +206,9 @@ This message is initiated by the client to request to cancel all open orders. An
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | q = Order Mass Cancel Request |
-| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
-| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol. |
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
+| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request |
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol  |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
 
 # Order Mass Cancel Report (r)
 This message is sent by the Phemex FIX gateway in response to Order Mass Cancel Request.
@@ -216,11 +216,11 @@ This message is sent by the Phemex FIX gateway in response to Order Mass Cancel 
 |Tag | Name            | Required | Description|
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | r = Order Mass Cancel Report |
-| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request.|
-| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD. |
-| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol. |
-| 531| MassCancelResponse    | Y  | Indicates the action taken on the cancel request: 0 = Cancel request rejected, 1 = Cancel orders for a security. |
-| 532| MassCancelRejectReason| N  | The code Indicating the reason why the Mass Cancel Request was rejected: 8 = Invalid or Unknown Market Segment(8), 99 = Other. Required if: Mass Cancel Response = Cancel Request Rejected. |
-| 533| TotalAffectedOrders	 | Y  | Optional field used to indicate the total number of orders affected by the Order Mass Cancel Request. |
-| 58 | Text            | N        | Free text. |
+| 11 | ClOrdID         | Y        | Client specified identifier of this mass cancel request |
+| 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
+| 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol  |
+| 531| MassCancelResponse    | Y  | Indicates the action taken on the cancel request: 0 = Cancel request rejected, 1 = Cancel orders for a security  |
+| 532| MassCancelRejectReason| N  | The code Indicating the reason why the Mass Cancel Request was rejected: 8 = Invalid or Unknown Market Segment(8), 99 = Other. Required if: Mass Cancel Response = Cancel Request Rejected  |
+| 533| TotalAffectedOrders	 | Y  | Optional field used to indicate the total number of orders affected by the Order Mass Cancel Request  |
+| 58 | Text            | N        | Free text  |
 
