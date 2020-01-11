@@ -119,6 +119,61 @@ DELETE /orders/all
 ```
 
 
+### Query 24hr ticker
+
+* Request：
+```json
+GET /md/ticker/24hr?symbol=<symbol>
+```
+
+* Response:
+```json
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "open": <open price>,
+    "high": <high price>,
+    "low": <low price>,
+    "close": <close price>,
+    "openInterest": <open interest>,
+    "symbol": "<symbol>",
+    "turnover": <turnover>,
+    "volume": <volume>
+  }
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| open price  | Integer| The scaled open price in last 24 hours.    |              |
+| high price  | Integer| The scaled highest price in last 24 hours. |              |
+| low price   | Integer| The scaled lowest price in last 24 hours.  |              |
+| close price | Integer| The scaled close price in last 24 hours.   |              |
+| open interest| Integer| current open interest.                    |              |
+| symbol      | String | Symbol name.                               | BTCUSD, ETHUSD, XRPUSD |
+| turnover    | Integer| The scaled turnover value in last 24 hours.|              |
+| volume      | Integer| Symbol trade volume in last 24 hours.      |              |
+
+* Sample：
+```json
+GET /md/ticker/24hr?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "open": 78025000,
+    "high": 82580000,
+    "low": 76835000,
+    "close": 81775000,
+    "openInterest": 2080077,
+    "symbol": "BTCUSD",
+    "turnover": 701493973632,
+    "volume": 55033491
+  }
+}
+```
 
 # Websocket API Standards
 
