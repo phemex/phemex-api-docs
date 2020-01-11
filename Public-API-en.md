@@ -127,7 +127,7 @@ GET /md/ticker/24hr?symbol=<symbol>
 ```
 
 * Response:
-```json
+```
 {
   "error": null,
   "id": 0,
