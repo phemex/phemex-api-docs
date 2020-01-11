@@ -60,7 +60,6 @@ Every HTTP Rest Request must have the following Headers:
    * Signature: HMacSha256( /orders + 1575735514 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
    * signed string is `/orders1575735514{"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0}`
 
-   
 ## Price/Ratio/Value Scales
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
 * Fields with post-fix "Ep" are scaled prices
@@ -73,7 +72,6 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | ETHUSD | 10,000      | 100,000,000 |      10,000 |
 | XRPUSD | 10,000      | 100,000,000 |      10,000 |
 
-   
 ## REST API List
 
 ### Place Order 
@@ -119,7 +117,158 @@ DELETE /orders/all
 ```
 
 
-### Query 24hr ticker
+### Query product information
+* Request：
+```json
+GET /exchange/public/products
+```
+
+* Response:
+```
+{
+  "code": 0,
+  "msg": "OK",
+  "data": [
+    {
+      "symbol": "<symbol>",
+      "underlyingSymbol": "<underlyingSymbol>",
+      "quoteCurrency": "<quoteCurrency>",
+      "settlementCurrency": "<settlementCurrency>",
+      "maxOrderQty": <maxOrderQty>,
+      "maxPriceEp": <maxPriceEp>,
+      "lotSize": <lotSize>,
+      "tickSize": "<tickSize>",
+      "contractSize": <contractSize>,
+      "priceScale": <priceScale>,
+      "ratioScale": <ratioScale>,
+      "valueScale": <valueScale>,
+      "defaultLeverage": <defaultLeverage>,
+      "maxLeverage": <maxLeverage>,
+      "initMarginEr": "<initMarginEr>",
+      "maintMarginEr": "<maintMarginEr>",
+      "defaultRiskLimitEv": <defaultRiskLimitEv>,
+      "deleverage": <deleverage>,
+      "makerFeeRateEr": <makerFeeRateEr>,
+      "takerFeeRateEr": <takerFeeRateEr>,
+      "fundingInterval": <fundingInterval>,
+      "description": "<description>"
+    },
+    ...
+    ...
+    ...
+  ]
+}
+```
+
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol               | String | Contract Symbol name.                      | BTCUSD, ETHUSD, XRPUSD |
+| underlyingSymbol     | String | The underlying index symbol.               | .BTC, .ETH, .XRP       |
+| quoteCurrency        | String | The currency for price quoting.            | USD                    |
+| settlementCurrency   | String | The settlement currency.                   | BTC, USD               |
+| maxOrderQty          | Integer| The maximum order size for the contract.   |                        |
+| maxPriceEp           | Integer| The maximum allowed order price for the contract.   |               |
+| lotSize              | Integer| Contract lot size.                         |                        |
+| tickSize             | Integer| Contract tick size.                        |                        |
+| contractSize         | Integer| Underlying size in quote currency.         |                        |
+| priceScale           | Integer| Price scaling fator.                       |                        |
+| ratioScale           | Integer| Ratio scaling fator.                       |                        |
+| valueScale           | Integer| Value scaling fator.                       |                        |
+| defaultLeverage      | Integer| Account default leverage.                  |                        |
+| maxLeverage          | Integer| Allowed maximum leverage.                  |                        |
+| initMarginEr         | Integer| Scaled initial margin ratio.               |                        |
+| maintMarginEr        | Integer| Scaled maintainance margin ratio.          |                        |
+| defaultRiskLimitEv   | Integer| Scaled default risk limit value (Position + Order).|                |
+| deleverage           | Integer| Indicator if deleverage enabled.           |                        |
+| makerFeeRateEr       | Integer| Scaled maker fee ratio.                    |                        |
+| takerFeeRateEr       | Integer| Scaled taker fee ratio.                    |                        |
+| fundingInterval      | Integer| Funding interval in hours.                 | 8                      |
+| description          | String | Contract description.                      |                        |
+
+* Sample：
+```json
+{
+  "code": 0,
+  "msg": "OK",
+  "data": [
+    {
+      "symbol": "BTCUSD",
+      "underlyingSymbol": ".BTC",
+      "quoteCurrency": "USD",
+      "settlementCurrency": "BTC",
+      "maxOrderQty": 1000000,
+      "maxPriceEp": 100000000000000,
+      "lotSize": 1,
+      "tickSize": "0.5",
+      "contractSize": 1,
+      "priceScale": 4,
+      "ratioScale": 8,
+      "valueScale": 8,
+      "defaultLeverage": 100,
+      "maxLeverage": 100,
+      "initMarginEr": "1000000",
+      "maintMarginEr": "500000",
+      "defaultRiskLimitEv": 10000000000,
+      "deleverage": true,
+      "makerFeeRateEr": -250000,
+      "takerFeeRateEr": 750000,
+      "fundingInterval": 8,
+      "description": "BTCUSD is a BTC/USD perpetual contract priced on the .BTC Index. Each contract is worth 1 USD of Bitcoin. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+    },
+    {
+      "symbol": "ETHUSD",
+      "underlyingSymbol": ".ETH",
+      "quoteCurrency": "USD",
+      "settlementCurrency": "USD",
+      "maxOrderQty": 500000,
+      "maxPriceEp": 200000000,
+      "lotSize": 1,
+      "tickSize": "0.05",
+      "contractSize": 0.005,
+      "priceScale": 4,
+      "ratioScale": 8,
+      "valueScale": 4,
+      "defaultLeverage": 20,
+      "maxLeverage": 20,
+      "initMarginEr": "5000000",
+      "maintMarginEr": "1000000",
+      "defaultRiskLimitEv": 5000000000,
+      "deleverage": true,
+      "makerFeeRateEr": -250000,
+      "takerFeeRateEr": 750000,
+      "fundingInterval": 8,
+      "description": "ETHUSD is a ETH/USD perpetual contract priced on the .ETH Index. Each contract is worth 0.005 ETH of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+    },
+    {
+      "symbol": "XRPUSD",
+      "underlyingSymbol": ".XRP",
+      "quoteCurrency": "USD",
+      "settlementCurrency": "USD",
+      "maxOrderQty": 500000,
+      "maxPriceEp": 2000000,
+      "lotSize": 1,
+      "tickSize": "0.0001",
+      "contractSize": 5,
+      "priceScale": 4,
+      "ratioScale": 8,
+      "valueScale": 4,
+      "defaultLeverage": 20,
+      "maxLeverage": 20,
+      "initMarginEr": "5000000",
+      "maintMarginEr": "1000000",
+      "defaultRiskLimitEv": 5000000000,
+      "deleverage": true,
+      "makerFeeRateEr": -250000,
+      "takerFeeRateEr": 750000,
+      "fundingInterval": 8,
+      "description": "XRPUSD is a XRP/USD perpetual contract priced on the .XRP Index. Each contract is worth 5 XRP of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+    }
+  ]
+}
+```
+
+
+### Query 24 hours ticker
 
 * Request：
 ```json
@@ -151,7 +300,7 @@ GET /md/ticker/24hr?symbol=<symbol>
 | low price   | Integer| The scaled lowest price in last 24 hours.  |              |
 | close price | Integer| The scaled close price in last 24 hours.   |              |
 | open interest| Integer| current open interest.                    |              |
-| symbol      | String | Symbol name.                               | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name.                      | BTCUSD, ETHUSD, XRPUSD |
 | turnover    | Integer| The scaled turnover value in last 24 hours.|              |
 | volume      | Integer| Symbol trade volume in last 24 hours.      |              |
 
@@ -468,7 +617,7 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 | price       | Integer| Scaled execution price  |                 |
 | qty         | Integer| Execution size   |                 |
 | sequence    | Integer| Latest message sequence ||
-| symbol      | String | Trade symbol     ||
+| symbol      | String | Contract symbol name     ||
 | type        | String | Message type     |snapshot, incremental |
   
 
@@ -605,7 +754,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 |-------------|--------|------------------|-----------------|
 | timestamp   | Integer| Transaction timestamp in nanoseconds | |
 | sequence    | Integer| Latest message sequence |          |
-| symbol      | String |                  |                 |
+| symbol      | String | Contract symbol name    |          |
 | type        | String | Message type     | snapshot, incremental |
 
 
@@ -707,7 +856,7 @@ On each successful subscription, DataGW will publish 24-hour metrics for all sym
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | timestamp         | Integer| Last update timestamp in nanoseconds ||
-| symbol            | String | Trade symbol     | BTCUSD, ETHUSD, XRPUSD |
+| symbol            | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD |
 | 24h open price    | Integer| Open price for last 24 hours |                 |
 | 24h highest price | Integer| Highest price in last 24 hours |                 |
 | 24h lowest price  | Integer| Lowest price in last 24 hours |                 |
