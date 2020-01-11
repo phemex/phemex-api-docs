@@ -17,8 +17,9 @@
 FIX API
 =======
 
-# 1. Introduction
 <a name="introduction"/>
+
+# 1. Introduction
 
 FIX (Financial Information eXchange) is a standard electronic messaging protocol which can be used to place orders, receive order updates and executions, and cancel orders. Our FIX API is based on the FIX 4.2 specification and modeled after FIX implementations of other popular cryptocurrency exchanges.
 
@@ -30,8 +31,9 @@ Sequence numbers are started from 1 for each session, Resend request and sequenc
 
 *Please join our telegram group [Phemex FIX](https://t.me/Phemex_FIX) if you have any questions.*
 
-# 2. Messages
 <a name="messages"/>
+
+# 2. Messages
 
 All messages should include the following header:
 
@@ -47,8 +49,9 @@ This documentation uses ; to represent the FIX field separator (byte 0x01). It s
 
 Messages should also include a sequence number MsgSeqNum (34) and a timestamp SendingTime (52). Sequence numbers start at 1 and must be incremented with every message. Messages with duplicate or out-of-order sequence numbers will be rejected. Sequence number need to be reset if error happens.
 
-## 2.1 Logon (A)
 <a name="logon"/>
+
+## 2.1 Logon (A)
 
 Sent by the client to initiate a FIX session. Must be the first message sent after a connection is established. Only one session can be established per connection; additional Logon messages are rejected.
 
@@ -101,8 +104,9 @@ The resulting hash should be hex-encoded.
 | 98 | EncryptMethod   | Y        | Method of encryption  |
 | 108| HeartBInt       | Y        | Session heartbeat interval in seconds  |
 
-## 2.2 HeartBeat (0)
 <a name="heartbeat"/>
+
+## 2.2 HeartBeat (0)
 
 This message can be initiated by both the client and the Phemex FIX gateway with 30 seconds interval.
 
@@ -111,8 +115,9 @@ This message can be initiated by both the client and the Phemex FIX gateway with
 | 35 | MsgType         | Y        | 0 = HeartBeat |
 | 112| TestReqID       | N        | Required if the heartbeat is a response to a TestRequest (35=1). The value in this field should echo the TestReqID (112) received in the TestRequest  |
 
-## 2.3 TestRequest (1)
 <a name="testrequest"/>
+
+## 2.3 TestRequest (1)
 
 This message can be initiated by both the client and the Phemex FIX gateway.
 
@@ -121,8 +126,9 @@ This message can be initiated by both the client and the Phemex FIX gateway.
 | 35 | MsgType         | Y        | 1 = TestRequest |
 |112 | TestReqID       | Y        | Identifier included in Test Request message to be returned in resulting Heartbeat  |
 
-## 2.4 Logout (5)
 <a name="logout"/>
+
+## 2.4 Logout (5)
 
 This message can be initiated by both client and the Phemex FIX gateway.
 
@@ -130,8 +136,9 @@ This message can be initiated by both client and the Phemex FIX gateway.
 |----|-----------------|----------|------------|
 | 35 | MsgType         | Y        | 5 = Logout |
 
-## 2.5 New Order Single (D)
 <a name="newordersingle"/>
+
+## 2.5 New Order Single (D)
 
 This message is initiated by the client to send a limit or market order.
 
@@ -150,8 +157,9 @@ This message is initiated by the client to send a limit or market order.
 
 If the order is accepted, an ExecutionReport (8) with ExecType=0 (New Ack) will be returned. Otherwise, an ExecutionReport with ExecType=8 (Rejected) will be returned.
 
-## 2.6 Order Cancel Request (F)
 <a name="ordercancelrequest"/>
+
+## 2.6 Order Cancel Request (F)
 
 This message is initiated by the client to request to cancel an order.
 
@@ -165,8 +173,9 @@ This message is initiated by the client to request to cancel an order.
 
 If the order is successfully cancelled, an ExecutionReport (8) with ExecType=4 (Cancelled) will be returned. Otherwise, an OrderCancelReject (9) will be returned.
 
-## 2.7 Order Cancel Reject (9)
 <a name="ordercancelreject"/>
+
+## 2.7 Order Cancel Reject (9)
 
 This message is initiated by the Phemex gateway to notify the client that an OrderCancelRequest (F) failure.
 
@@ -179,8 +188,9 @@ This message is initiated by the Phemex gateway to notify the client that an Ord
 | 58 | Text            | Y        | Order cancel reject reason description  |
 |434 | CxlRejResponseTo| Y        | Indicates whether the message is being generated as an amend reject or a cancel reject: 1 = Order Cancel Request  |
 
-## 2.8 Execution Report (8)
 <a name="executionreport"/>
+
+## 2.8 Execution Report (8)
 
 The Phemex FIX gateway will sned this execution report for New Order (D), Order Cancel (F) requests or any order status report.
 
@@ -204,8 +214,9 @@ The Phemex FIX gateway will sned this execution report for New Order (D), Order 
 | 893| LastFragment    | N        | Indicates if this message is the last of a fragmented set of messages  |
 | 58 | Text            | N        | Free text  |
 
-## 2.9 Reject (3)
 <a name="reject"/>
+
+## 2.9 Reject (3)
 
 This message is sent by the server in response to an invalid client message.
 
@@ -217,8 +228,9 @@ This message is sent by the server in response to an invalid client message.
 | 372| RefMsgType      | N        | Message type of the rejected message  |
 | 58 | Text            | N        | Free text  |
 
-## 2.10 Order Status Request (H)
 <a name="orderstatusrequest"/>
+
+## 2.10 Order Status Request (H)
 
 This message is initiated by the client to request to query **open order** status.
 
@@ -236,8 +248,9 @@ The Phemex FIX gateway will respond with Execution Report (8) message(s) with Ex
 | 37 | OrderID         | N        | If OrderID present, query a single order with the given symbol. Otherwise query the list of open orders' with the given symbol  |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
 
-## 2.11 Order Mass Cancel Request (q)
 <a name="ordermasscancelrequest"/>
+
+## 2.11 Order Mass Cancel Request (q)
 
 This message is initiated by the client to request to cancel all open orders. An order mass cancel report will be responded and all the affected orders will be restated with latest state.
 
@@ -250,8 +263,9 @@ This message is initiated by the client to request to cancel all open orders. An
 | 530| MassCancelRequestType | Y  | Specifies the scope of the mass cancel request: 1 = Cancel orders for a Symbol  |
 | 55 | Symbol          | Y        | Symbol name. Possible values: BTCUSD, ETHUSD, XRPUSD  |
 
-## 2.12 Order Mass Cancel Report (r)
 <a name="ordermasscancelreport"/>
+
+## 2.12 Order Mass Cancel Report (r)
 
 This message is sent by the Phemex FIX gateway in response to Order Mass Cancel Request.
 

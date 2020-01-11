@@ -31,29 +31,35 @@
     * [Subscribe 24 Hours Ticker](#tickersub)
     * [Unsubscribe 24 Hours Ticker](#tickerunsub)
 
-# Phemex Public API
 <a name="publicapi"/>
 
-## General Public API Information
+# Phemex Public API
+
 <a name="general"/>
+
+## General Public API Information
 
 * Phemex provides HTTP Rest API for client to operate Orders, all endpoints return a JSON object.
 * The Rest API base endpoint is: **https://api.phemex.com**, or for the testnet is:  **https://testnet-api.phemex.com** 
 * Phemex provides WebSocket API for client to receive market data, order and position updates.
 * The WebSocket API url is: **wss://phemex.com/ws**, or for the testnet is:  **wss://testnet.phemex.com/ws** 
 
-# REST API Standards
 <a name="restapi"/>
-## 1. HTTP Return Codes
+
+# REST API Standards
+
 <a name="httpreturncodes"/>
+
+## 1. HTTP Return Codes
 
 * HTTP `403` return code is used when IP break Rate Limit.
 * HTTP `429` return code is used when breaking a request rate limit.
 * HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the execution status is **UNKNOWN** and could be Succeed.
 
 
-## 2. HTTP REST Request Header 
 <a name="httprestheader"/>
+
+## 2. HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
 * x-phemex-access-token : This is  API-KEY (id field) from Phemex site.
@@ -61,24 +67,27 @@ Every HTTP Rest Request must have the following Headers:
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 
-## 3. API Rate Limits
 <a name="apiratelimits"/>
+
+## 3. API Rate Limits
 
 * Every Client has the API call rate limit as 200 per minute.
 * Every HTTP Rest response will contain a `X-RateLimit-Remaining` header which has the remain request count in this round.
 * When client gets HTTP RESPONSE Code 429 means it reached limit, `X-RateLimit-Retry-After` header means the seconds that client should wait before next round.
 
 
-## 4. Endpoint security type
 <a name="securitytype"/>
+
+## 4. Endpoint security type
 
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
 * Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
 * `apiSecret` = `Base64::urlDecode(API Secret)`
 * The `signature` is **case sensitive**.
 
-### 4.1 Signature Example 1: HTTP GET Request
 <a name="signatureexample1"/>
+
+### 4.1 Signature Example 1: HTTP GET Request
 
 * API REST Request URL: https://api.phemex.com/accounts/accountPositions?currency=BTC
    * Request Path: /accounts/accountPositions
@@ -87,8 +96,9 @@ Every HTTP Rest Request must have the following Headers:
    * Request Expiry: 1575735514
    * Signature: HMacSha256( /accounts/accountPositions + currency=BTC + 1575735514 )
 
-### 4.2 Singature Example 2: HTTP GET Request with multiple query string
 <a name="signatureexample2"/>
+
+### 4.2 Singature Example 2: HTTP GET Request with multiple query string
 
 * API REST Request URL: https://api.phemex.com/orders/activeList?ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD 
     * Request Path: /orders/activeList
@@ -98,8 +108,9 @@ Every HTTP Rest Request must have the following Headers:
     * Signature: HMacSha256(/orders/activeList + ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD + 1575735951603)
     * signed string is `/orders/activeListordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD1575735951603`
 
-### 4.3 Signature Example 3: HTTP POST Request
 <a name="signatureexample3"/>
+
+### 4.3 Signature Example 3: HTTP POST Request
 
 * API REST Request URL: https://api.phemex.com/orders
    * Request Path: /orders
@@ -109,8 +120,9 @@ Every HTTP Rest Request must have the following Headers:
    * Signature: HMacSha256( /orders + 1575735514 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
    * signed string is `/orders1575735514{"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0}`
 
-## 5. Price/Ratio/Value Scales
 <a name="scalingfactors"/>
+
+## 5. Price/Ratio/Value Scales
 
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
 * Fields with post-fix "Ep" are scaled prices
@@ -123,11 +135,13 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | ETHUSD | 10,000      | 100,000,000 |      10,000 |
 | XRPUSD | 10,000      | 100,000,000 |      10,000 |
 
-## 6. REST API List
 <a name="restapilist"/>
 
-### 6.1 Place Order 
+## 6. REST API List
+
 <a name="placeorder"/>
+
+### 6.1 Place Order 
 
 * HTTP Request:
 
@@ -153,8 +167,9 @@ POST /orders
 
 * HTTP Response:
 
-### 6.2 Cacnel Order
 <a name="cancelorder"/>
+
+### 6.2 Cacnel Order
 
 ```json
 DELETE /orders/orderID=<xxx>&symbol=<xxx>
@@ -162,8 +177,9 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
 
 ```
 
-### 6.3 Cacnel All Orders
 <a name="cancelall"/>
+
+### 6.3 Cacnel All Orders
 
 ```json
 DELETE /orders/all
@@ -172,8 +188,9 @@ DELETE /orders/all
 ```
 
 
-### 6.4 Query Product Information
 <a name="queryproductinfo"/>
+
+### 6.4 Query Product Information
 
 * Request：
 ```json
@@ -325,8 +342,9 @@ GET /exchange/public/products
 ```
 
 
-### 6.5 Query 24 Hours Ticker
 <a name="query24hrsticker"/>
+
+### 6.5 Query 24 Hours Ticker
 
 * Request：
 ```json
@@ -382,27 +400,32 @@ GET /md/ticker/24hr?symbol=BTCUSD
 }
 ```
 
-# Websocket API Standards
 <a name="wsapi"/>
 
-## 1. Session Management
+# Websocket API Standards
+
 <a name="sessionmanagement"/>
+
+## 1. Session Management
 
 * Each client is required to actively send heartbeat (ping) message to Phemex data gateway ('DataGW' in short) with interval less than 30 seconds, otherwise DataGW will drop the connection. If a client sends a ping message, DataGW will reply with a pong message.
 * Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3 heartbeat intervals*.
 
-## 2 API Rate Limits
 <a name="wsapiratelimits"/>
+
+## 2 API Rate Limits
 
 * Each Client has concurrent connection limit to *5* in maximum.
 * Each connection has subscription limit to *20* in maximum.
 * Each connection has throttle limit to *10* request/s.
 
-## 3. WebSocket API List
 <a name="wsapilist"/>
 
-### 3.1 Heartbeat
+## 3. WebSocket API List
+
 <a name="heartbeat"/>
+
+### 3.1 Heartbeat
 
 * Request：
 ```
@@ -437,8 +460,9 @@ GET /md/ticker/24hr?symbol=BTCUSD
 }
 ```
 
-### 3.2 API User Authentication
 <a name="apiuserauth"/>
+
+### 3.2 API User Authentication
 
 Market trade/orderbook are published publicly without user authentication.
 While for client private account/position/order data, the client should send user.auth message to Data Gateway to authenticate the session.
@@ -489,8 +513,9 @@ While for client private account/position/order data, the client should send use
 ```
 
 
-### 3.3 Subscribe OrderBook 
 <a name="booksub"/>
+
+### 3.3 Subscribe OrderBook 
 
 On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later order book updates will be published. 
 
@@ -586,8 +611,9 @@ On each successful subscription, DataGW will immediately send the current Order 
 < {"book":{"asks":[],"bids":[[86755000,8097]]},"depth":100,"sequence":1191906,"symbol":"BTCUSD","type":"incremental"}
 ```
 
-###  3.4 Unsubscribe OrderBook
 <a name="bookunsub"/>
+
+###  3.4 Unsubscribe OrderBook
 
 It unsubscribes all orderbook related subscriptions.
 
@@ -614,8 +640,9 @@ It unsubscribes all orderbook related subscriptions.
 ```
 
 
-### 3.5 Subscribe Trade
 <a name="tradesub"/>
+
+### 3.5 Subscribe Trade
 
 On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
 
@@ -744,8 +771,9 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 }
 ```
 
-### 3.6 Unsubscribe Trade
 <a name="tradeunsub"/>
+
+### 3.6 Unsubscribe Trade
 
 It unsubscribes all trade subscriptions.
 
@@ -774,8 +802,9 @@ It unsubscribes all trade subscriptions.
 ```
 
 
-### 3.7 Subscribe Account-Order-Position (AOP)
 <a name="aopsub"/>
+
+### 3.7 Subscribe Account-Order-Position (AOP)
 
 AOP subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends AOP messages back to client accordingly. 0 or more latest account snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a trading account information, holding positions, and open / max 100 closed / max 100 filled order event message history.
 
@@ -846,8 +875,9 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 ```
 
 
-### 3.8 Unsubscribe Account-Order-Position (AOP)
 <a name="aopunsub"/>
+
+### 3.8 Unsubscribe Account-Order-Position (AOP)
 * Request：
 
 ```
@@ -871,8 +901,9 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 ```
 
 
-### 3.9 Subscribe 24 Hours Ticker
 <a name="tickersub"/>
+
+### 3.9 Subscribe 24 Hours Ticker
 On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 5 seconds.
 
 * Request
@@ -963,8 +994,9 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-### 3.10 Unsubscribe 24 Hours Ticker
 <a name="tickerunsub"/>
+
+### 3.10 Unsubscribe 24 Hours Ticker
 
 It unsubscribes 24-hour ticker subscription.
 
