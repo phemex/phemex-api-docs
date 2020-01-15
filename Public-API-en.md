@@ -11,11 +11,15 @@
     * [Signature Example 3: HTTP POST Request](#signatureexample3)
   * [Price/Ratio/Value Scales](#scalingfactors)
   * [REST API List](#restapilist)
-    * [Place Order](#placeorder)
-    * [Cacnel Order](#cancelorder)
-    * [Cacnel All Orders](#cancelall)
-    * [Query Product Information](#queryproductinfo)
-    * [Query 24 Hours Ticker](#query24hrsticker)
+    * [Market API List](#marketapilist)
+      * [Query Product Information](#queryproductinfo)
+    * [Order API List](#orderapilist)
+      * [Place Order](#placeorder)
+      * [Cacnel Order](#cancelorder)
+      * [Cacnel All Orders](#cancelall)
+    * [Market Data API List](#mdapilist)
+      * [Query Order Book](#queryorderbook)
+      * [Query 24 Hours Ticker](#query24hrsticker)
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
   * [API Rate Limits](#wsapiratelimits)
@@ -139,58 +143,13 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 ## 6. REST API List
 
-<a name="placeorder"/>
+<a name="marketapilist"/>
 
-### 6.1 Place Order 
-
-* HTTP Request:
-
-```json
-POST /orders
-
-{
-  "actionBy": "FromOrderPlacement",
-  "symbol": "BTCUSD",
-  "clOrdID": "uuid-1573058952273",
-  "side": "Sell",
-  "priceEp": 93185000,
-  "orderQty": 7,
-  "ordType": "Limit",
-  "reduceOnly": false,
-  "triggerType": "UNSPECIFIED",
-  "pegPriceType": "UNSPECIFIED",
-  "timeInForce": "GoodTillCancel",
-  "takeProfitEp": 0,
-  "stopLossEp": 0
-}
-```
-
-* HTTP Response:
-
-<a name="cancelorder"/>
-
-### 6.2 Cacnel Order
-
-```json
-DELETE /orders/orderID=<xxx>&symbol=<xxx>
-
-
-```
-
-<a name="cancelall"/>
-
-### 6.3 Cacnel All Orders
-
-```json
-DELETE /orders/all
-
-
-```
-
+### 6.1 Market API List
 
 <a name="queryproductinfo"/>
 
-### 6.4 Query Product Information
+#### 6.1.1 Query Product Information
 
 * Request：
 ```json
@@ -341,15 +300,71 @@ GET /exchange/public/products
 }
 ```
 
+<a name="orderapilist"/>
+
+### 6.2 Order API List
+
+<a name="placeorder"/>
+
+#### 6.2.1 Place Order 
+
+* HTTP Request:
+
+```json
+POST /orders
+
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSD",
+  "clOrdID": "uuid-1573058952273",
+  "side": "Sell",
+  "priceEp": 93185000,
+  "orderQty": 7,
+  "ordType": "Limit",
+  "reduceOnly": false,
+  "triggerType": "UNSPECIFIED",
+  "pegPriceType": "UNSPECIFIED",
+  "timeInForce": "GoodTillCancel",
+  "takeProfitEp": 0,
+  "stopLossEp": 0
+}
+```
+
+* HTTP Response:
+
+<a name="cancelorder"/>
+
+#### 6.2.2 Cacnel Order
+
+```
+DELETE /orders/orderID=<xxx>&symbol=<xxx>
+```
+
+<a name="cancelall"/>
+
+#### 6.2.3 Cacnel All Orders
+
+```
+DELETE /orders/all
+```
+
+<a name="mdapilist"/>
+
+### 6.3 Market Data API List
 
 <a name="query24hrsticker"/>
 
-### 6.5 Query 24 Hours Ticker
+#### 6.3.1 Query 24 Hours Ticker
 
 * Request：
 ```json
-GET /md/ticker/24hr?symbol=<symbol>
+GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 ```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -396,6 +411,98 @@ GET /md/ticker/24hr?symbol=BTCUSD
     "symbol": "BTCUSD",
     "turnover": 701493973632,
     "volume": 55033491
+  }
+}
+```
+
+#### 6.3.2 Query Order Book
+
+* Request：
+```json
+GET /md/orderbook?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "book": {
+      "asks": [
+        [
+          <price>,
+          <size>
+        ],
+        ...
+        ...
+        ...
+      ],
+      "bids": [
+        [
+          <price>,
+          <size>
+        ],
+        ...
+        ...
+        ...
+      ],
+    ]
+    },
+    "depth": 30,
+    "sequence": <sequence>,
+    "symbol": "<symbol>",
+    "type": "snapshot"
+  }
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| price       | Integer| Scaled book level price                    |              |
+| size        | Integer| Scaled book level size                     |              |
+| sequence    | Integer| current message sequence                   |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+
+* Sample：
+```json
+GET /md/orderbook?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "book": {
+      "asks": [
+        [
+          87705000,
+          1000000
+        ],
+        [
+          87710000,
+          200000
+        ]
+      ],
+      "bids": [
+        [
+          87700000,
+          2000000
+        ],
+        [
+          87695000,
+          200000
+        ]
+      ]
+    },
+    "depth": 30,
+    "sequence": 455476965,
+    "symbol": "BTCUSD",
+    "type": "snapshot"
   }
 }
 ```
