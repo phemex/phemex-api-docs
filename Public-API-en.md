@@ -415,6 +415,8 @@ GET /md/ticker/24hr?symbol=BTCUSD
 }
 ```
 
+<a name="queryorderbook"/>
+
 #### 6.3.2 Query Order Book
 
 * Request：
