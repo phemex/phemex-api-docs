@@ -21,6 +21,8 @@ FIX API
 
 # 1. Introduction
 
+**Dear FIX users, FIX API is in beta testing phase, which is available in testnet and planned to be in production in 2020 Q2.**
+
 FIX (Financial Information eXchange) is a standard electronic messaging protocol which can be used to place orders, receive order updates and executions, and cancel orders. Our FIX API is based on the FIX 4.2 specification and modeled after FIX implementations of other popular cryptocurrency exchanges.
 
 * TestNet FIX endpoint URL: **tcp+ssl://testnet-fixapi.phemex.com:<port>**
