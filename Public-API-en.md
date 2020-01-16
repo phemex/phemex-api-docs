@@ -488,6 +488,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
+| side        | String | Trade side string                          | Buy, Sell    |
 | price       | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
