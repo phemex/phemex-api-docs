@@ -19,6 +19,7 @@
       * [Cacnel All Orders](#cancelall)
     * [Market Data API List](#mdapilist)
       * [Query Order Book](#queryorderbook)
+      * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -352,72 +353,9 @@ DELETE /orders/all
 
 ### 6.3 Market Data API List
 
-<a name="query24hrsticker"/>
-
-#### 6.3.1 Query 24 Hours Ticker
-
-* Request：
-```json
-GET /md/ticker/24hr?symbol=<symbol>&id=<id>
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
-| id          | Integer| Optional. Request id                       |              |
-
-* Response:
-```
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "open": <open price>,
-    "high": <high price>,
-    "low": <low price>,
-    "close": <close price>,
-    "openInterest": <open interest>,
-    "symbol": "<symbol>",
-    "turnover": <turnover>,
-    "volume": <volume>
-  }
-}
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| open price  | Integer| The scaled open price in last 24 hours     |              |
-| high price  | Integer| The scaled highest price in last 24 hours  |              |
-| low price   | Integer| The scaled lowest price in last 24 hours   |              |
-| close price | Integer| The scaled close price in last 24 hours    |              |
-| open interest| Integer| current open interest                     |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
-| turnover    | Integer| The scaled turnover value in last 24 hours |              |
-| volume      | Integer| Symbol trade volume in last 24 hours       |              |
-
-* Sample：
-```json
-GET /md/ticker/24hr?symbol=BTCUSD
-
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "open": 78025000,
-    "high": 82580000,
-    "low": 76835000,
-    "close": 81775000,
-    "openInterest": 2080077,
-    "symbol": "BTCUSD",
-    "turnover": 701493973632,
-    "volume": 55033491
-  }
-}
-```
-
 <a name="queryorderbook"/>
 
-#### 6.3.2 Query Order Book
+#### 6.3.1 Query Order Book
 
 * Request：
 ```json
@@ -505,6 +443,145 @@ GET /md/orderbook?symbol=BTCUSD
     "sequence": 455476965,
     "symbol": "BTCUSD",
     "type": "snapshot"
+  }
+}
+```
+
+<a name="querytrades"/>
+
+#### 6.3.2 Query Recent Trades
+
+* Request：
+```json
+GET /md/trade?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "type": "snapshot",
+    "sequence": <sequence>,
+    "symbol": "<symbol>",
+    "trades": [
+      [
+        <timestamp>,
+        "<side>",
+        <price>,
+        <size>
+      ],
+      ...
+      ...
+      ...
+    ]
+  }
+}
+
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| price       | Integer| Scaled trade price                         |              |
+| size        | Integer| Scaled trade size                          |              |
+| sequence    | Integer| Current message sequence                   |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+
+* Sample：
+```json
+GET /md/trade?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "sequence": 15934323,
+    "symbol": "BTCUSD",
+    "trades": [
+      [
+        1579164056368538508,
+        "Sell",
+        86960000,
+        121
+      ],
+      [
+        1579164055036820552,
+        "Sell",
+        86960000,
+        58
+      ]
+    ],
+    "type": "snapshot"
+  }
+}
+
+```
+
+<a name="query24hrsticker"/>
+
+#### 6.3.3 Query 24 Hours Ticker
+
+* Request：
+```json
+GET /md/ticker/24hr?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "open": <open price>,
+    "high": <high price>,
+    "low": <low price>,
+    "close": <close price>,
+    "openInterest": <open interest>,
+    "symbol": "<symbol>",
+    "turnover": <turnover>,
+    "volume": <volume>
+  }
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| open price  | Integer| The scaled open price in last 24 hours     |              |
+| high price  | Integer| The scaled highest price in last 24 hours  |              |
+| low price   | Integer| The scaled lowest price in last 24 hours   |              |
+| close price | Integer| The scaled close price in last 24 hours    |              |
+| open interest| Integer| current open interest                     |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| turnover    | Integer| The scaled turnover value in last 24 hours |              |
+| volume      | Integer| Symbol trade volume in last 24 hours       |              |
+
+* Sample：
+```json
+GET /md/ticker/24hr?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "open": 78025000,
+    "high": 82580000,
+    "low": 76835000,
+    "close": 81775000,
+    "openInterest": 2080077,
+    "symbol": "BTCUSD",
+    "turnover": 701493973632,
+    "volume": 55033491
   }
 }
 ```
