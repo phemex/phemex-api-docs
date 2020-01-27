@@ -15,8 +15,8 @@
       * [Query Product Information](#queryproductinfo)
     * [Order API List](#orderapilist)
       * [Place Order](#placeorder)
-      * [Cacnel Order](#cancelorder)
-      * [Cacnel All Orders](#cancelall)
+      * [Cancel Order](#cancelorder)
+      * [Cancel All Orders](#cancelall)
     * [Market Data API List](#mdapilist)
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
@@ -335,7 +335,7 @@ POST /orders
 
 <a name="cancelorder"/>
 
-#### 6.2.2 Cacnel Order
+#### 6.2.2 Cancel Order
 
 ```
 DELETE /orders/orderID=<xxx>&symbol=<xxx>
@@ -343,7 +343,7 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
 
 <a name="cancelall"/>
 
-#### 6.2.3 Cacnel All Orders
+#### 6.2.3 Cancel All Orders
 
 ```
 DELETE /orders/all
