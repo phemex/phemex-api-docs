@@ -21,6 +21,14 @@
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
+    * [Asset Api List] (#assetapilist)
+      * [query client and wallets](#clientwalletquery)
+      * [Transfer self balance to parent or subclients](#walletransferout)
+      * [Transfer from sub-client wallet](#walletransferin)
+      * [Transfer between wallet and trading account](#transferwallettradingaccount)
+      * [Query wallet/tradingaccount transfer history](#transferwallettradingaccountquery)
+
+
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
   * [API Rate Limits](#wsapiratelimits)
@@ -584,6 +592,240 @@ GET /md/ticker/24hr?symbol=BTCUSD
     "turnover": 701493973632,
     "volume": 55033491
   }
+}
+```
+
+<a name="assetapilist"/>
+
+# Asset api list
+   * Asset includes BTC in wallets, BTC in btc-trading account, USD in usd-trading account.
+   * In wallet level, Main/parent client can transfer BTC between Sub-client and main/parent client.
+   * In wallet level, Sub client can *only* transfer self BTC to main/parent client wallet.
+   * client can *only* transfer its own asset between wallet and trading accounts. 
+
+<a name="clientwalletquery"/>
+
+## 1. Query client and wallets
+
+* Request
+
+```json
+/phemex-user/users/children?offset=0&limit=100&withCount=true
+```
+
+* Response
+
+```json
+
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 87,
+            "rows": [
+            {
+                "userId": 6XXX12,
+                "email": "x**@**.com",
+                "nickName": "adams",
+                "passwordState": 1,
+                "clientCnt": 0,
+                "totp": 1,
+                "logon": 0,
+                "parentId": 0,
+                "parentEmail": null,
+                "status": 1,
+                "wallet": {
+                    "totalBalance": "989.25471319",
+                    "totalBalanceEv": 98925471319,
+                    "availBalance": "989.05471319",
+                    "availBalanceEv": 98905471319,
+                    "freezeBalance": "0.20000000",
+                    "freezeBalanceEv": 20000000,
+                    "currency": "BTC",
+                    "currencyCode": 1
+                },
+                "userMarginVo": [
+                {
+                    "currency": "BTC",
+                    "accountBalance": "3.90032508",
+                    "totalUsedBalance": "0.00015666",
+                    "accountBalanceEv": 390032508,
+                    "totalUsedBalanceEv": 15666,
+                    "bonusBalanceEv": 0,
+                    "bonusBalance": "0"
+                },
+                {
+                    "currency": "USD",
+                    "accountBalance": "38050.35000000",
+                    "totalUsedBalance": "0.00000000",
+                    "accountBalanceEv": 380503500,
+                    "totalUsedBalanceEv": 0,
+                    "bonusBalanceEv": 0,
+                    "bonusBalance": "0"
+                }
+                ]
+            },
+            ...
+            ]
+        }
+}
+
+```
+
+<a name="walletransferout"/>
+
+## 2. Main/parent-client transfer self wallet amount to sub-client wallet. (Or Subclient transfer self wallet to main/parent client wallet )
+
+* Request
+   * Main/parent can transfer its wallet balance to its own subclients.
+   * Sub-client can only transfer its wallet balance to its parent/main client.
+   * When sub-client transfer its wallet balance, `clientCnt = 0`
+
+```json
+POST: /exchange/wallets/transferOut
+
+Body:
+{
+    "amount": 0, // unscaled amount
+    "amountEv": 0, // scaled amount, when both amount and amountEv are provided, amountEv wins.
+    "clientCnt": 0, // client number, this is from api in children list; when sub-client issues this api, client must be 0.
+    "currency": "string"
+}
+
+```
+
+* Response
+   * This api is sync, `code == 0` means succeeded. If timed-out, history can be queried.
+
+```json
+{"code":0,"msg":"OK","data":"OK"}
+```
+
+<a name="walletransferin"/>
+
+## 3. Transfer from sub-client wallet. Only main/parent client has priviledge.
+
+* Request
+```json
+POST: /exchange/wallets/transferIn
+
+Body:
+{
+    "amountEv":10000000,
+    "currency":"BTC",
+    "clientCnt":1
+}
+
+```
+
+* Response
+
+```json
+{"code":0,"msg":"OK","data":"OK"}
+```
+
+***More developer friendly api is yet to come***
+
+<a name="transferwallettradingaccount"/>
+
+## 1. Transfer between wallet and trading accounts
+
+* Request
+```json
+POST /exchange/margins
+
+{
+    "btcAmount": 0.00, 
+    "btcAmountEv": 0, 
+    "linkKey": unique-str-for-this-request, 
+    "moveOp": [1,2,3,4], 
+    "usdAmount": 0.00
+    "usdAmountEv": 0
+}
+```
+   * `btcAmount/btcAmountEv` is required when `moveOp` is `1, 2, 3`. `btcAmountEv` favors over `btcAmount` when both provided. `0.002 btcAmount` or `200000 btcAmountEv` is the minimum when `moveOp` is `3`.
+   * `usdAmount/usdAmountEv` is required when `moveOp` is `4`. `usdAmountEv` favors over `usdAmount` when both provided. `1 usdAmount` or `10000 usdAmountEv` is the minimum.
+   * All amount must be positive
+
+| Field | Type | Required | Description | Possible values |
+|-------|------|----------|--------------|----------------|
+| moveOp | Integer | Yes | move operation, four types: 1- From BTC trading account to wallet; 2- From wallet to BTC trading account; 3 - From wallet to USD trading account; 4 - From USD trading account to wallet | 1,2,3,4 |
+| linkKey | String | No |  used for idempotency, unique string for one request, recommend UUID. System can generate it when not provided | | 
+| btcAmount | BigDecimal | - | unscaled BTC amount with at most 8 precision, optional | |
+| btcAmountEv | Integer | - |scaled BTC amount | |
+| usdAmount | BigDecimal | - | unscaled amount with at most 4 preision. | |
+| usdAmountEv | Integer | - | scaled USD amount | |
+
+* Response
+
+   * `status == 10` in the response body implies the operation succeeded or not, as underlying operation is async.
+
+```json
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "moveOp": 1,
+            "fromCurrencyName": "BTC",
+            "toCurrencyName": "BTC",
+            "fromAmount": "0.10000000",
+            "toAmount": "0.10000000",
+            "linkKey": "2431ca9b-2dd4-44b8-91f3-2539bb62db2d",
+            "status": 10,
+        }
+}
+
+```
+
+<a name="transferwallettradingaccountquery"/>
+
+## 2. Query wallet/tradingaccount transfer history
+
+* Request
+
+```json
+GET /exchange/margins/transfer?start=0&end=0&offset=0&limit=50&withCount=true
+```
+
+| Filed | Type | Required |  Description | Possible values |
+|-------|------|----------|--------------|-----------------|
+| start | Integer | No | epoch millis of start of time range, include | |
+| end | Integer | No | epoch millis of start of time range, exclude | |
+| offset | Integer | No | default 0, offset of the resultset | |
+| limit | Integer | No | default 50(subject to change) | |
+| withCount | Boolean | No | whether total records is required | true,false|
+
+* Response
+```json
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 589,
+            "rows": [
+            {
+                "moveOp": 1,
+                "fromCurrencyName": "BTC",
+                "toCurrencyName": "BTC",
+                "fromAmount": "0.10000000",
+                "toAmount": "0.10000000",
+                "linkKey": "2431ca9b-2dd4-44b8-91f3-2539bb62db2d",
+                "status": 10,
+                "createTime": 1580201427000
+            },
+            {
+                "moveOp": 4,
+                "fromCurrencyName": "USD",
+                "toCurrencyName": "BTC",
+                "fromAmount": "8310.12000000",
+                "toAmount": "0.99748508",
+                "linkKey": "r2-move-usd-200076-20200126",
+                "status": 10,
+                "createTime": 1579976362000
+            },
+            ...
+                ]
+        }
 }
 ```
 
