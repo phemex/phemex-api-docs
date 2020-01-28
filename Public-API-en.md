@@ -21,7 +21,7 @@
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
-    * [Asset Api List] (#assetapilist)
+    * [Asset Api List](#assetapilist)
       * [query client and wallets](#clientwalletquery)
       * [Transfer self balance to parent or subclients](#walletransferout)
       * [Transfer from sub-client wallet](#walletransferin)
@@ -597,7 +597,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="assetapilist"/>
 
-# Asset api list
+# 6.4 Asset api list
    * Asset includes BTC in wallets, BTC in btc-trading account, USD in usd-trading account.
    * In wallet level, Main/parent client can transfer BTC between Sub-client and main/parent client.
    * In wallet level, Sub client can *only* transfer self BTC to main/parent client wallet.
@@ -605,7 +605,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="clientwalletquery"/>
 
-## 1. Query client and wallets
+## 6.4.1 Query client and wallets
 
 * Request
 
@@ -674,7 +674,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="walletransferout"/>
 
-## 2. Main/parent-client transfer self wallet amount to sub-client wallet. (Or Subclient transfer self wallet to main/parent client wallet )
+## 6.4.2 Main/parent-client transfer self wallet amount to sub-client wallet. (Or Subclient transfer self wallet to main/parent client wallet )
 
 * Request
    * Main/parent can transfer its wallet balance to its own subclients.
@@ -703,7 +703,7 @@ Body:
 
 <a name="walletransferin"/>
 
-## 3. Transfer from sub-client wallet. Only main/parent client has priviledge.
+## 6.4.3 Transfer from sub-client wallet. Only main/parent client has priviledge.
 
 * Request
 ```json
@@ -728,7 +728,7 @@ Body:
 
 <a name="transferwallettradingaccount"/>
 
-## 1. Transfer between wallet and trading accounts
+## 6.4.4 Transfer between wallet and trading accounts
 
 * Request
 ```json
@@ -779,7 +779,7 @@ POST /exchange/margins
 
 <a name="transferwallettradingaccountquery"/>
 
-## 2. Query wallet/tradingaccount transfer history
+## 6.4.5 Query wallet/tradingaccount transfer history
 
 * Request
 
