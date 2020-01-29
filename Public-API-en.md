@@ -13,21 +13,30 @@
   * [REST API List](#restapilist)
     * [Market API List](#marketapilist)
       * [Query Product Information](#queryproductinfo)
-    * [Order API List](#orderapilist)
+    * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
+      * [Cancel Single order by orderID](#cancelsingleorder)
       * [Cancel Order](#cancelorder)
       * [Cancel All Orders](#cancelall)
+      * [Query trading account and positions](#querytradeaccount)
+      * [Change position leverage](#changeleverage)
+      * [Change position risklimt](#changerisklimit)
+      * [Assign position balance in isolated margin mode](#assignposbalance)
     * [Market Data API List](#mdapilist)
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
     * [Asset Api List](#assetapilist)
-      * [query client and wallets](#clientwalletquery)
+      * [Query client and wallets](#clientwalletquery)
       * [Transfer self balance to parent or subclients](#walletransferout)
       * [Transfer from sub-client wallet](#walletransferin)
       * [Transfer between wallet and trading account](#transferwallettradingaccount)
       * [Query wallet/tradingaccount transfer history](#transferwallettradingaccountquery)
-
+    * [Withdraw](#withdraw)
+      * [Request withdraw](#requestwithdraw)
+      * [Confirm withdraw](#confirmwithdraw)
+      * [Cancel withdraw](#cancelwithdraw)
+      * [Withdraw address management](#withdrawaddrmgmt)
 
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -341,9 +350,22 @@ POST /orders
 
 * HTTP Response:
 
+<a name="cancelsingleorder"/>
+
+#### 6.2.2 Cancel Single Order
+
+* Request
+```
+DELETE /orders/cancel?symbol={symbol}&orderID=#{orderID}
+```
+
+* Response
+   * Full Order
+
+
 <a name="cancelorder"/>
 
-#### 6.2.2 Cancel Order
+#### 6.2.3 Cancel Order
 
 ```
 DELETE /orders/orderID=<xxx>&symbol=<xxx>
@@ -351,11 +373,163 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
 
 <a name="cancelall"/>
 
-#### 6.2.3 Cancel All Orders
+#### 6.2.4 Cancel All Orders
 
 ```
 DELETE /orders/all
 ```
+
+<a name="querytradeaccount"/>
+
+#### 6.2.5 Query trading account and positions
+
+* Request
+
+```
+GET /accounts/accountPositions?currency={currency}
+```
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| currency | string | in url query parameter. which trading account | BTC,USD |
+
+* Response
+
+```json
+{
+    "code": 0,
+        "msg": "",
+        "data": {
+            "account": {
+                "accountId": 0,
+                "currency": "BTC",
+                "accountBalanceEv": 0,
+                "totalUsedBalanceEv": 0
+            },
+            "positions": [
+            {
+                "accountID": 0,
+                "symbol": "BTCUSD",
+                "currency": "BTC",
+                "side": "None",
+                "positionStatus": "Normal",
+                "crossMargin": false,
+                "leverageEr": 0,
+                "leverage": 0,
+                "initMarginReqEr": 0,
+                "initMarginReq": 0.01,
+                "maintMarginReqEr": 500000,
+                "maintMarginReq": 0.005,
+                "riskLimitEv": 10000000000,
+                "riskLimit": 100,
+                "size": 0,
+                "value": 0,
+                "valueEv": 0,
+                "avgEntryPriceEp": 0,
+                "avgEntryPrice": 0,
+                "posCostEv": 0,
+                "posCost": 0,
+                "assignedPosBalanceEv": 0,
+                "assignedPosBalance": 0,
+                "bankruptCommEv": 0,
+                "bankruptComm": 0,
+                "bankruptPriceEp": 0,
+                "bankruptPrice": 0,
+                "positionMarginEv": 0,
+                "positionMargin": 0,
+                "liquidationPriceEp": 0,
+                "liquidationPrice": 0,
+                "deleveragePercentileEr": 0,
+                "deleveragePercentile": 0,
+                "buyValueToCostEr": 1150750,
+                "buyValueToCost": 0.0115075,
+                "sellValueToCostEr": 1149250,
+                "sellValueToCost": 0.0114925,
+                "markPriceEp": 93169002,
+                "markPrice": 9316.9002,
+                "markValueEv": 0,
+                "markValue": null,
+                "unRealisedPosLossEv": 0,
+                "unRealisedPosLoss": null,
+                "estimatedOrdLossEv": 0,
+                "estimatedOrdLoss": 0,
+                "usedBalanceEv": 0,
+                "usedBalance": 0,
+                "takeProfitEp": 0,
+                "takeProfit": null,
+                "stopLossEp": 0,
+                "stopLoss": null,
+                "realisedPnlEv": 0,
+                "realisedPnl":
+                    null,
+                "cumRealisedPnlEv":
+                    0,
+                "cumRealisedPnl":
+                    null
+            }
+            ]
+        }
+}
+```
+
+<a name="changeleverage"/>
+
+#### 6.2.6 Change leverage
+
+* Request
+
+```
+PUT /positions/leverage?symbol={symbol}&leverage={leverage}&leverageEr={leverageEr}
+```
+
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| leverage             | integer   | unscaled leverage                       |  |
+| leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
+
+
+* Response
+
+```
+{
+    "code": 0,
+    "msg": "OK"
+}
+```
+
+#### 6.2.7 Change position risklimit
+<a name = "changerisklimit"/>
+
+* Request
+
+```
+PUT /positions/riskLimit?symbol={symbol}&riskLimit={riskLimit}&riskLimitEv={riskLimitEv}
+```
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| riskLimit             | integer   | unscaled value, reference BTC/USD value scale   |  |
+| riskLimitEv           | integer   | value scaled leverage, leverage wins when both leverage and leverageEr provided|  |
+
+<a name="assignposbalance"/>
+
+#### 6.2.8 Assign position balance in isolated marign mode
+
+* Request
+
+***This api is POST***
+
+```
+POST /positions/assign?symbol={symbol}&posBalance={posBalance}&posBalanceEv={posBalanceEv}
+
+```
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| leverage             | integer   | unscaled leverage                       |  |
+| leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
+
+
 
 <a name="mdapilist"/>
 
@@ -454,6 +628,7 @@ GET /md/orderbook?symbol=BTCUSD
   }
 }
 ```
+
 
 <a name="querytrades"/>
 
@@ -597,7 +772,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="assetapilist"/>
 
-# 6.4 Asset api list
+### 6.4 Asset api list
    * Asset includes BTC in wallets, BTC in btc-trading account, USD in usd-trading account.
    * In wallet level, Main/parent client can transfer BTC between Sub-client and main/parent client.
    * In wallet level, Sub client can *only* transfer self BTC to main/parent client wallet.
@@ -605,7 +780,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="clientwalletquery"/>
 
-## 6.4.1 Query client and wallets
+#### 6.4.1 Query client and wallets
 
 * Request
 
@@ -615,8 +790,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 * Response
 
-```json
-
+```
 {
     "code": 0,
         "msg": "OK",
@@ -669,12 +843,11 @@ GET /md/ticker/24hr?symbol=BTCUSD
             ]
         }
 }
-
 ```
 
 <a name="walletransferout"/>
 
-## 6.4.2 Main/parent-client transfer self wallet amount to sub-client wallet. (Or Subclient transfer self wallet to main/parent client wallet )
+#### 6.4.2 Main/parent-client transfer self wallet balance to sub-client wallet. (Or Subclient transfer self wallet balance to main/parent client wallet )
 
 * Request
    * Main/parent can transfer its wallet balance to its own subclients.
@@ -703,7 +876,7 @@ Body:
 
 <a name="walletransferin"/>
 
-## 6.4.3 Transfer from sub-client wallet. Only main/parent client has priviledge.
+#### 6.4.3 Transfer from sub-client wallet. Only main/parent client has priviledge.
 
 * Request
 ```json
@@ -728,18 +901,19 @@ Body:
 
 <a name="transferwallettradingaccount"/>
 
-## 6.4.4 Transfer between wallet and trading accounts
+#### 6.4.4 Transfer between wallet and trading accounts
 
 * Request
 ```json
 POST /exchange/margins
 
+Body:
 {
     "btcAmount": 0.00, 
     "btcAmountEv": 0, 
-    "linkKey": unique-str-for-this-request, 
+    "linkKey": "unique-str-for-this-request", 
     "moveOp": [1,2,3,4], 
-    "usdAmount": 0.00
+    "usdAmount": 0.00,
     "usdAmountEv": 0
 }
 ```
@@ -779,7 +953,7 @@ POST /exchange/margins
 
 <a name="transferwallettradingaccountquery"/>
 
-## 6.4.5 Query wallet/tradingaccount transfer history
+#### 6.4.5 Query wallet/tradingaccount transfer history
 
 * Request
 
@@ -827,6 +1001,121 @@ GET /exchange/margins/transfer?start=0&end=0&offset=0&limit=50&withCount=true
                 ]
         }
 }
+```
+<a name="withdraw"/>
+
+### 6.5 Withdraw
+   * Several restrictions are required for withdraw: 1. bind Google 2FA, 2. Password change out of 24hour, 3. meet minimum BTC amount requirement.
+
+<a name="requestwithdraw"/>
+
+#### 6.5.1 Request Withdraw
+
+* Request
+
+```
+POST /exchange/wallets/createWithdraw?otpCode={otpCode}
+Body: 
+{
+      "address": "address_stored_in_phemex",// address must set before withdraw
+      "amountEv": 1000000000, // scaled btc value
+      "currency": "BTC" // fixed to BTC 
+}
+```
+| Filed | Type | Required |  Description | Possible values |
+|------|------|----------|--------------|-----------------|
+| otpCode | String | Yes | In URL query, From Google 2FA| |
+
+
+* Sample code to get Google 2FA code via API
+
+```
+api 'com.warrenstrange:googleauth:1.1.2'
+
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+
+@Test
+public void testAuth() {
+    String secret = "XXXXXXXXXXXXXXXX"; // save from binding Google 2FA
+    GoogleAuthenticator gAuth = new GoogleAuthenticator();
+    int code = gAuth.getTotpPassword(secret);
+    boolean ans = gAuth.authorize(secret, code);
+    Assert.assertTrue(ans);
+}
+
+```
+
+* Response
+
+
+```
+{
+    "code": 0,
+    "msg" : "OK",
+    "data": withdrawRequestId // subject to change to full withdraw request
+}
+
+```
+
+<a name="confirmwithdraw"/>
+
+#### 6.5.3 Confirm withdraw
+
+   * After withdraw request submitted, a confirmation link is sent to registration email. The confirm code should be extracted out from the link and then passed in as url query parameter.
+
+* Request
+```
+GET /exchange/wallets/confirm/withdraw?code={withdrawConfirmCode}
+```
+
+* Response
+
+```
+{
+    "code": 0,
+    "msg" : "OK"
+}
+```
+
+<a name="cancelwithdraw"/>
+
+#### 6.5.2 Cancel withdraw
+   * Withdraw request can be canceled before mannual `review`;
+
+* Request
+
+```
+POST /exchange/wallets/cancelWithdraw
+Body:
+{
+    id: withdrawRequestId
+}
+```
+
+<a name="withdrawaddrmgmt"/>
+#### 6.5.2 Withdraw address management
+   * Withdraw address management support create, remove and list. Recommend manage it from website.
+
+* Request
+
+```
+POST /exchange/wallets/createWithdrawAddress?otpCode={optCode}
+Body: 
+{
+    "address": "valid_btc_address",
+    "currency": "BTC",
+    "remark": "remark"
+}
+```
+
+* Response
+```
+{
+    "code": 0,
+    "msg": "OK",
+    "data": 1
+}
+
 ```
 
 <a name="wsapi"/>
