@@ -509,7 +509,7 @@ PUT /positions/riskLimit?symbol={symbol}&riskLimit={riskLimit}&riskLimitEv={risk
 |----------------------|--------|--------------------------------------------|--------------|
 | symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
 | riskLimit             | integer   | unscaled value, reference BTC/USD value scale   |  |
-| riskLimitEv           | integer   | value scaled leverage, leverage wins when both leverage and leverageEr provided|  |
+| riskLimitEv           | integer   | value scaled risklimit, riskLimitEv wins when both riskLimit and riskLimitEv provided|  |
 
 <a name="assignposbalance"/>
 
@@ -526,9 +526,8 @@ POST /positions/assign?symbol={symbol}&posBalance={posBalance}&posBalanceEv={pos
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
 | symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
-| leverage             | integer   | unscaled leverage                       |  |
-| leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
-
+| posBalance             | integer   | unscaled value                       |  |
+| posBalanceEv           | integer   | value scaled for position balance, posBalanceEv wins when both posBalance and posBalanceEv provided|  |
 
 
 <a name="mdapilist"/>
