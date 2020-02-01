@@ -324,7 +324,7 @@ GET /exchange/public/products
 
 <a name="orderapilist"/>
 
-### 6.2 Order API List
+### 6.2 Trade API List
 
 <a name="placeorder"/>
 
@@ -352,7 +352,74 @@ POST /orders
 }
 ```
 
+| Field | Type | Required | Description | Possible values |
+|-------|-------|--------|--------------|-----------------|
+| symbol | String | Yes | Which symbol to place order | BTCUSD, ETHUSD, XRPUSD .. | 
+| clOrdID | String | Yes | client order id, max length is 40| |
+| side |  Enum | Yes | Order direction, Buy or Sell | Buy, Sell | 
+| orderQty | Integer | Yes | Order quntity | |
+| priceEp | Integer | - | Scaled price, required for limit order | | 
+| ordType | Enum | - | default to Limit | Market, Limit, Stop, StopLimit, MarketIfTouched, LimitIfTouched, Pegged | 
+| stopPxEp | Integer | - | Trigger price for stop orders | |
+| timeInForce | Enum | - | Time in force. default to GoodTillCancel | Day,GoodTillCancel, ImmediateOrCancel, FillOrKill | 
+| reduceOnly | Boolean | - | whether reduce position side only. Enable this flag, i.e. reduceOnly=true, position side won't change | true, false |
+| closeOnTrigger | Boolean | - | implicitly reduceOnly, plus cancel other orders in the same direction(side) when necessary | true, false|
+| takeProfitEp | Integer | - | Scaled take profit price | |
+| stopLossEp | Integer | - | Scaled stop loss price | | 
+| triggerType | Enum | - | trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByIndexPrice, ByLastPrice |
+| text | String | No | order comments | | 
+
+
 * HTTP Response:
+
+```
+{
+    "code": 0,
+        "msg": "",
+        "data": {
+            "bizError": 0,
+            "orderID": "ab90a08c-b728-4b6b-97c4-36fa497335bf",
+            "clOrdID": "137e1928-5d25-fecd-dbd1-705ded659a4f",
+            "symbol": "BTCUSD",
+            "side": "Sell",
+            "actionTimeNs": 1580547265848034600,
+            "transactTimeNs": 0,
+            "orderType": null,
+            "priceEp": 98970000,
+            "price": 9897,
+            "orderQty": 1,
+            "displayQty": 1,
+            "timeInForce": null,
+            "reduceOnly": false,
+            "takeProfitEp": 0,
+            "takeProfit": 0,
+            "stopLossEp": 0,
+            "closedPnlEv": 0,
+            "closedPnl": 0,
+            "closedSize": 0,
+            "cumQty": 0,
+            "cumValueEv": 0,
+            "cumValue": 0,
+            "leavesQty": 1,
+            "leavesValueEv": 10104,
+            "leavesValue": 0.00010104,
+            "stopLoss": 0,
+            "stopDirection": "UNSPECIFIED",
+            "ordStatus": "Created"
+        }
+}
+```
+
+* Important fields description
+   * Order average filled price,  inverse contract:`avgPrice = cumQty/cumValueEv`; linear contract: `avgPrice = cumValueEv/cumQty`
+
+| Field | Description |
+|------|----------|
+| bizError | bizError = 0 means processing normally, non-zero values mean wrong state. Separate section to explain these errors; `code` in response is equal to bizError if response contains only one order |
+| cumQty | cumulative filled order quantity |
+| cumValueEv | cumulative filled order value (scaled) |
+| leavesQty | unfilled order quantity | 
+| leavesValueEv | unfilled order value |
 
 <a name="cancelsingleorder"/>
 
@@ -360,7 +427,7 @@ POST /orders
 
 * Request
 ```
-DELETE /orders/cancel?symbol={symbol}&orderID=#{orderID}
+DELETE /orders/cancel?symbol={symbol}&orderID={orderID}
 ```
 
 * Response
@@ -418,6 +485,10 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
 <a name="cancelall"/>
 
 #### 6.2.4 Cancel All Orders
+
+   * In order to cancel all orders, include conditional order and active order, one must invoke this API twice with different arguments.
+   * `untriggered=false` to cancel active order including triggerred conditional order.
+   * `untriggered=true` to cancel conditional order, the order is not triggerred.
 
 ```
 DELETE /orders/all?symbol={symbol}&untriggered={untriggered}&text={text}
@@ -802,11 +873,12 @@ GET /exchange/order/list?symbol={symbol}&start={start}&end={end}&offset={offset}
 
 <a name="queryorderbyid"/>
 
-#### 6.2.11 Query user order by orderID
+#### 6.2.11 Query user order by orderID or Query user order by client order ID
 * Request
 
 ```
 GET /exchange/order?symbol={symbol}&orderID={orderID1,orderID2}
+GET /exchange/order?symbol={symbol}&clOrdID={clOrdID1,clOrdID2}
 ```
 
 * Response
