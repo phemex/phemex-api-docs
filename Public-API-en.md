@@ -22,6 +22,10 @@
       * [Change position leverage](#changeleverage)
       * [Change position risklimt](#changerisklimit)
       * [Assign position balance in isolated margin mode](#assignposbalance)
+      * [Query open orders by symbol](#queryopenorder)
+      * [Query closed orders by symbol](#queryorder)
+      * [Query order by orderID](#queryorderbyid)
+      * [Query user trades by symbol](#querytrade)
     * [Market Data API List](#mdapilist)
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
@@ -361,6 +365,46 @@ DELETE /orders/cancel?symbol={symbol}&orderID=#{orderID}
 
 * Response
    * Full Order
+   * This response means cancel operations succeeded not the order is canceled. One needs to query to order to determine whether this order has been cancelled or not.
+
+```
+{
+    "code": 0,
+        "msg": "",
+        "data": {
+            "bizError": 0,
+            "orderID": "2585817b-85df-4dea-8507-5db1920b9954",
+            "clOrdID": "4b19fd1e-a1a7-2986-d02a-0288ad5137d4",
+            "symbol": "BTCUSD",
+            "side": "Buy",
+            "actionTimeNs": 1580533179846642700,
+            "transactTimeNs": 1580532966633276200,
+            "orderType": null,
+            "priceEp": 80040000,
+            "price": 8004,
+            "orderQty": 1,
+            "displayQty": 1,
+            "timeInForce": null,
+            "reduceOnly": false,
+            "takeProfitEp": 0,
+            "takeProfit": 0,
+            "stopLossEp": 0,
+            "closedPnlEv": 0,
+            "closedPnl": 0,
+            "closedSize": 0,
+            "cumQty": 0,
+            "cumValueEv": 0,
+            "cumValue": 0,
+            "leavesQty": 1,
+            "leavesValueEv": 12493,
+            "leavesValue": 0.00012493,
+            "stopLoss": 0,
+            "stopDirection": "UNSPECIFIED",
+            "ordStatus": "New"
+        }
+}
+
+```
 
 
 <a name="cancelorder"/>
@@ -376,8 +420,14 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
 #### 6.2.4 Cancel All Orders
 
 ```
-DELETE /orders/all
+DELETE /orders/all?symbol={symbol}&untriggered={untriggered}&text={text}
 ```
+
+| Field       | Type   | Required  | Description                    | Possible values         |
+|-------------|--------|-----------|--------------------------------|-------------------------|
+| symbol      | String | Yes       | which Symbol to cancel         | BTCUSD,ETHUSD,XRPUSD,.. |
+| untriggerred| Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
+| text        | comments| No       | comments of this operation, limited to 40 characters  |  |
 
 <a name="querytradeaccount"/>
 
@@ -529,6 +579,377 @@ POST /positions/assign?symbol={symbol}&posBalance={posBalance}&posBalanceEv={pos
 | posBalance             | integer   | unscaled value                       |  |
 | posBalanceEv           | integer   | value scaled for position balance, posBalanceEv wins when both posBalance and posBalanceEv provided|  |
 
+<a name="queryopenorder"/>
+
+#### 6.2.9 Query open orders by symbol
+
+   * Order status includes `New`, `PartiallyFilled`, `Filled`, `Canceled`, `Rejected`, `Triggered`, `Untriggered`;
+   * Open order status includes `New`, `PartiallyFilled`, `Untriggered`;
+
+* Request
+
+```
+GET /orders/activeList?symbol={symbol}&ordStatus={ordStatus}
+```
+
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD .. |
+| ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered | 
+
+
+* Response
+   * Full order
+
+```
+{
+    "code": 0,
+        "msg": "",
+        "data": {
+            "rows": [
+            {
+                "bizError": 0,
+                "orderID": "9cb95282-7840-42d6-9768-ab8901385a67",
+                "clOrdID": "7eaa9987-928c-652e-cc6a-82fc35641706",
+                "symbol": "BTCUSD",
+                "side": "Buy",
+                "actionTimeNs": 1580533011677666800,
+                "transactTimeNs": 1580533011677666800,
+                "orderType": null,
+                "priceEp": 84000000,
+                "price": 8400,
+                "orderQty": 1,
+                "displayQty": 1,
+                "timeInForce": null,
+                "reduceOnly": false,
+                "takeProfitEp": 0,
+                "takeProfit": 0,
+                "stopLossEp": 0,
+                "closedPnlEv": 0,
+                "closedPnl": 0,
+                "closedSize": 0,
+                "cumQty": 0,
+                "cumValueEv": 0,
+                "cumValue": 0,
+                "leavesQty": 0,
+                "leavesValueEv": 0,
+                "leavesValue": 0,
+                "stopLoss": 0,
+                "stopDirection": "Falling",
+                "ordStatus": "Untriggered"
+            },
+            {
+                "bizError": 0,
+                "orderID": "93397a06-e76d-4e3b-babc-dff2696786aa",
+                "clOrdID": "71c2ab5d-eb6f-0d5c-a7c4-50fd5d40cc50",
+                "symbol": "BTCUSD",
+                "side": "Sell",
+                "actionTimeNs": 1580532983785506600,
+                "transactTimeNs": 1580532983786370300,
+                "orderType": null,
+                "priceEp": 99040000,
+                "price": 9904,
+                "orderQty": 1,
+                "displayQty": 1,
+                "timeInForce": null,
+                "reduceOnly": false,
+                "takeProfitEp": 0,
+                "takeProfit": 0,
+                "stopLossEp": 0,
+                "closedPnlEv": 0,
+                "closedPnl": 0,
+                "closedSize": 0,
+                "cumQty": 0,
+                "cumValueEv": 0,
+                "cumValue": 0,
+                "leavesQty": 1,
+                "leavesValueEv": 10096,
+                "leavesValue": 0.00010096,
+                "stopLoss": 0,
+                "stopDirection": "UNSPECIFIED",
+                "ordStatus": "New"
+            },
+            {
+                "bizError": 0,
+                "orderID": "2585817b-85df-4dea-8507-5db1920b9954",
+                "clOrdID": "4b19fd1e-a1a7-2986-d02a-0288ad5137d4",
+                "symbol": "BTCUSD",
+                "side": "Buy",
+                "actionTimeNs": 1580532966629408500,
+                "transactTimeNs": 1580532966633276200,
+                "orderType": null,
+                "priceEp": 80040000,
+                "price": 8004,
+                "orderQty": 1,
+                "displayQty": 1,
+                "timeInForce": null,
+                "reduceOnly": false,
+                "takeProfitEp": 0,
+                "takeProfit": 0,
+                "stopLossEp": 0,
+                "closedPnlEv": 0,
+                "closedPnl": 0,
+                "closedSize": 0,
+                "cumQty": 0,
+                "cumValueEv": 0,
+                "cumValue": 0,
+                "leavesQty": 1,
+                "leavesValueEv": 12493,
+                "leavesValue": 0.00012493,
+                "stopLoss": 0,
+                "stopDirection": "UNSPECIFIED",
+                "ordStatus": "New"
+            }
+            ]
+        }
+}
+
+```
+
+<a name="queryorder"/>
+
+#### 6.2.10 Query closed orders by symbol
+
+* Request
+
+```
+GET /exchange/order/list?symbol={symbol}&start={start}&end={end}&offset={offset}&limit={limit}&ordStatus={ordStatus}&withCount={withCount}
+```
+
+| Field                | Type   | Description                                | Possible values |
+|----------------------|--------|--------------------------------------------|--------------|
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD .. |
+| start  | Integer | start time range, Epoch millis | |
+| end  | Integer | end time range, Epoch millis | |
+| offset | Integer | offset to resultset | | 
+| limit | Integer | limit of resultset  | | 
+| ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered | 
+
+* Response
+   * sample response
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 39,
+            "rows": [
+            {
+                "orderID": "7d5a39d6-ff14-4428-b9e1-1fcf1800d6ac",
+                "clOrdID": "e422be37-074c-403d-aac8-ad94827f60c1",
+                "symbol": "BTCUSD",
+                "side": "Sell",
+                "orderType": "Limit",
+                "actionTimeNs": 1577523473419470300,
+                "priceEp": 75720000,
+                "price": null,
+                "orderQty": 12,
+                "displayQty": 0,
+                "timeInForce": "GoodTillCancel",
+                "reduceOnly": false,
+                "takeProfitEp": 0,
+                "takeProfit": null,
+                "stopLossEp": 0,
+                "closedPnlEv": 0,
+                "closedPnl": null,
+                "closedSize": 0,
+                "cumQty": 0,
+                "cumValueEv": 0,
+                "cumValue": null,
+                "leavesQty": 0,
+                "leavesValueEv": 0,
+                "leavesValue": null,
+                "stopLoss": null,
+                "stopDirection": "UNSPECIFIED",
+                "ordStatus": "Canceled",
+                "transactTimeNs": 1577523473425416400
+            },
+            {
+                "orderID": "b63bc982-be3a-45e0-8974-43d6375fb626",
+                "clOrdID": "uuid-1577463487504",
+                "symbol": "BTCUSD",
+                "side": "Sell",
+                "orderType": "Limit",
+                "actionTimeNs": 1577963507348468200,
+                "priceEp": 71500000,
+                "price": null,
+                "orderQty": 700,
+                "displayQty": 700,
+                "timeInForce": "GoodTillCancel",
+                "reduceOnly": false,
+                "takeProfitEp": 0,
+                "takeProfit": null,
+                "stopLossEp": 0,
+                "closedPnlEv": 0,
+                "closedPnl": null,
+                "closedSize": 0,
+                "cumQty": 700,
+                "cumValueEv": 9790209,
+                "cumValue": null,
+                "leavesQty": 0,
+                "leavesValueEv": 0,
+                "leavesValue": null,
+                "stopLoss": null,
+                "stopDirection": "UNSPECIFIED",
+                "ordStatus": "Filled",
+                "transactTimeNs": 1578026629824704800
+            }
+            ]
+        }
+}
+```
+
+<a name="queryorderbyid"/>
+
+#### 6.2.11 Query user order by orderID
+* Request
+
+```
+GET /exchange/order?symbol={symbol}&orderID={orderID1,orderID2}
+```
+
+* Response
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": [
+        {
+            "orderID": "7d5a39d6-ff14-4428-b9e1-1fcf1800d6ac",
+            "clOrdID": "e422be37-074c-403d-aac8-ad94827f60c1",
+            "symbol": "BTCUSD",
+            "side": "Sell",
+            "orderType": "Limit",
+            "actionTimeNs": 1577523473419470300,
+            "priceEp": 75720000,
+            "price": null,
+            "orderQty": 12,
+            "displayQty": 0,
+            "timeInForce": "GoodTillCancel",
+            "reduceOnly": false,
+            "takeProfitEp": 0,
+            "takeProfit": null,
+            "stopLossEp": 0,
+            "closedPnlEv": 0,
+            "closedPnl": null,
+            "closedSize": 0,
+            "cumQty": 0,
+            "cumValueEv": 0,
+            "cumValue": null,
+            "leavesQty": 0,
+            "leavesValueEv": 0,
+            "leavesValue": null,
+            "stopLoss": null,
+            "stopDirection": "UNSPECIFIED",
+            "ordStatus": "Canceled",
+            "transactTimeNs": 1577523473425416400
+        },
+        {
+            "orderID": "b63bc982-be3a-45e0-8974-43d6375fb626",
+            "clOrdID": "uuid-1577463487504",
+            "symbol": "BTCUSD",
+            "side": "Sell",
+            "orderType": "Limit",
+            "actionTimeNs": 1577963507348468200,
+            "priceEp": 71500000,
+            "price": null,
+            "orderQty": 700,
+            "displayQty": 700,
+            "timeInForce": "GoodTillCancel",
+            "reduceOnly": false,
+            "takeProfitEp": 0,
+            "takeProfit": null,
+            "stopLossEp": 0,
+            "closedPnlEv": 0,
+            "closedPnl": null,
+            "closedSize": 0,
+            "cumQty": 700,
+            "cumValueEv": 9790209,
+            "cumValue": null,
+            "leavesQty": 0,
+            "leavesValueEv": 0,
+            "leavesValue": null,
+            "stopLoss": null,
+            "stopDirection": "UNSPECIFIED",
+            "ordStatus": "Filled",
+            "transactTimeNs": 1578026629824704800
+        }
+    ]
+}
+```
+
+<a name="querytrade"/>
+
+#### 6.2.12 Query user trade
+
+* Request
+
+```
+GET /exchange/order/trade?symbol={symbol}&start={start}&end={end}&limit={limit}&offset={offset}&withCount={withCount}
+```
+
+* Response
+  * Response of this API includes normal trade, funding records,  liquidation, ADL trades,etc. `action` can distiguish these types.
+  * Sample trade response
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 79,
+            "rows": [
+            {
+                "transactTimeNs": 1578026629824704800,
+                "symbol": "BTCUSD",
+                "currency": "BTC",
+                "action": "Replace",
+                "side": "Sell",
+                "tradeType": "Trade",
+                "execQty": 700,
+                "execPriceEp": 71500000,
+                "orderQty": 700,
+                "priceEp": 71500000,
+                "execValueEv": 9790209,
+                "feeRateEr": -25000,
+                "execFeeEv": -2447,
+                "ordType": "Limit",
+                "execID": "b01671a1-5ddc-5def-b80a-5311522fd4bf",
+                "orderID": "b63bc982-be3a-45e0-8974-43d6375fb626",
+                "clOrdID": "uuid-1577463487504",
+                "execStatus": "MakerFill"
+            },
+            {
+                "transactTimeNs": 1578009600000000000,
+                "symbol": "BTCUSD",
+                "currency": "BTC",
+                "action": "SettleFundingFee",
+                "side": "Buy",
+                "tradeType": "Funding",
+                "execQty": 700,
+                "execPriceEp": 69473435,
+                "orderQty": 0,
+                "priceEp": 0,
+                "execValueEv": 10075793,
+                "feeRateEr": 4747,
+                "execFeeEv": 479,
+                "ordType": "UNSPECIFIED",
+                "execID": "381fbe21-a116-472d-a547-9e2368dcc194",
+                "orderID": "00000000-0000-0000-0000-000000000000",
+                "clOrdID": "SettlingFunding",
+                "execStatus": "Init"
+
+            }
+            ]
+        }
+}
+
+```
+
+
+### 6.2.11 Query user trades by symbol
 
 <a name="mdapilist"/>
 
@@ -1092,7 +1513,8 @@ Body:
 ```
 
 <a name="withdrawaddrmgmt"/>
-#### 6.5.2 Withdraw address management
+
+#### 6.5.3 Withdraw address management
    * Withdraw address management support create, remove and list. Recommend manage it from website.
 
 * Request
