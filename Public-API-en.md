@@ -2238,13 +2238,13 @@ It unsubscribes 24-hour ticker subscription.
 ```
 
 <a name="symbpricesub"/>
-### 3.11 Subscribe symbol price
 
-Subscribe symbol price
+### 3.11 Subscribe tick event for symbol price
+
    * Every trading symbol has a suite of other symbols, each symbol follows same patterns, i.e. `index` symbol follows a pattern `.<BASECURRENCY>`, `mark` symbol follows a pattern `.M<BASECURRENCY>`, funding rate symbol follows a pattern `.<BASECURRENCY>FR`, Every 8 Hour funding rate symbol follows a pattern `.<BASECURRENCY>FR8H`
    * Price is retrieved by subscribing symbol tick.
+   * all available symbols
 
-   all available symbols
    | symbol | index symbol |  mark symbol | Funding rate symbol | Every 8 Hour Funding rate symbol |
    |--------|--------------|--------------|------------|--------|
    | BTCUSD | .BTC | .MBTC | .BTCFR | .BTCFR8H |
@@ -2253,6 +2253,7 @@ Subscribe symbol price
 
 
 * Request
+
    * The symbol in params can be replace by any symbol. 
 
 ```
@@ -2271,7 +2272,6 @@ push event
 ```
 {"tick":{"last":93442772,"scale":4,"symbol":".BTC","timestmp":1580631037701000000}}
 ```
-
 
 <a name="symbpriceunsub"/>
 
