@@ -40,6 +40,7 @@
       * [Request withdraw](#requestwithdraw)
       * [Confirm withdraw](#confirmwithdraw)
       * [Cancel withdraw](#cancelwithdraw)
+      * [List withdraw requests](#listwithdraw)
       * [Withdraw address management](#withdrawaddrmgmt)
 
 * [Websocket API Standards](#wsapi)
@@ -55,9 +56,7 @@
     * [Subscribe Account-Order-Position (AOP)](#aopsub)
     * [Unsubscribe Account-Order-Position (AOP)](#aopunsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
-    * [Unsubscribe 24 Hours Ticker](#tickerunsub)
     * [Subscribe symbol price](#symbpricesub)
-    * [Unsubscribe symbol price](#symbpriceunsub)
 
 <a name="publicapi"/>
 
@@ -429,7 +428,7 @@ POST /orders
 
 * Request
 ```
-DELETE /orders/cancel?symbol={symbol}&orderID={orderID}
+DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
 ```
 
 * Response
@@ -481,7 +480,7 @@ DELETE /orders/cancel?symbol={symbol}&orderID={orderID}
 #### 6.2.3 Cancel Order
 
 ```
-DELETE /orders/orderID=<xxx>&symbol=<xxx>
+DELETE /orders/orderID=<orderID>&symbol=<symbol>
 ```
 
 <a name="cancelall"/>
@@ -493,7 +492,7 @@ DELETE /orders/orderID=<xxx>&symbol=<xxx>
    * `untriggered=true` to cancel conditional order, the order is not triggerred.
 
 ```
-DELETE /orders/all?symbol={symbol}&untriggered={untriggered}&text={text}
+DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 ```
 
 | Field       | Type   | Required  | Description                    | Possible values         |
@@ -509,7 +508,7 @@ DELETE /orders/all?symbol={symbol}&untriggered={untriggered}&text={text}
 * Request
 
 ```
-GET /accounts/accountPositions?currency={currency}
+GET /accounts/accountPositions?currency=<currency>
 ```
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
@@ -601,7 +600,7 @@ GET /accounts/accountPositions?currency={currency}
 * Request
 
 ```
-PUT /positions/leverage?symbol={symbol}&leverage={leverage}&leverageEr={leverageEr}
+PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverageEr>
 ```
 
 | Field                | Type   | Description                                | Possible values |
@@ -626,7 +625,7 @@ PUT /positions/leverage?symbol={symbol}&leverage={leverage}&leverageEr={leverage
 * Request
 
 ```
-PUT /positions/riskLimit?symbol={symbol}&riskLimit={riskLimit}&riskLimitEv={riskLimitEv}
+PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<riskLimitEv>
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
@@ -643,7 +642,7 @@ PUT /positions/riskLimit?symbol={symbol}&riskLimit={riskLimit}&riskLimitEv={risk
 ***This api is POST***
 
 ```
-POST /positions/assign?symbol={symbol}&posBalance={posBalance}&posBalanceEv={posBalanceEv}
+POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<posBalanceEv>
 
 ```
 | Field                | Type   | Description                                | Possible values |
@@ -662,7 +661,7 @@ POST /positions/assign?symbol={symbol}&posBalance={posBalance}&posBalanceEv={pos
 * Request
 
 ```
-GET /orders/activeList?symbol={symbol}&ordStatus={ordStatus}
+GET /orders/activeList?symbol=<symbol>&ordStatus=<ordStatus1,ordStatus2>
 ```
 
 | Field                | Type   | Description                                | Possible values |
@@ -786,7 +785,7 @@ GET /orders/activeList?symbol={symbol}&ordStatus={ordStatus}
 * Request
 
 ```
-GET /exchange/order/list?symbol={symbol}&start={start}&end={end}&offset={offset}&limit={limit}&ordStatus={ordStatus}&withCount={withCount}
+GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>&limit=<limit>&ordStatus=<ordStatus>&withCount=<withCount>
 ```
 
 | Field                | Type   | Description                                | Possible values |
@@ -879,8 +878,8 @@ GET /exchange/order/list?symbol={symbol}&start={start}&end={end}&offset={offset}
 * Request
 
 ```
-GET /exchange/order?symbol={symbol}&orderID={orderID1,orderID2}
-GET /exchange/order?symbol={symbol}&clOrdID={clOrdID1,clOrdID2}
+GET /exchange/order?symbol=<symbol>&orderID=<orderID1,orderID2>
+GET /exchange/order?symbol=<symbol>&clOrdID=<clOrdID1,clOrdID2>
 ```
 
 * Response
@@ -961,7 +960,7 @@ GET /exchange/order?symbol={symbol}&clOrdID={clOrdID1,clOrdID2}
 * Request
 
 ```
-GET /exchange/order/trade?symbol={symbol}&start={start}&end={end}&limit={limit}&offset={offset}&withCount={withCount}
+GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&offset=<offset>&withCount=<withCount>
 ```
 
 * Response
@@ -1279,7 +1278,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 * Request
 
 ```json
-/phemex-user/users/children?offset=0&limit=100&withCount=true
+/phemex-user/users/children?offset=<offset>&limit=<limit>&withCount=<withCount>
 ```
 
 * Response
@@ -1294,7 +1293,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
             {
                 "userId": 6XXX12,
                 "email": "x**@**.com",
-                "nickName": "adams",
+                "nickName": "nickName",
                 "passwordState": 1,
                 "clientCnt": 0,
                 "totp": 1,
@@ -1339,6 +1338,24 @@ GET /md/ticker/24hr?symbol=BTCUSD
 }
 ```
 
+Wallet fields
+
+| Field | Type | Description | 
+|-------|------|-------------|
+| currency | String | currency name |
+| totalBalanceEv | Integer | scaled balance amount value |
+| availBalanceEv | Integer | scaled available balance value |
+| freezeBalanceEv | Integer | scaled used balance value |
+
+Margin fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| currency | String | currency name |
+| accountBalanceEv | Integer | scaled trading account balance value |
+| totalUsedBalanceEv | Integer | Scaled used trading account balance value |
+| bonusBalanceEv | Integer | Scaled bonus value |
+
 <a name="walletransferout"/>
 
 #### 6.4.2 Main/parent-client transfer self wallet balance to sub-client wallet. (Or Subclient transfer self wallet balance to main/parent client wallet )
@@ -1348,7 +1365,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
    * Sub-client can only transfer its wallet balance to its parent/main client.
    * When sub-client transfer its wallet balance, `clientCnt = 0`
 
-```json
+```
 POST: /exchange/wallets/transferOut
 
 Body:
@@ -1360,6 +1377,13 @@ Body:
 }
 
 ```
+
+| Field | Type |  Required | Description |
+|-------|-----|---------|---------------|
+| amount | Integer | - | unscaled amount value to transfer |
+| amountEv | Integer | - | scaled amount value to transfer |
+| clientCnt | Integer | Yes | which client to transfer |
+| currency | String | Yes | currency name, currently only support BTC |
 
 * Response
    * This api is sync, `code == 0` means succeeded. If timed-out, history can be queried.
@@ -1452,7 +1476,7 @@ Body:
 * Request
 
 ```json
-GET /exchange/margins/transfer?start=0&end=0&offset=0&limit=50&withCount=true
+GET /exchange/margins/transfer?start=<start>&end=<end>&offset=<offset>&limit=<limit>&withCount=<withCount>
 ```
 
 | Filed | Type | Required |  Description | Possible values |
@@ -1508,17 +1532,20 @@ GET /exchange/margins/transfer?start=0&end=0&offset=0&limit=50&withCount=true
 * Request
 
 ```
-POST /exchange/wallets/createWithdraw?otpCode={otpCode}
+POST /exchange/wallets/createWithdraw?otpCode=<otpCode>
 Body: 
 {
-      "address": "address_stored_in_phemex",// address must set before withdraw
-      "amountEv": 1000000000, // scaled btc value
-      "currency": "BTC" // fixed to BTC 
+      "address": <address>,// address must set before withdraw
+      "amountEv": <amountEv>, // scaled btc value
+      "currency": <currency> // fixed to BTC 
 }
 ```
 | Filed | Type | Required |  Description | Possible values |
 |------|------|----------|--------------|-----------------|
 | otpCode | String | Yes | In URL query, From Google 2FA| |
+| address | String | Yes | In body, address must be saved before hand | |
+| amountEv | Integer | Yes | In body, scaled amount value | |
+| currency | String | Yes | In body, currently only support BTC | |
 
 
 * Sample code to get Google 2FA code via API
@@ -1546,10 +1573,24 @@ public void testAuth() {
 {
     "code": 0,
     "msg" : "OK",
-    "data": withdrawRequestId // subject to change to full withdraw request
+    "data": <withdrawRequest> 
 }
 
 ```
+
+Response Fileds
+
+| Filed | Type | Description |
+|-------|------|-------------|
+| id    | Integer | withdraw id |
+| currency | String | currency name |
+| status | String | Withdraw request processing state |
+| amountEv | Integer | Scaled withdraw amount |
+| feeEv | Integer | Scaled withdraw fee amount |
+| address | String | Withdraw target address |
+| txhash | String | transaction hash on blockchain |
+| submitedAt | Integer | submitted time in epoch |
+| expiredTime | Integer | expire time in epoch |
 
 <a name="confirmwithdraw"/>
 
@@ -1559,7 +1600,7 @@ public void testAuth() {
 
 * Request
 ```
-GET /exchange/wallets/confirm/withdraw?code={withdrawConfirmCode}
+GET /exchange/wallets/confirm/withdraw?code=<withdrawConfirmCode>
 ```
 
 * Response
@@ -1582,13 +1623,26 @@ GET /exchange/wallets/confirm/withdraw?code={withdrawConfirmCode}
 POST /exchange/wallets/cancelWithdraw
 Body:
 {
-    id: withdrawRequestId
+    id: <withdrawRequestId>
 }
 ```
 
+<a name="listwithdraw"/>
+
+#### 6.5.4 List withdraws
+
+* Request
+
+```
+GET /exchange/wallets/withdrawList?currency=<currency>&limit=<limit>&offset=<offset>&withCount=<withCount>
+```
+
+* Response
+   * List of withdraw requests
+
 <a name="withdrawaddrmgmt"/>
 
-#### 6.5.3 Withdraw address management
+#### 6.5.5 Withdraw address management
    * Withdraw address management support create, remove and list. Recommend manage it from website.
 
 * Request
@@ -1597,18 +1651,24 @@ Body:
 POST /exchange/wallets/createWithdrawAddress?otpCode={optCode}
 Body: 
 {
-    "address": "valid_btc_address",
-    "currency": "BTC",
-    "remark": "remark"
+    "address": <address>,
+    "currency": <currency>
+    "remark": <name>
 }
 ```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| address | String | Yes | valid BTC address |
+| currency | String | Yes | Currrently only support `BTC` |
+| remark | String | Yes | Name of this address |
 
 * Response
 ```
 {
     "code": 0,
     "msg": "OK",
-    "data": 1
+    "data": 1 //subject to change
 }
 
 ```
@@ -2207,36 +2267,6 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-<a name="tickerunsub"/>
-
-### 3.10 Unsubscribe 24 Hours Ticker
-
-It unsubscribes 24-hour ticker subscription.
-
-* Request
-
-```
-{
-  "id": <id>,
-  "method": "market24h.unsubscribe",
-  "params": [
-    "<symbol>"
-  ]
-}
-```
-
-* Response:
-
-```
-{
-  "error": null,
-  "id": <id>,
-  "result": {
-    "status": "success"
-  }
-}
-```
-
 <a name="symbpricesub"/>
 
 ### 3.11 Subscribe tick event for symbol price
@@ -2257,7 +2287,11 @@ It unsubscribes 24-hour ticker subscription.
    * The symbol in params can be replace by any symbol. 
 
 ```
-{"method":"tick.subscribe","params":[".BTC"],"id":1580631267153}
+{
+    "method": "tick.subscribe",
+        "params": [ <symbol> ],
+        "id": <id>
+}
 ```
 
 * Response
@@ -2265,27 +2299,36 @@ It unsubscribes 24-hour ticker subscription.
 ack message
 
 ```
-{"error":null,"id":1580631267153,"result":{"status":"success"}}
+{
+    "error": null,
+        "id": <id>,
+        "result": {
+            "status": "success"
+        }
+}
 ```
 
 push event
-```
-{"tick":{"last":93442772,"scale":4,"symbol":".BTC","timestmp":1580631037701000000}}
-```
-
-<a name="symbpriceunsub"/>
-
-### 3.11 Unsubscribe symbol price
-
-* Request
 
 ```
-{"method":"tick.unsubscribe","params":[".BTC"],"id":1580631373496}
+{
+    "tick": {
+        "last": <price>,
+            "scale": <scale>,
+            "symbol": <symbol>
+            "timestmp": <timestamp_nano>
+    }
+}
 ```
 
-* Response
 
-```json
-{"error":null,"id":1580631373496,"result":{"status":"success"}}
+* Sample
+
+```
+> {"method":"tick.subscribe","params":[".BTC"],"id":1580631267153}
+< {"error":null,"id":1580631267153,"result":{"status":"success"}}
+< {"tick":{"last":93385362,"scale":4,"symbol":".BTC","timestmp":1580635719408000000}}
+< {"tick":{"last":93390304,"scale":4,"symbol":".BTC","timestmp":1580635719821000000}}
+< {"tick":{"last":93403484,"scale":4,"symbol":".BTC","timestmp":1580635721424000000}}
 ```
 
