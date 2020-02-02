@@ -56,6 +56,8 @@
     * [Unsubscribe Account-Order-Position (AOP)](#aopunsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
     * [Unsubscribe 24 Hours Ticker](#tickerunsub)
+    * [Subscribe symbol price](#symbpricesub)
+    * [Unsubscribe symbol price](#symbpriceunsub)
 
 <a name="publicapi"/>
 
@@ -2234,3 +2236,56 @@ It unsubscribes 24-hour ticker subscription.
   }
 }
 ```
+
+<a name="symbpricesub"/>
+### 3.11 Subscribe symbol price
+
+Subscribe symbol price
+   * Every trading symbol has a suite of other symbols, each symbol follows same patterns, i.e. `index` symbol follows a pattern `.<BASECURRENCY>`, `mark` symbol follows a pattern `.M<BASECURRENCY>`, funding rate symbol follows a pattern `.<BASECURRENCY>FR`, Every 8 Hour funding rate symbol follows a pattern `.<BASECURRENCY>FR8H`
+   * Price is retrieved by subscribing symbol tick.
+
+   all available symbols
+   | symbol | index symbol |  mark symbol | Funding rate symbol | Every 8 Hour Funding rate symbol |
+   |--------|--------------|--------------|------------|--------|
+   | BTCUSD | .BTC | .MBTC | .BTCFR | .BTCFR8H |
+   | XRPUSD | .XRP | .MXRP | .XRPFR | .XRPFR8H |
+   | ETHUSD | .ETH | .METH | .ETHFR | .ETHFR8H |
+
+
+* Request
+   * The symbol in params can be replace by any symbol. 
+
+```
+{"method":"tick.subscribe","params":[".BTC"],"id":1580631267153}
+```
+
+* Response
+
+ack message
+
+```
+{"error":null,"id":1580631267153,"result":{"status":"success"}}
+```
+
+push event
+```
+{"tick":{"last":93442772,"scale":4,"symbol":".BTC","timestmp":1580631037701000000}}
+```
+
+
+<a name="symbpriceunsub"/>
+
+### 3.11 Unsubscribe symbol price
+
+* Request
+
+```
+{"method":"tick.unsubscribe","params":[".BTC"],"id":1580631373496}
+```
+
+* Response
+
+```json
+{"error":null,"id":1580631373496,"result":{"status":"success"}}
+```
+
