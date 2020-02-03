@@ -116,14 +116,7 @@
 
 ### 1.3 Error codes
 
-<details>
-  <summary>Trading error codes </summary>
-
-  {% TradingErrorCode.md %}
-
-</details>
-
-<a name="httprestheader"/>
+[Trading Error Codes](TradingErrorCode.md)
 
 ## 2. HTTP REST Request Header 
 
