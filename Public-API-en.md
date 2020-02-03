@@ -2,7 +2,10 @@
 * [Phemex Public API](#publicapi)
   * [General Public API Information](#general)
 * [REST API Standards](#restapi)
-  * [HTTP Return Codes](#httpreturncodes)
+  * [HTTP Restful Response](#restresponse)
+    * [HTTP Return Codes](#httpreturncodes)
+    * [HTTP Restful Response Format](#responseformat)
+    * [Restful Response Error Codes](#errorcode)
   * [HTTP REST Request Header](#httprestheader)
   * [API Rate Limits](#apiratelimits)
   * [Endpoint security type](#securitytype)
@@ -75,14 +78,50 @@
 
 # REST API Standards
 
+<a name="restresponse"/>
+
+## 1 Restful API Response
+
 <a name="httpreturncodes"/>
 
-## 1. HTTP Return Codes
+### 1.1 HTTP Return Codes
 
-* HTTP `403` return code is used when IP break Rate Limit.
+* HTTP `401` return code is used when unauthenticated
+* HTTP `403` return code is used when lack of priviledge.
 * HTTP `429` return code is used when breaking a request rate limit.
 * HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the execution status is **UNKNOWN** and could be Succeed.
 
+<a name="responseformat"/>
+
+### 1.2 Rest Response format
+
+   * All restful API except ***starting*** with `/md` shares same response format.
+
+```
+{
+    "code": <code>,
+    "msg": <msg>,
+    "data": <data>
+}
+
+```
+
+| Field | Description | 
+|-------|------|
+| code | 0 means `success`, non-zero means `error`|
+| msg  | when code is non-zero, it gives short error description |
+| data | operation dependant |
+
+<a name="errorcode"/>
+
+### 1.3 Error codes
+
+<details>
+  <summary>Trading error codes </summary>
+
+  {% include TradingErrorCode.md %}
+
+</details>
 
 <a name="httprestheader"/>
 
@@ -90,7 +129,7 @@
 
 Every HTTP Rest Request must have the following Headers:
 * x-phemex-access-token : This is  API-KEY (id field) from Phemex site.
-* x-phemex-request-expiry : This describes the Unix EPoch SECONDS to expire the request, normally it should be (Now() + 1 minute)
+* x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (Now() + 1 minute)
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 
