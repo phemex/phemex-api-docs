@@ -119,7 +119,7 @@
 <details>
   <summary>Trading error codes </summary>
 
-  {% include TradingErrorCode.md %}
+  {% TradingErrorCode.md %}
 
 </details>
 
