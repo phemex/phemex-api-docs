@@ -78,3 +78,4 @@
 | 11082 | TE_CANNOT_COVER_ESTIMATE_ORDER_LOSS | Order request failure, Details: The remaining balance cannot cover the potential unrealized PnL for this new order |
 | 11083 | TE_TAKE_PROFIT_ORDER_DUPLICATED | Order request failure, Details: TakeProfit order already exists |
 | 11084 | TE_STOP_LOSS_ORDER_DUPLICATED | Order request failure, Details: StopLoss order already exists |
+| 11085 | TE_CL_ORD_ID_DUPLICATE | Order request failure, clOrderID duplicated |
