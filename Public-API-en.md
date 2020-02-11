@@ -18,8 +18,9 @@
       * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
+      * [Amend Order by OrderID](#amendorder)
       * [Cancel Single order by orderID](#cancelsingleorder)
-      * [Cancel Order](#cancelorder)
+      * [Cancel Orders](#cancelorder)
       * [Cancel All Orders](#cancelall)
       * [Query trading account and positions](#querytradeaccount)
       * [Change position leverage](#changeleverage)
@@ -454,9 +455,41 @@ POST /orders
 | leavesQty | unfilled order quantity | 
 | leavesValueEv | unfilled order value |
 
+<a name="amendorder"/>
+
+#### 6.2.2 Amend order by orderID
+
+* Request
+
+```
+PUT
+/orders/replace?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clOrdID=<clOrdID>&price=<price>&priceEp=<priceEp>&orderQty=<orderQty>&stopPx=<stopPx>&stopPxEp=<stopPxEp>&takeProfit=<takeProfit>&takeProfitEp=<takeProfitEp>&stopLoss=<stopLoss>&stopLossEp=<stopLossEp>&pegOffset=<pegOffset>&pegOffsetEp=<pegOffsetEp>
+```
+
+| Field  | Required | Description |
+|--------|----------|-------------|
+| symbol | Yes  | order symbol, cannot be changed|
+| orderID| Yes  |order id, cannot be changed |
+| origClOrdID | No | original clOrderID |
+| clOrdID| No | new clOrdID |
+| price  | No | new order price |
+| priceEp| No | new order price with scale |
+| orderQty | No | new orderQty |
+| stopPx | No | new stop price |
+| stopPxEp | No | new stop price with scale |
+| takeProfit | No | new stop profit price |
+| takeProfitEp | No | new stop profit price with scale |
+| stopLoss | No | new stop loss price |
+| stopLossEp | No | new stop loss price with scale |
+
+
+* Response
+   * amended order 
+
+
 <a name="cancelsingleorder"/>
 
-#### 6.2.2 Cancel Single Order
+#### 6.2.3 Cancel Single Order
 
 * Request
 ```
@@ -509,7 +542,7 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
 
 <a name="cancelorder"/>
 
-#### 6.2.3 Cancel Order
+#### 6.2.4 Cancel Order
 
 ```
 DELETE /orders/orderID=<orderID>&symbol=<symbol>
@@ -517,7 +550,7 @@ DELETE /orders/orderID=<orderID>&symbol=<symbol>
 
 <a name="cancelall"/>
 
-#### 6.2.4 Cancel All Orders
+#### 6.2.5 Cancel All Orders
 
    * In order to cancel all orders, include conditional order and active order, one must invoke this API twice with different arguments.
    * `untriggered=false` to cancel active order including triggerred conditional order.
@@ -535,7 +568,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 
 <a name="querytradeaccount"/>
 
-#### 6.2.5 Query trading account and positions
+#### 6.2.6 Query trading account and positions
 
 * Request
 
@@ -627,7 +660,7 @@ GET /accounts/accountPositions?currency=<currency>
 
 <a name="changeleverage"/>
 
-#### 6.2.6 Change leverage
+#### 6.2.7 Change leverage
 
 * Request
 
@@ -651,8 +684,9 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 }
 ```
 
-#### 6.2.7 Change position risklimit
 <a name = "changerisklimit"/>
+
+#### 6.2.8 Change position risklimit
 
 * Request
 
@@ -667,7 +701,7 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 
 <a name="assignposbalance"/>
 
-#### 6.2.8 Assign position balance in isolated marign mode
+#### 6.2.9 Assign position balance in isolated marign mode
 
 * Request
 
@@ -685,7 +719,7 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 
 <a name="queryopenorder"/>
 
-#### 6.2.9 Query open orders by symbol
+#### 6.2.10 Query open orders by symbol
 
    * Order status includes `New`, `PartiallyFilled`, `Filled`, `Canceled`, `Rejected`, `Triggered`, `Untriggered`;
    * Open order status includes `New`, `PartiallyFilled`, `Untriggered`;
@@ -812,7 +846,7 @@ GET /orders/activeList?symbol=<symbol>&ordStatus=<ordStatus1,ordStatus2>
 
 <a name="queryorder"/>
 
-#### 6.2.10 Query closed orders by symbol
+#### 6.2.11 Query closed orders by symbol
 
 * Request
 
@@ -827,7 +861,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 | end  | Integer | end time range, Epoch millis | |
 | offset | Integer | offset to resultset | | 
 | limit | Integer | limit of resultset  | | 
-| ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered | 
+| ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered, Filled, Canceled | 
 
 * Response
    * sample response
@@ -906,7 +940,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 
 <a name="queryorderbyid"/>
 
-#### 6.2.11 Query user order by orderID or Query user order by client order ID
+#### 6.2.12 Query user order by orderID or Query user order by client order ID
 * Request
 
 ```
@@ -987,7 +1021,7 @@ GET /exchange/order?symbol=<symbol>&clOrdID=<clOrdID1,clOrdID2>
 
 <a name="querytrade"/>
 
-#### 6.2.12 Query user trade
+#### 6.2.13 Query user trade
 
 * Request
 
@@ -1052,9 +1086,6 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 }
 
 ```
-
-
-### 6.2.11 Query user trades by symbol
 
 <a name="mdapilist"/>
 
