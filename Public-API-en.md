@@ -545,19 +545,16 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
 #### 6.2.4 Bulk Cancel Orders
 
 * Request
-
 ```
 DELETE /orders?symbol=<symbol>&orderID=<orderID1>,<orderID2>,<orderID3>
 ```
 
 * Response
-
-Canceled orders
+   * Canceled orders
 
 <a name="cancelall"/>
 
 #### 6.2.5 Cancel All Orders
-
    * In order to cancel all orders, include conditional order and active order, one must invoke this API twice with different arguments.
    * `untriggered=false` to cancel active order including triggerred conditional order.
    * `untriggered=true` to cancel conditional order, the order is not triggerred.
@@ -575,9 +572,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 | text        | comments| No       | comments of this operation, limited to 40 characters  |  |
 
 * Response
-
    * `data` part of response is subject to change, ***DONT*** rely on it
-
 
 <a name="querytradeaccount"/>
 
