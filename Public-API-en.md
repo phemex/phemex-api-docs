@@ -19,17 +19,17 @@
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
       * [Amend Order by OrderID](#amendorder)
-      * [Cancel Single order by orderID](#cancelsingleorder)
-      * [Cancel Orders](#cancelorder)
+      * [Cancel Single Order by OrderID](#cancelsingleorder)
+      * [Bulk Cancel Orders](#cancelorder)
       * [Cancel All Orders](#cancelall)
-      * [Query trading account and positions](#querytradeaccount)
-      * [Change position leverage](#changeleverage)
-      * [Change position risklimt](#changerisklimit)
-      * [Assign position balance in isolated margin mode](#assignposbalance)
-      * [Query open orders by symbol](#queryopenorder)
-      * [Query closed orders by symbol](#queryorder)
-      * [Query order by orderID](#queryorderbyid)
-      * [Query user trades by symbol](#querytrade)
+      * [Query Trading Account and Positions](#querytradeaccount)
+      * [Change Position Leverage](#changeleverage)
+      * [Change Position Risklimt](#changerisklimit)
+      * [Assign Position Balance in Isolated Margin Mode](#assignposbalance)
+      * [Query Open Orders by Symbol](#queryopenorder)
+      * [Query Closed Orders by Symbol](#queryorder)
+      * [Query Order by orderID](#queryorderbyid)
+      * [Query User Trades by Symbol](#querytrade)
     * [Market Data API List](#mdapilist)
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
@@ -542,11 +542,17 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
 
 <a name="cancelorder"/>
 
-#### 6.2.4 Cancel Order
+#### 6.2.4 Bulk Cancel Orders
+
+* Request
 
 ```
-DELETE /orders/orderID=<orderID>&symbol=<symbol>
+DELETE /orders?symbol=<symbol>&orderID=<orderID1>,<orderID2>,<orderID3>
 ```
+
+* Response
+
+Canceled orders
 
 <a name="cancelall"/>
 
@@ -555,6 +561,8 @@ DELETE /orders/orderID=<orderID>&symbol=<symbol>
    * In order to cancel all orders, include conditional order and active order, one must invoke this API twice with different arguments.
    * `untriggered=false` to cancel active order including triggerred conditional order.
    * `untriggered=true` to cancel conditional order, the order is not triggerred.
+
+* Request
 
 ```
 DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
@@ -565,6 +573,11 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 | symbol      | String | Yes       | which Symbol to cancel         | BTCUSD,ETHUSD,XRPUSD,.. |
 | untriggerred| Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
 | text        | comments| No       | comments of this operation, limited to 40 characters  |  |
+
+* Response
+
+   * `data` part of response is subject to change, ***DONT*** rely on it
+
 
 <a name="querytradeaccount"/>
 
@@ -727,13 +740,12 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 * Request
 
 ```
-GET /orders/activeList?symbol=<symbol>&ordStatus=<ordStatus1,ordStatus2>
+GET /orders/activeList?symbol=<symbol>
 ```
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
 | symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD .. |
-| ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered | 
 
 
 * Response
