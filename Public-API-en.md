@@ -194,6 +194,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | BTCUSD | 10,000      | 100,000,000 | 100,000,000 |
 | ETHUSD | 10,000      | 100,000,000 |      10,000 |
 | XRPUSD | 10,000      | 100,000,000 |      10,000 |
+| LINKUSD | 10,000      | 100,000,000 |      10,000 |
 
 <a name="restapilist"/>
 
@@ -567,7 +568,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 
 | Field       | Type   | Required  | Description                    | Possible values         |
 |-------------|--------|-----------|--------------------------------|-------------------------|
-| symbol      | String | Yes       | which Symbol to cancel         | BTCUSD,ETHUSD,XRPUSD,.. |
+| symbol      | String | Yes       | which Symbol to cancel         | BTCUSD,ETHUSD,XRPUSD,LINKUSD.. |
 | untriggerred| Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
 | text        | comments| No       | comments of this operation, limited to 40 characters  |  |
 
@@ -678,7 +679,7 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
 | leverage             | integer   | unscaled leverage                       |  |
 | leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
 
@@ -703,7 +704,7 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
 | riskLimit             | integer   | unscaled value, reference BTC/USD value scale   |  |
 | riskLimitEv           | integer   | value scaled risklimit, riskLimitEv wins when both riskLimit and riskLimitEv provided|  |
 
@@ -721,7 +722,7 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
 | posBalance             | integer   | unscaled value                       |  |
 | posBalanceEv           | integer   | value scaled for position balance, posBalanceEv wins when both posBalance and posBalanceEv provided|  |
 
@@ -740,7 +741,7 @@ GET /orders/activeList?symbol=<symbol>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD .. |
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
 
 
 * Response
@@ -863,7 +864,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD .. |
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
 | start  | Integer | start time range, Epoch millis | |
 | end  | Integer | end time range, Epoch millis | |
 | offset | Integer | offset to resultset | | 
@@ -1109,7 +1110,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1152,7 +1153,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 | price       | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 
 * Sample：
 ```json
@@ -1204,7 +1205,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1238,7 +1239,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 | price       | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 
 * Sample：
 ```json
@@ -1281,7 +1282,7 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1309,7 +1310,7 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 | low price   | Integer| The scaled lowest price in last 24 hours   |              |
 | close price | Integer| The scaled close price in last 24 hours    |              |
 | open interest| Integer| current open interest                     |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 | turnover    | Integer| The scaled turnover value in last 24 hours |              |
 | volume      | Integer| Symbol trade volume in last 24 hours       |              |
 
@@ -2310,7 +2311,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | timestamp         | Integer| Last update timestamp in nanoseconds ||
-| symbol            | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD |
+| symbol            | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
 | 24h open price    | Integer| Open price for last 24 hours |                 |
 | 24h highest price | Integer| Highest price in last 24 hours |                 |
 | 24h lowest price  | Integer| Lowest price in last 24 hours |                 |
@@ -2350,6 +2351,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | BTCUSD | .BTC | .MBTC | .BTCFR | .BTCFR8H |
    | XRPUSD | .XRP | .MXRP | .XRPFR | .XRPFR8H |
    | ETHUSD | .ETH | .METH | .ETHFR | .ETHFR8H |
+   | LINKUSD | .LINK | .MLINK | .LINKFR | .LINKFR8H |
 
 
 * Request
