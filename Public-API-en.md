@@ -856,6 +856,8 @@ GET /orders/activeList?symbol=<symbol>
 
 #### 6.2.11 Query closed orders by symbol
 
+* This API is for ***closed*** orders. For open orders, please use [open order query](#queryopenorder)
+
 * Request
 
 ```
@@ -1038,7 +1040,7 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 ```
 
 * Response
-  * Response of this API includes normal trade, funding records,  liquidation, ADL trades,etc. `action` can distiguish these types.
+  * Response of this API includes normal trade, funding records,  liquidation, ADL trades,etc. `tradeType` can distiguish these types.
   * Sample trade response
 
 ```
@@ -1094,6 +1096,16 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 }
 
 ```
+
+* Possible trade types
+
+|TradeTypes| Description |
+|---------|--------------|
+| Trade | Normal trades |
+| Funding | Funding on positions |
+| AdlTrade |  Auto-delevearage trades |
+| LiqTrade | Liquidation trades |
+
 
 <a name="mdapilist"/>
 
