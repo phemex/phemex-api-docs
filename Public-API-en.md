@@ -14,8 +14,8 @@
     * [Signature Example 3: HTTP POST Request](#signatureexample3)
   * [Price/Ratio/Value Scales](#scalingfactors)
   * [REST API List (version 0)](#restapilist)
-    * [Market API List](#marketapilist)
-      * [Query Product Information](#queryproductinfo)
+    * [Market API List (Version 1 & Version 0)](#marketapilist)
+      * [Query Product Information (Version 1 & Version 0)](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
       * [Amend Order by OrderID](#amendorder)
@@ -210,7 +210,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 <a name="marketapilist"/>
 
-### 6.1 Market API List
+### 6.1 Market API List (Version 1 & Version 0)
 
 <a name="queryproductinfo"/>
 
