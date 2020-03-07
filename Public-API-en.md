@@ -13,7 +13,7 @@
     * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
     * [Signature Example 3: HTTP POST Request](#signatureexample3)
   * [Price/Ratio/Value Scales](#scalingfactors)
-  * [REST API List](#restapilist)
+  * [REST API List (version 0)](#restapilist)
     * [Market API List](#marketapilist)
       * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
@@ -30,7 +30,7 @@
       * [Query Closed Orders by Symbol](#queryorder)
       * [Query Order by orderID](#queryorderbyid)
       * [Query User Trades by Symbol](#querytrade)
-    * [Market Data API List](#mdapilist)
+    * [Market Data API List ](#mdapilist)
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
@@ -46,6 +46,12 @@
       * [Cancel withdraw](#cancelwithdraw)
       * [List withdraw requests](#listwithdraw)
       * [Withdraw address management](#withdrawaddrmgmt)
+  * [REST API List (version 1)](#restapilistv1)
+    * [Market Data API List](#mdapilistv1)
+      * [Query Order Book](#queryorderbookv1)
+      * [Query Recent Trades](#querytradesv1)
+      * [Query 24 Hours Ticker](#query24hrstickerv1)
+      * [Query 24 Hours Ticker Summary](#query24hrstickerallv1)
 
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -194,7 +200,9 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | BTCUSD | 10,000      | 100,000,000 | 100,000,000 |
 | ETHUSD | 10,000      | 100,000,000 |      10,000 |
 | XRPUSD | 10,000      | 100,000,000 |      10,000 |
-| LINKUSD | 10,000      | 100,000,000 |      10,000 |
+| LINKUSD| 10,000      | 100,000,000 |      10,000 |
+| XTZUSD | 10,000      | 100,000,000 |      10,000 |
+| LTCUSD | 10,000      | 100,000,000 |      10,000 |
 
 <a name="restapilist"/>
 
@@ -679,7 +687,7 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
 | leverage             | integer   | unscaled leverage                       |  |
 | leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
 
@@ -704,7 +712,7 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
 | riskLimit             | integer   | unscaled value, reference BTC/USD value scale   |  |
 | riskLimitEv           | integer   | value scaled risklimit, riskLimitEv wins when both riskLimit and riskLimitEv provided|  |
 
@@ -722,7 +730,7 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
+| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
 | posBalance             | integer   | unscaled value                       |  |
 | posBalanceEv           | integer   | value scaled for position balance, posBalanceEv wins when both posBalance and posBalanceEv provided|  |
 
@@ -741,7 +749,7 @@ GET /orders/activeList?symbol=<symbol>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
 
 
 * Response
@@ -866,7 +874,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD .. |
+| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
 | start  | Integer | start time range, Epoch millis | |
 | end  | Integer | end time range, Epoch millis | |
 | offset | Integer | offset to resultset | | 
@@ -1109,7 +1117,7 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 
 <a name="mdapilist"/>
 
-### 6.3 Market Data API List
+### 6.3 Market Data API List (Version 0)
 
 <a name="queryorderbook"/>
 
@@ -1122,7 +1130,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1154,6 +1162,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
     },
     "depth": 30,
     "sequence": <sequence>,
+    "timestamp": <timestamp>,
     "symbol": "<symbol>",
     "type": "snapshot"
   }
@@ -1162,10 +1171,11 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
 | price       | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 
 * Sample：
 ```json
@@ -1199,6 +1209,7 @@ GET /md/orderbook?symbol=BTCUSD
     },
     "depth": 30,
     "sequence": 455476965,
+    "timestamp": 1583555482434235628,
     "symbol": "BTCUSD",
     "type": "snapshot"
   }
@@ -1217,7 +1228,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1247,11 +1258,12 @@ GET /md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
 | side        | String | Trade side string                          | Buy, Sell    |
 | price       | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 
 * Sample：
 ```json
@@ -1294,7 +1306,7 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1307,10 +1319,15 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
     "high": <high price>,
     "low": <low price>,
     "close": <close price>,
+    "indexPrice": <index price>,
+    "markPrice": <mark price>,
     "openInterest": <open interest>,
+    "fundingRate": <funding rate>,
+    "predFundingRate": <predicated funding rate>,
     "symbol": "<symbol>",
     "turnover": <turnover>,
-    "volume": <volume>
+    "volume": <volume>,
+    "timestamp": <timestamp>
   }
 }
 ```
@@ -1321,8 +1338,13 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 | high price  | Integer| The scaled highest price in last 24 hours  |              |
 | low price   | Integer| The scaled lowest price in last 24 hours   |              |
 | close price | Integer| The scaled close price in last 24 hours    |              |
+| index price | Integer| Scaled index price                         |              |
+| mark price  | Integer| Scaled mark price                          |              |
 | open interest| Integer| current open interest                     |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| funding rate| Integer| Scaled funding rate                        |              |
+| predicated funding rate| Integer| Scaled predicated funding rate  |              |
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 | turnover    | Integer| The scaled turnover value in last 24 hours |              |
 | volume      | Integer| Symbol trade volume in last 24 hours       |              |
 
@@ -1754,6 +1776,385 @@ Body:
     "data": 1 //subject to change
 }
 
+```
+
+<a name="restapilistv1"/>
+
+## 7. REST API List (Version 1)
+
+
+<a name="mdapilistv1"/>
+
+### 7.1 Market Data API List
+
+<a name="queryorderbookv1"/>
+
+#### 7.1.1 Query Order Book
+
+* Request：
+```json
+GET /v1/md/orderbook?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "book": {
+      "asks": [
+        [
+          <price>,
+          <size>
+        ],
+        ...
+        ...
+        ...
+      ],
+      "bids": [
+        [
+          <price>,
+          <size>
+        ],
+        ...
+        ...
+        ...
+      ],
+    ]
+    },
+    "depth": 30,
+    "sequence": <sequence>,
+    "symbol": "<symbol>",
+    "timestamp": "<timestamp>",
+    "type": "snapshot"
+  }
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
+| price       | Integer| Scaled book level price                    |              |
+| size        | Integer| Scaled book level size                     |              |
+| sequence    | Integer| current message sequence                   |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+
+* Sample：
+```json
+GET /v1/md/orderbook?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "book": {
+      "asks": [
+        [
+          87705000,
+          1000000
+        ],
+        [
+          87710000,
+          200000
+        ]
+      ],
+      "bids": [
+        [
+          87700000,
+          2000000
+        ],
+        [
+          87695000,
+          200000
+        ]
+      ]
+    },
+    "depth": 30,
+    "sequence": 455476965,
+    "symbol": "BTCUSD",
+    "timestmap": 1583552267253988998,
+    "type": "snapshot"
+  }
+}
+```
+
+
+<a name="querytradesv1"/>
+
+#### 7.1.2 Query Recent Trades
+
+* Request：
+```json
+GET /v1/md/trade?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "type": "snapshot",
+    "sequence": <sequence>,
+    "symbol": "<symbol>",
+    "trades": [
+      [
+        <timestamp>,
+        <trade_id>,
+        "<side>",
+        <price>,
+        <size>
+      ],
+      ...
+      ...
+      ...
+    ]
+  }
+}
+
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
+| trade id    | Integer| Unique identifier for each trade           |              |
+| side        | String | Trade side string                          | Buy, Sell    |
+| price       | Integer| Scaled trade price                         |              |
+| size        | Integer| Scaled trade size                          |              |
+| sequence    | Integer| Current message sequence                   |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+
+* Sample：
+```json
+GET /v1/md/trade?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "sequence": 15934323,
+    "symbol": "BTCUSD",
+    "trades": [
+      [
+        1579164056368538508,
+        453309780000,
+        "Sell",
+        86960000,
+        121
+      ],
+      [
+        1579164055036820552,
+        453308810000,
+        "Sell",
+        86960000,
+        58
+      ]
+    ],
+    "type": "snapshot"
+  }
+}
+
+```
+
+<a name="query24hrstickerv1"/>
+
+#### 7.1.3 Query 24 Hours Ticker
+
+* Request：
+```json
+GET /v1/md/ticker/24hr?symbol=<symbol>&id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": {
+    "askEp": <ask price>,
+    "bidEp": <bid price>,
+    "openEp": <open price>,
+    "highEp": <high price>,
+    "lowEp": <low price>,
+    "lastEp": <last price>,
+    "indexEp": <index price>,
+    "markEp": <index price>,
+    "openInterest": <open interest>,
+    "fundingRateEr": <funding rate>,
+    "predFundingRateEr": <predicated funding rate>,
+    "timestamp": "<timestamp>",
+    "symbol": "<symbol>",
+    "turnover": <turnover>,
+    "volume": <volume>
+  }
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| ask price   | Integer| Latest scaled ask price                    |              |
+| bid price   | Integer| Latest scaled bid price                    |              |
+| open price  | Integer| Scaled open price in last 24 hours         |              |
+| high price  | Integer| Scaled highest price in last 24 hours      |              |
+| low price   | Integer| Scaled lowest price in last 24 hours       |              |
+| last price  | Integer| Scaled last price in last 24 hours         |              |
+| index price | Integer| Scaled index price                         |              |
+| mark price  | Integer| Scaled mark price                          |              |
+| open interest| Integer| current open interest                     |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| funding rate| Integer| Scaled funding rate                        |              |
+| predicated funding rate| Integer| Scaled predicated funding rate  |              |
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
+| turnover    | Integer| The scaled turnover value in last 24 hours |              |
+| volume      | Integer| Symbol trade volume in last 24 hours       |              |
+
+* Sample：
+```json
+GET /v1/md/ticker/24hr?symbol=BTCUSD
+
+{
+  "error": null,
+  "id": 1234,
+  "result": {
+    "askEp": 91230000,
+    "bidEp": 91225000,
+    "fundingRateEr": 235950,
+    "highEp": 91825000,
+    "indexEp": 90955275,
+    "lastEp": 91225000,
+    "lowEp": 90800000,
+    "markEp": 91055001,
+    "openEp": 90815000,
+    "openInterest": 1986019,
+    "predFundingRateEr": 263402,
+    "symbol": "BTCUSD",
+    "timestamp": 1583554617386787208,
+    "turnoverEv": 1155678314931,
+    "volume": 105502896
+  }
+}
+```
+
+<a name="query24hrstickerallv1"/>
+
+#### 7.1.4 Query 24 Hours Ticker Summary
+
+* Request：
+```json
+GET /v1/md/ticker/24hr/all?id=<id>
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| id          | Integer| Optional. Request id                       |              |
+
+* Response:
+```
+{
+  "error": null,
+  "id": 0,
+  "result": [
+    {
+			"askEp": <ask price>,
+			"bidEp": <bid price>,
+			"openEp": <open price>,
+			"highEp": <high price>,
+			"lowEp": <low price>,
+			"lastEp": <last price>,
+			"indexEp": <index price>,
+			"markEp": <index price>,
+			"openInterest": <open interest>,
+			"fundingRateEr": <funding rate>,
+			"predFundingRateEr": <predicated funding rate>,
+			"timestamp": "<timestamp>",
+			"symbol": "<symbol>",
+			"turnover": <turnover>,
+			"volume": <volume>
+		}
+  ]
+}
+```
+
+| Field       | Type   | Description                                | Possible values |
+|-------------|--------|--------------------------------------------|--------------|
+| ask price   | Integer| Latest scaled ask price                    |              |
+| bid price   | Integer| Latest scaled bid price                    |              |
+| open price  | Integer| Scaled open price in last 24 hours         |              |
+| high price  | Integer| Scaled highest price in last 24 hours      |              |
+| low price   | Integer| Scaled lowest price in last 24 hours       |              |
+| last price  | Integer| Scaled last price in last 24 hours         |              |
+| index price | Integer| Scaled index price                         |              |
+| mark price  | Integer| Scaled mark price                          |              |
+| open interest| Integer| current open interest                     |              |
+| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| funding rate| Integer| Scaled funding rate                        |              |
+| predicated funding rate| Integer| Scaled predicated funding rate  |              |
+| timestamp   | Integer| Timestamp in nanoseconds                   |              |
+| turnover    | Integer| The scaled turnover value in last 24 hours |              |
+| volume      | Integer| Symbol trade volume in last 24 hours       |              |
+
+
+* Sample：
+```json
+GET /v1/md/ticker/24hr/all
+
+{
+  "error": null,
+  "id": 1234,
+  "result": [
+    {
+      "askEp": 91175000,
+      "bidEp": 91170000,
+      "fundingRateEr": 235950,
+      "highEp": 91825000,
+      "indexEp": 90888300,
+      "lastEp": 91175000,
+      "lowEp": 90800000,
+      "markEp": 90981511,
+      "openEp": 90815000,
+      "openInterest": 1986019,
+      "predFundingRateEr": 264999,
+      "symbol": "BTCUSD",
+      "timestamp": 1583555482434187069,
+      "turnoverEv": 1158643084026,
+      "volume": 105773279
+    },
+    {
+      "askEp": 2443000,
+      "bidEp": 2442000,
+      "fundingRateEr": 210102,
+      "highEp": 2469000,
+      "indexEp": 2435050,
+      "lastEp": 2441000,
+      "lowEp": 2290000,
+      "markEp": 2437273,
+      "openEp": 2293500,
+      "openInterest": 926113,
+      "predFundingRateEr": 254756,
+      "symbol": "ETHUSD",
+      "timestamp": 1583555482434235628,
+      "turnoverEv": 79922947694,
+      "volume": 6691863
+    }
+  ]
+}
 ```
 
 <a name="wsapi"/>
@@ -2323,7 +2724,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 | Field       | Type   | Description      | Possible values |
 |-------------|--------|------------------|-----------------|
 | timestamp         | Integer| Last update timestamp in nanoseconds ||
-| symbol            | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD, LINKUSD |
+| symbol            | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
 | 24h open price    | Integer| Open price for last 24 hours |                 |
 | 24h highest price | Integer| Highest price in last 24 hours |                 |
 | 24h lowest price  | Integer| Lowest price in last 24 hours |                 |
