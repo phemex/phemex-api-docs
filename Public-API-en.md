@@ -1358,14 +1358,19 @@ GET /md/ticker/24hr?symbol=BTCUSD
   "error": null,
   "id": 0,
   "result": {
-    "open": 78025000,
-    "high": 82580000,
-    "low": 76835000,
-    "close": 81775000,
-    "openInterest": 2080077,
+    "close": 87425000,
+    "fundingRate": 10000,
+    "high": 92080000,
+    "indexPrice": 87450676,
+    "low": 87130000,
+    "markPrice": 87453092,
+    "open": 90710000,
+    "openInterest": 7821141,
+    "predFundingRate": 7609,
     "symbol": "BTCUSD",
-    "turnover": 701493973632,
-    "volume": 55033491
+    "timestamp": 1583646442444219017,
+    "turnover": 1399362834123,
+    "volume": 125287131
   }
 }
 ```
@@ -1880,7 +1885,7 @@ GET /v1/md/orderbook?symbol=BTCUSD
     "depth": 30,
     "sequence": 455476965,
     "symbol": "BTCUSD",
-    "timestmap": 1583552267253988998,
+    "timestamp": 1583552267253988998,
     "type": "snapshot"
   }
 }
@@ -2348,6 +2353,7 @@ On each successful subscription, DataGW will immediately send the current Order 
   },
   "depth": <depth>,
   "sequence": <sequence>,
+  "timestamp": <timestamp>,
   "symbol": "<symbol>",
 
 ```
@@ -2707,14 +2713,17 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 #### 24 Hours Ticker Message Format：
 
-```
 {
   "market24h": {
-    "close": <24h close priceEp>,
-    "high": <24h highest priceEp>,
-    "low": <24h lowest priceEp>,
-    "open": <24h open priceEp>,
+    "open": <open priceEp>,
+    "high": <high priceEp>,
+    "low": <low priceEp>,
+    "close": <close priceEp>,
+    "indexPrice": <index priceEp>,
+    "markPrice": <mark priceEp>,
     "openInterest": <open interest>,
+    "fundingRate": <funding rateEr>,
+    "predFundingRate": <predicated funding rateEr>,
     "symbol": "<symbol>",
     "turnover": <turnoverEv>,
     "volume": <volume>
@@ -2723,31 +2732,40 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-| Field               | Type   | Description      | Possible values |
-|---------------------|--------|------------------|-----------------|
-| timestamp           | Integer| Last update timestamp in nanoseconds ||
-| symbol              | String | Contract symbol name    | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
-| 24h open priceEp    | Integer| Scaled open price for last 24 hours |                 |
-| 24h highest priceEp | Integer| Scaled highest price in last 24 hours |                 |
-| 24h lowest priceEp  | Integer| Scaled lowest price in last 24 hours |                 |
-| 24h close priceEp   | Integer| Scaled close price for last 24 hours |                 |
-| 24h turnoverEv      | Integer| Scaled turnover for last 24 hours |                 |
-| 24h volume          | Integer| Volume for last 24 hours |                 |
-| open interest       | Integer| Current open interest for the related symbol|                 |
+| Field         | Type   | Description                                | Possible values |
+|---------------|--------|--------------------------------------------|--------------|
+| open priceEp  | Integer| The scaled open price in last 24 hours     |              |
+| high priceEp  | Integer| The scaled highest price in last 24 hours  |              |
+| low priceEp   | Integer| The scaled lowest price in last 24 hours   |              |
+| close priceEp | Integer| The scaled close price in last 24 hours    |              |
+| index priceEp | Integer| Scaled index price                         |              |
+| mark priceEp  | Integer| Scaled mark price                          |              |
+| open interest | Integer| current open interest                      |              |
+| funding rateEr| Integer| Scaled funding rate                        |              |
+| predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
+| timestamp     | Integer| Timestamp in nanoseconds                   |              |
+| symbol        | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
+| volume        | Integer| Symbol trade volume in last 24 hours       |              |
   
 * Sample:
 
 ```json
 < {
   "market24h": {
-    "close": 70485000,
-    "high": 71465000,
-    "low": 70225000,
-    "open": 71300000,
-    "openInterest": 153502,
+    "close": 87425000,
+    "fundingRate": 10000,
+    "high": 92080000,
+    "indexPrice": 87450676,
+    "low": 87130000,
+    "markPrice": 87453092,
+    "open": 90710000,
+    "openInterest": 7821141,
+    "predFundingRate": 7609,
     "symbol": "BTCUSD",
-    "turnover": 62419527476,
-    "volume": 4419810
+    "timestamp": 1583646442444219017,
+    "turnover": 1399362834123,
+    "volume": 125287131
   },
   "timestamp": 1576490244024818000
 }
