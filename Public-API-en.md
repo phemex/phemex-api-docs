@@ -262,7 +262,7 @@ GET /v1/exchange/public/products
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | String | Contract Symbol name                       | BTCUSD, ETHUSD, XRPUSD |
+| symbol               | String | Contract Symbol name                       | [Trading symbols](#symbpricesub) |
 | underlyingSymbol     | String | The underlying index symbol                | .BTC, .ETH, .XRP       |
 | quoteCurrency        | String | The currency for price quoting             | USD                    |
 | settlementCurrency   | String | The settlement currency                    | BTC, USD               |
@@ -399,7 +399,7 @@ POST /orders
 
 | Field | Type | Required | Description | Possible values |
 |-------|-------|--------|--------------|-----------------|
-| symbol | String | Yes | Which symbol to place order | BTCUSD, ETHUSD, XRPUSD .. | 
+| symbol | String | Yes | Which symbol to place order | [Trading symbols](#symbpricesub) | 
 | clOrdID | String | Yes | client order id, max length is 40| |
 | side |  Enum | Yes | Order direction, Buy or Sell | Buy, Sell | 
 | orderQty | Integer | Yes | Order quntity | |
@@ -578,7 +578,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 
 | Field       | Type   | Required  | Description                    | Possible values         |
 |-------------|--------|-----------|--------------------------------|-------------------------|
-| symbol      | String | Yes       | which Symbol to cancel         | BTCUSD,ETHUSD,XRPUSD,LINKUSD.. |
+| symbol      | String | Yes       | which Symbol to cancel         | [Trading symbols](#symbpricesub) |
 | untriggerred| Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
 | text        | comments| No       | comments of this operation, limited to 40 characters  |  |
 
@@ -689,7 +689,7 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
+| symbol               | string | which postion needs to change              | [Trading symbols](#symbpricesub) |
 | leverage             | integer   | unscaled leverage                       |  |
 | leverageEr           | integer   | ratio scaled leverage, leverage wins when both leverage and leverageEr provided|  |
 
@@ -714,7 +714,7 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
+| symbol               | string | which postion needs to change              | [Trading symbols](#symbpricesub) |
 | riskLimit             | integer   | unscaled value, reference BTC/USD value scale   |  |
 | riskLimitEv           | integer   | value scaled risklimit, riskLimitEv wins when both riskLimit and riskLimitEv provided|  |
 
@@ -732,7 +732,7 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 ```
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol               | string | which postion needs to change              | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
+| symbol               | string | which postion needs to change              | [Trading symbols](#symbpricesub) |
 | posBalance             | integer   | unscaled value                       |  |
 | posBalanceEv           | integer   | value scaled for position balance, posBalanceEv wins when both posBalance and posBalanceEv provided|  |
 
@@ -876,7 +876,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
+| symbol | String | which symbol needs to query | [Trading symbols](#symbpricesub) |
 | start  | Integer | start time range, Epoch millis | |
 | end  | Integer | end time range, Epoch millis | |
 | offset | Integer | offset to resultset | | 
@@ -1132,7 +1132,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1177,7 +1177,7 @@ GET /md/orderbook?symbol=<symbol>&id=<id>
 | priceEp     | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
 ```json
@@ -1230,7 +1230,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1265,7 +1265,7 @@ GET /md/trade?symbol=<symbol>&id=<id>
 | priceEp     | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
 ```json
@@ -1308,7 +1308,7 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1346,7 +1346,7 @@ GET /md/ticker/24hr?symbol=<symbol>&id=<id>
 | funding rateEr| Integer| Scaled funding rate                        |              |
 | predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| symbol        | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
 | volume        | Integer| Symbol trade volume in last 24 hours       |              |
 
@@ -1805,7 +1805,7 @@ GET /v1/md/orderbook?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1850,7 +1850,7 @@ GET /v1/md/orderbook?symbol=<symbol>&id=<id>
 | priceEp     | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
 ```json
@@ -1903,7 +1903,7 @@ GET /v1/md/trade?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -1940,7 +1940,7 @@ GET /v1/md/trade?symbol=<symbol>&id=<id>
 | priceEp     | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
 ```json
@@ -1985,7 +1985,7 @@ GET /v1/md/ticker/24hr?symbol=<symbol>&id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -2023,8 +2023,8 @@ GET /v1/md/ticker/24hr?symbol=<symbol>&id=<id>
 | last priceEp  | Integer| Scaled last price in last 24 hours         |              |
 | index priceEp | Integer| Scaled index price                         |              |
 | mark priceEp  | Integer| Scaled mark price                          |              |
-| open interest | Integer| current open interest                     |              |
-| symbol        | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| open interest | Integer| current open interest                      |              |
+| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | funding rateEr| Integer| Scaled funding rate                        |              |
 | predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
@@ -2069,7 +2069,7 @@ GET /v1/md/ticker/24hr/all?id=<id>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | id          | Integer| Optional. Request id                       |              |
 
 * Response:
@@ -2109,8 +2109,8 @@ GET /v1/md/ticker/24hr/all?id=<id>
 | last priceEp  | Integer| Scaled last price in last 24 hours         |              |
 | index priceEp | Integer| Scaled index price                         |              |
 | mark priceEp  | Integer| Scaled mark price                          |              |
-| open interest | Integer| current open interest                     |              |
-| symbol        | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| open interest | Integer| current open interest                      |              |
+| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | funding rateEr| Integer| Scaled funding rate                        |              |
 | predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
@@ -2744,7 +2744,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 | funding rateEr| Integer| Scaled funding rate                        |              |
 | predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| symbol        | String | Contract symbol name                       | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD |
+| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
 | turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
 | volume        | Integer| Symbol trade volume in last 24 hours       |              |
   
