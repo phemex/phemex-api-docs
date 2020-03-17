@@ -203,6 +203,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | LINKUSD| 10,000      | 100,000,000 |      10,000 |
 | XTZUSD | 10,000      | 100,000,000 |      10,000 |
 | LTCUSD | 10,000      | 100,000,000 |      10,000 |
+| GOLDUSD| 10,000      | 100,000,000 |      10,000 |
 
 <a name="restapilist"/>
 
@@ -751,7 +752,7 @@ GET /orders/activeList?symbol=<symbol>
 
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
-| symbol | String | which symbol needs to query | BTCUSD, ETHUSD, XRPUSD, LINKUSD, XTZUSD, LTCUSD .. |
+| symbol | String | which symbol needs to query | [Trading symbols](#symbpricesub)  |
 
 
 * Response
@@ -2791,6 +2792,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | LINKUSD| .LINK        | .MLINK       | .LINKFR                        | .LINKFR8H|
    | XTZUSD | .XTZ         | .MXTZ        | .XTZFR                         | .XTZFR8H |
    | LTCUSD | .LTC         | .MLTC        | .LTCFR                         | .LTCFR8H |
+   | GOLDUSD| .GOLD        | .MGOLD       | .GOLDFR                        | .GOLDFR8H|
 
 
 * Request
