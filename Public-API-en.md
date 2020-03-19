@@ -137,7 +137,7 @@ Every HTTP Rest Request must have the following Headers:
 
 ## 3. API Rate Limits
 
-* Every Client has the API call rate limit as 200 per minute.
+* Every Client has the API call rate limit as 500 per minute.
 * Every HTTP Rest response will contain a `X-RateLimit-Remaining` header which has the remain request count in this round.
 * When client gets HTTP RESPONSE Code 429 means it reached limit, `X-RateLimit-Retry-After` header means the seconds that client should wait before next round.
 
