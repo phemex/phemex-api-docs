@@ -316,7 +316,8 @@ GET /v1/exchange/public/products
       "makerFeeRateEr": -250000,
       "takerFeeRateEr": 750000,
       "fundingInterval": 8,
-      "description": "BTCUSD is a BTC/USD perpetual contract priced on the .BTC Index. Each contract is worth 1 USD of Bitcoin. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+      "description": "BTCUSD is a BTC/USD perpetual contract priced on the .BTC Index. Each contract is worth 1 USD of Bitcoin. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00.",
+      "type": "Perpetual"
     },
     {
       "symbol": "ETHUSD",
@@ -340,7 +341,8 @@ GET /v1/exchange/public/products
       "makerFeeRateEr": -250000,
       "takerFeeRateEr": 750000,
       "fundingInterval": 8,
-      "description": "ETHUSD is a ETH/USD perpetual contract priced on the .ETH Index. Each contract is worth 0.005 ETH of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+      "description": "ETHUSD is a ETH/USD perpetual contract priced on the .ETH Index. Each contract is worth 0.005 ETH of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00.",
+      "type": "Perpetual"
     },
     {
       "symbol": "XRPUSD",
@@ -364,7 +366,8 @@ GET /v1/exchange/public/products
       "makerFeeRateEr": -250000,
       "takerFeeRateEr": 750000,
       "fundingInterval": 8,
-      "description": "XRPUSD is a XRP/USD perpetual contract priced on the .XRP Index. Each contract is worth 5 XRP of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00."
+      "description": "XRPUSD is a XRP/USD perpetual contract priced on the .XRP Index. Each contract is worth 5 XRP of USD. Funding is paid and received every 8 hours. At UTC time: 00:00, 08:00, 16:00.",
+      "type": "Perpetual"
     }
   ]
 }
