@@ -252,7 +252,8 @@ GET /v1/exchange/public/products
       "makerFeeRateEr": <makerFeeRateEr>,
       "takerFeeRateEr": <takerFeeRateEr>,
       "fundingInterval": <fundingInterval>,
-      "description": "<description>"
+      "description": "<description>",
+      "type": "<type>"
     },
     ...
     ...
@@ -285,6 +286,7 @@ GET /v1/exchange/public/products
 | takerFeeRateEr       | Integer| Scaled taker fee ratio                     |                        |
 | fundingInterval      | Integer| Funding interval in hours                  | 8                      |
 | description          | String | Contract description                       |                        |
+| type                 | String | Product type                               | Perpetual              |
 
 * Sample：
 ```json
@@ -394,7 +396,9 @@ POST /orders
   "pegPriceType": "UNSPECIFIED",
   "timeInForce": "GoodTillCancel",
   "takeProfitEp": 0,
-  "stopLossEp": 0
+  "stopLossEp": 0,
+  "pegOffsetValueEp": 0,
+  "pegPriceType": "UNSPECIFIED"
 }
 ```
 
@@ -412,7 +416,9 @@ POST /orders
 | closeOnTrigger | Boolean | - | implicitly reduceOnly, plus cancel other orders in the same direction(side) when necessary | true, false|
 | takeProfitEp | Integer | - | Scaled take profit price | |
 | stopLossEp | Integer | - | Scaled stop loss price | | 
-| triggerType | Enum | - | trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByIndexPrice, ByLastPrice |
+| triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByIndexPrice, ByLastPrice |
+| pegOffsetValueEp | Integer | - | Trailing offset from current price. Negative value when position is long, positive when position is short | |
+| pegPriceType | Enum | - | Peg price type |TrailingStopPeg, TrailingTakeProfitPeg |
 | text | String | No | order comments | | 
 
 
@@ -475,7 +481,7 @@ POST /orders
 
 ```
 PUT
-/orders/replace?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clOrdID=<clOrdID>&price=<price>&priceEp=<priceEp>&orderQty=<orderQty>&stopPx=<stopPx>&stopPxEp=<stopPxEp>&takeProfit=<takeProfit>&takeProfitEp=<takeProfitEp>&stopLoss=<stopLoss>&stopLossEp=<stopLossEp>&pegOffset=<pegOffset>&pegOffsetEp=<pegOffsetEp>
+/orders/replace?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clOrdID=<clOrdID>&price=<price>&priceEp=<priceEp>&orderQty=<orderQty>&stopPx=<stopPx>&stopPxEp=<stopPxEp>&takeProfit=<takeProfit>&takeProfitEp=<takeProfitEp>&stopLoss=<stopLoss>&stopLossEp=<stopLossEp>&pegOffsetValueEp=<pegOffsetValueEp>&pegPriceType=<pegPriceType>
 ```
 
 | Field  | Required | Description |
@@ -493,6 +499,8 @@ PUT
 | takeProfitEp | No | new stop profit price with scale |
 | stopLoss | No | new stop loss price |
 | stopLossEp | No | new stop loss price with scale |
+| pegOffsetValueEp | No | New trailing offset |
+| pegPriceType | No | New peg price type |
 
 
 * Response
