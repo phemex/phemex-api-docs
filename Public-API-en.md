@@ -419,7 +419,7 @@ POST /orders
 | closeOnTrigger | Boolean | - | implicitly reduceOnly, plus cancel other orders in the same direction(side) when necessary | true, false|
 | takeProfitEp | Integer | - | Scaled take profit price | |
 | stopLossEp | Integer | - | Scaled stop loss price | | 
-| triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByIndexPrice, ByLastPrice |
+| triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByLastPrice |
 | pegOffsetValueEp | Integer | - | Trailing offset from current price. Negative value when position is long, positive when position is short | |
 | pegPriceType | Enum | - | Peg price type |TrailingStopPeg, TrailingTakeProfitPeg |
 | text | String | No | order comments | | 
