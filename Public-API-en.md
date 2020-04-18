@@ -12,7 +12,9 @@
     * [Signature Example 1: HTTP GET Request](#signatureexample1)
     * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
     * [Signature Example 3: HTTP POST Request](#signatureexample3)
-  * [Price/Ratio/Value Scales](#scalingfactors)
+  * [Request/Response field explained](#fieldexplained)
+    * [Price/Ratio/Value Scales](#scalingfactors)
+    * [Common constants](#commconsts)
   * [REST API List (version 0)](#restapilist)
     * [Market API List (Version 1 & Version 0)](#marketapilist)
       * [Query Product Information (Version 1 & Version 0)](#queryproductinfo)
@@ -186,9 +188,12 @@ Every HTTP Rest Request must have the following Headers:
    * Signature: HMacSha256( /orders + 1575735514 + {"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0})
    * signed string is `/orders1575735514{"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0}`
 
-<a name="scalingfactors"/>
 
-## 5. Price/Ratio/Value Scales
+## 5. Request/response field explained
+<a name="fieldexplained"/>
+
+### 5.1 Price/Ratio/Value Scales
+<a name="scalingfactors"/>
 
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
 * Fields with post-fix "Ep" are scaled prices
@@ -204,6 +209,64 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | XTZUSD | 10,000      | 100,000,000 |      10,000 |
 | LTCUSD | 10,000      | 100,000,000 |      10,000 |
 | GOLDUSD| 10,000      | 100,000,000 |      10,000 |
+
+<a name="commconsts"/>
+
+### 5.2 Common constants
+
+* order type
+
+| order type | description |
+|-----------|-------------|
+| Limit | -- |
+| Market | -- |
+| Stop | -- |
+| StopLimit | -- |
+| MarketIfTouched | -- |
+| LimitIfTouched | -- |
+| MarketAsLimit | -- |
+| StopAsLimit | -- |
+| MarketIfTouchedAsLimit | -- |
+
+
+* order Status
+
+| order status | description | 
+|------------|-------------|
+| Untriggered | Conditional order waiting to be triggered |
+| Triggered | Conditional order being triggered|
+| Rejected | Order rejected |
+| New | Order placed in cross engine |
+| PartiallyFilled | Order partially filled |
+| Filled | Order fully filled |
+| Canceled | Order canceled |
+
+* TimeInForce
+
+| timeInForce | description |
+|------------|-------------|
+| GoodTillCancel | -- |
+| PostOnly | -- |
+| ImmediateOrCancel | -- |
+| FillOrKill | -- |
+
+
+* Execution instruction
+
+| Execution instruction | description |
+|------------|-------------|
+| ReduceOnly | reduce position size, never increase position size |
+| CloseOnTrigger | close the position  |
+
+
+* Trigger source
+
+| trigger | description |
+|------------|-------------|
+| ByMarkPrice | trigger by mark price|
+| ByIndexPrice | trigger by index price |
+| ByLastPrice | trigger by last price |
+
 
 <a name="restapilist"/>
 
@@ -446,9 +509,7 @@ POST /orders
             "displayQty": 1,
             "timeInForce": null,
             "reduceOnly": false,
-            "takeProfitEp": 0,
-            "takeProfit": 0,
-            "stopLossEp": 0,
+            "stopPxEp": 0,
             "closedPnlEv": 0,
             "closedPnl": 0,
             "closedSize": 0,
@@ -458,7 +519,7 @@ POST /orders
             "leavesQty": 1,
             "leavesValueEv": 10104,
             "leavesValue": 0.00010104,
-            "stopLoss": 0,
+            "stopPx": 0,
             "stopDirection": "UNSPECIFIED",
             "ordStatus": "Created"
         }
@@ -542,9 +603,7 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
             "displayQty": 1,
             "timeInForce": null,
             "reduceOnly": false,
-            "takeProfitEp": 0,
-            "takeProfit": 0,
-            "stopLossEp": 0,
+            "stopPxEp": 0,
             "closedPnlEv": 0,
             "closedPnl": 0,
             "closedSize": 0,
@@ -554,7 +613,7 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
             "leavesQty": 1,
             "leavesValueEv": 12493,
             "leavesValue": 0.00012493,
-            "stopLoss": 0,
+            "stopPx": 0,
             "stopDirection": "UNSPECIFIED",
             "ordStatus": "New"
         }
@@ -790,9 +849,7 @@ GET /orders/activeList?symbol=<symbol>
                 "displayQty": 1,
                 "timeInForce": null,
                 "reduceOnly": false,
-                "takeProfitEp": 0,
-                "takeProfit": 0,
-                "stopLossEp": 0,
+                "stopPxEp": 0,
                 "closedPnlEv": 0,
                 "closedPnl": 0,
                 "closedSize": 0,
@@ -802,7 +859,7 @@ GET /orders/activeList?symbol=<symbol>
                 "leavesQty": 0,
                 "leavesValueEv": 0,
                 "leavesValue": 0,
-                "stopLoss": 0,
+                "stopPx": 0,
                 "stopDirection": "Falling",
                 "ordStatus": "Untriggered"
             },
@@ -821,9 +878,7 @@ GET /orders/activeList?symbol=<symbol>
                 "displayQty": 1,
                 "timeInForce": null,
                 "reduceOnly": false,
-                "takeProfitEp": 0,
-                "takeProfit": 0,
-                "stopLossEp": 0,
+                "stopPxEp": 0,
                 "closedPnlEv": 0,
                 "closedPnl": 0,
                 "closedSize": 0,
@@ -833,7 +888,7 @@ GET /orders/activeList?symbol=<symbol>
                 "leavesQty": 1,
                 "leavesValueEv": 10096,
                 "leavesValue": 0.00010096,
-                "stopLoss": 0,
+                "stopPx": 0,
                 "stopDirection": "UNSPECIFIED",
                 "ordStatus": "New"
             },
@@ -852,9 +907,7 @@ GET /orders/activeList?symbol=<symbol>
                 "displayQty": 1,
                 "timeInForce": null,
                 "reduceOnly": false,
-                "takeProfitEp": 0,
-                "takeProfit": 0,
-                "stopLossEp": 0,
+                "stopPxEp": 0,
                 "closedPnlEv": 0,
                 "closedPnl": 0,
                 "closedSize": 0,
@@ -864,7 +917,7 @@ GET /orders/activeList?symbol=<symbol>
                 "leavesQty": 1,
                 "leavesValueEv": 12493,
                 "leavesValue": 0.00012493,
-                "stopLoss": 0,
+                "stopPx": 0,
                 "stopDirection": "UNSPECIFIED",
                 "ordStatus": "New"
             }
