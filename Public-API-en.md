@@ -264,7 +264,6 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | trigger | description |
 |------------|-------------|
 | ByMarkPrice | trigger by mark price|
-| ByIndexPrice | trigger by index price |
 | ByLastPrice | trigger by last price |
 
 
