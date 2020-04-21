@@ -2426,8 +2426,7 @@ On each successful subscription, DataGW will immediately send the current Order 
 |-------------|--------|------------------|-----------------|
 | side        | String | Price level side | bid, ask        |
 | priceEp     | Integer| Scaled price     |                 |
-| qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates price level deletion. **Note: to ensure order book's correctness, client should ensure your rebuilt order book's depth not exceed the given depth.**
- |                 |
+| qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates price level deletion. |                 |
 | sequence    | Integer| Latest message sequence |          |
 | depth       | Integer| Market depth     |                 |
 | type        | String | Message type     | snapshot, incremental |
