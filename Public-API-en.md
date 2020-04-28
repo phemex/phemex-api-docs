@@ -36,6 +36,7 @@
       * [Query Order Book](#queryorderbook)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
+      * [Query History Trades](#queryhisttrades)
     * [Asset API List](#assetapilist)
       * [Query client and wallets](#clientwalletquery)
       * [Transfer self balance to parent or subclients](#walletransferout)
@@ -1437,6 +1438,67 @@ GET /md/ticker/24hr?symbol=BTCUSD
     "volume": 125287131
   }
 }
+```
+
+<a name="queryhisttrades"/>
+
+#### 6.3.4 Query History Trades By symbol
+   * Query History trades by symbol
+   * RateLimit of this api is 5 per second
+
+```
+GET /exchange/public/nomics/trades?market=<symbol>&since=<since>
+```
+
+| Field  | Type     | Description                                                       | Possible values                   |
+|--------|----------|-------------------------------------------------------------------|-----------------------------------|
+| market | String   | the market of symbol                                              |[Trading symbols](#scalingfactors) |
+| since  | String   | Last id of response field, 0-0-0 is from the very initial trade   |                                   |
+
+* Response
+
+```
+{
+    "code": 0,
+        "data": [
+        {
+            "id": "string",
+            "amount_quote": "string",
+            "price": "string",
+            "side": "string",
+            "timestamp": "string",
+            "type": "string"
+        }
+        ],
+        "msg": "string"
+}
+```
+
+* Sample
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": [
+        {
+            "id": "1183-3-2",
+            "timestamp": "2019-11-24T08:32:17.046Z",
+            "price": "7211.00000000",
+            "amount_quote": "1",
+            "side": "sell",
+            "type": "limit"
+        },
+        {
+            "id": "1184-2-1",
+            "timestamp": "2019-11-24T08:32:17.047Z",
+            "price": "7211.00000000",
+            "amount_quote": "1",
+            "side": "buy",
+            "type": "limit"
+        }]
+}
+
 ```
 
 <a name="assetapilist"/>
