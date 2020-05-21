@@ -92,11 +92,11 @@
 
 <a name="restresponse"/>
 
-## 1 Restful API Response
+## Restful API Response
 
 <a name="httpreturncodes"/>
 
-### 1.1 HTTP Return Codes
+### HTTP Return Codes
 
 * HTTP `401` return code is used when unauthenticated
 * HTTP `403` return code is used when lack of priviledge.
@@ -105,7 +105,7 @@
 
 <a name="responseformat"/>
 
-### 1.2 Rest Response format
+### Rest Response format
 
    * All restful API except ***starting*** with `/md` shares same response format.
 
@@ -126,11 +126,11 @@
 
 <a name="errorcode"/>
 
-### 1.3 Error codes
+### Error codes
 
 [Trading Error Codes](TradingErrorCode.md)
 
-## 2. HTTP REST Request Header 
+## HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
 * x-phemex-access-token : This is ***API-KEY*** (id field) from Phemex site.
@@ -140,7 +140,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="apiratelimits"/>
 
-## 3. API Rate Limits
+## API Rate Limits
 
 * Every Client has the API call rate limit as 500 per minute.
 * Every HTTP Rest response will contain a `X-RateLimit-Remaining` header which has the remain request count in this round.
@@ -149,7 +149,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="securitytype"/>
 
-## 4. Endpoint security type
+## Endpoint security type
 
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
 * Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
@@ -158,7 +158,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample1"/>
 
-### 4.1 Signature Example 1: HTTP GET Request
+### Signature Example 1: HTTP GET Request
 
 * API REST Request URL: https://api.phemex.com/accounts/accountPositions?currency=BTC
    * Request Path: /accounts/accountPositions
@@ -169,7 +169,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample2"/>
 
-### 4.2 Singature Example 2: HTTP GET Request with multiple query string
+### Singature Example 2: HTTP GET Request with multiple query string
 
 * API REST Request URL: https://api.phemex.com/orders/activeList?ordStatus=New&ordStatus=PartiallyFilled&ordStatus=Untriggered&symbol=BTCUSD 
     * Request Path: /orders/activeList
@@ -181,7 +181,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample3"/>
 
-### 4.3 Signature Example 3: HTTP POST Request
+### Signature Example 3: HTTP POST Request
 
 * API REST Request URL: https://api.phemex.com/orders
    * Request Path: /orders
@@ -192,10 +192,10 @@ Every HTTP Rest Request must have the following Headers:
    * signed string is `/orders1575735514{"symbol":"BTCUSD","clOrdID":"uuid-1573058952273","side":"Sell","priceEp":93185000,"orderQty":7,"ordType":"Limit","reduceOnly":false,"timeInForce":"GoodTillCancel","takeProfitEp":0,"stopLossEp":0}`
 
 
-## 5. Request/response field explained
+## Request/response field explained
 <a name="fieldexplained"/>
 
-### 5.1 Price/Ratio/Value Scales
+### Price/Ratio/Value Scales
 <a name="scalingfactors"/>
 
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
@@ -215,7 +215,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 <a name="commconsts"/>
 
-### 5.2 Common constants
+### Common constants
 
 * order type
 
@@ -272,15 +272,15 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 <a name="restapilist"/>
 
-## 6. REST API List
+## REST API List
 
 <a name="marketapilist"/>
 
-### 6.1 Market API List (Version 1 & Version 0)
+### Market API List (Version 1 & Version 0)
 
 <a name="queryproductinfo"/>
 
-#### 6.1.1 Query Product Information (Version 1 & Version 0)
+#### Query Product Information (Version 1 & Version 0)
 
 * Request：
 ```json
@@ -440,11 +440,11 @@ GET /v1/exchange/public/products
 
 <a name="orderapilist"/>
 
-### 6.2 Trade API List
+### Trade API List
 
 <a name="placeorder"/>
 
-#### 6.2.1 Place Order 
+#### Place Order 
 
 * HTTP Request:
 
@@ -541,7 +541,7 @@ POST /orders
 
 <a name="amendorder"/>
 
-#### 6.2.2 Amend order by orderID
+#### Amend order by orderID
 
 * Request
 
@@ -575,7 +575,7 @@ PUT
 
 <a name="cancelsingleorder"/>
 
-#### 6.2.3 Cancel Single Order
+#### Cancel Single Order
 
 * Request
 ```
@@ -626,7 +626,7 @@ DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
 
 <a name="cancelorder"/>
 
-#### 6.2.4 Bulk Cancel Orders
+#### Bulk Cancel Orders
 
 * Request
 ```
@@ -638,7 +638,7 @@ DELETE /orders?symbol=<symbol>&orderID=<orderID1>,<orderID2>,<orderID3>
 
 <a name="cancelall"/>
 
-#### 6.2.5 Cancel All Orders
+#### Cancel All Orders
    * In order to cancel all orders, include conditional order and active order, one must invoke this API twice with different arguments.
    * `untriggered=false` to cancel active order including triggerred conditional order.
    * `untriggered=true` to cancel conditional order, the order is not triggerred.
@@ -660,7 +660,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 
 <a name="querytradeaccount"/>
 
-#### 6.2.6 Query trading account and positions
+#### Query trading account and positions
 
 * Request
 
@@ -752,7 +752,7 @@ GET /accounts/accountPositions?currency=<currency>
 
 <a name="changeleverage"/>
 
-#### 6.2.7 Change leverage
+#### Change leverage
 
 * Request
 
@@ -778,7 +778,7 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 
 <a name = "changerisklimit"/>
 
-#### 6.2.8 Change position risklimit
+#### Change position risklimit
 
 * Request
 
@@ -793,7 +793,7 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 
 <a name="assignposbalance"/>
 
-#### 6.2.9 Assign position balance in isolated marign mode
+#### Assign position balance in isolated marign mode
 
 * Request
 
@@ -811,7 +811,7 @@ POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<pos
 
 <a name="queryopenorder"/>
 
-#### 6.2.10 Query open orders by symbol
+#### Query open orders by symbol
 
    * Order status includes `New`, `PartiallyFilled`, `Filled`, `Canceled`, `Rejected`, `Triggered`, `Untriggered`;
    * Open order status includes `New`, `PartiallyFilled`, `Untriggered`;
@@ -931,7 +931,7 @@ GET /orders/activeList?symbol=<symbol>
 
 <a name="queryorder"/>
 
-#### 6.2.11 Query closed orders by symbol
+#### Query closed orders by symbol
 
 * This API is for ***closed*** orders. For open orders, please use [open order query](#queryopenorder)
 
@@ -1027,7 +1027,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 
 <a name="queryorderbyid"/>
 
-#### 6.2.12 Query user order by orderID or Query user order by client order ID
+#### Query user order by orderID or Query user order by client order ID
 * Request
 
 ```
@@ -1108,7 +1108,7 @@ GET /exchange/order?symbol=<symbol>&clOrdID=<clOrdID1,clOrdID2>
 
 <a name="querytrade"/>
 
-#### 6.2.13 Query user trade
+#### Query user trade
 
 * Request
 
@@ -1186,11 +1186,11 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 
 <a name="mdapilist"/>
 
-### 6.3 Market Data API List (Version 0)
+### Market Data API List (Version 0)
 
 <a name="queryorderbook"/>
 
-#### 6.3.1 Query Order Book
+#### Query Order Book
 
 * Request：
 ```json
@@ -1288,7 +1288,7 @@ GET /md/orderbook?symbol=BTCUSD
 
 <a name="querytrades"/>
 
-#### 6.3.2 Query Recent Trades
+#### Query Recent Trades
 
 * Request：
 ```json
@@ -1366,7 +1366,7 @@ GET /md/trade?symbol=BTCUSD
 
 <a name="query24hrsticker"/>
 
-#### 6.3.3 Query 24 Hours Ticker
+#### Query 24 Hours Ticker
 
 * Request：
 ```json
@@ -1444,7 +1444,7 @@ GET /md/ticker/24hr?symbol=BTCUSD
 
 <a name="queryhisttrades"/>
 
-#### 6.3.4 Query History Trades By symbol
+#### Query History Trades By symbol
    * Query History trades by symbol
    * RateLimit of this api is 5 per second
 
@@ -1505,7 +1505,7 @@ GET /exchange/public/nomics/trades?market=<symbol>&since=<since>
 
 <a name="assetapilist"/>
 
-### 6.4 Asset API list
+### Asset API list
    * Asset includes BTC in wallets, BTC in btc-trading account, USD in usd-trading account.
    * In wallet level, Main/parent client can transfer BTC between Sub-client and main/parent client.
    * In wallet level, Sub client can *only* transfer self BTC to main/parent client wallet.
@@ -1513,7 +1513,7 @@ GET /exchange/public/nomics/trades?market=<symbol>&since=<since>
 
 <a name="clientwalletquery"/>
 
-#### 6.4.1 Query client and wallets
+#### Query client and wallets
 
 * Request
 
@@ -1598,7 +1598,7 @@ Margin fields
 
 <a name="walletransferout"/>
 
-#### 6.4.2 Main/parent-client transfer self wallet balance to sub-client wallet. (Or Subclient transfer self wallet balance to main/parent client wallet )
+#### Main/parent-client transfer self wallet balance to sub-client wallet. (Or Subclient transfer self wallet balance to main/parent client wallet )
 
 * Request
    * Main/parent can transfer its wallet balance to its own subclients.
@@ -1634,7 +1634,7 @@ Body:
 
 <a name="walletransferin"/>
 
-#### 6.4.3 Transfer from sub-client wallet. Only main/parent client has priviledge.
+#### Transfer from sub-client wallet. Only main/parent client has priviledge.
 
 * Request
 ```json
@@ -1659,7 +1659,7 @@ Body:
 
 <a name="transferwallettradingaccount"/>
 
-#### 6.4.4 Transfer between wallet and trading accounts
+#### Transfer between wallet and trading accounts
 
 * Request
 ```json
@@ -1711,7 +1711,7 @@ Body:
 
 <a name="transferwallettradingaccountquery"/>
 
-#### 6.4.5 Query wallet/tradingaccount transfer history
+#### Query wallet/tradingaccount transfer history
 
 * Request
 
@@ -1762,12 +1762,12 @@ GET /exchange/margins/transfer?start=<start>&end=<end>&offset=<offset>&limit=<li
 ```
 <a name="withdraw"/>
 
-### 6.5 Withdraw
+### Withdraw
    * Several restrictions are required for withdraw: 1. bind Google 2FA, 2. Password change out of 24hour, 3. meet minimum BTC amount requirement.
 
 <a name="requestwithdraw"/>
 
-#### 6.5.1 Request Withdraw
+#### Request Withdraw
 
 * Request
 
@@ -1834,7 +1834,7 @@ Response Fileds
 
 <a name="confirmwithdraw"/>
 
-#### 6.5.3 Confirm withdraw
+#### Confirm withdraw
 
    * After withdraw request submitted, a confirmation link is sent to registration email. The confirm code should be extracted out from the link and then passed in as url query parameter.
 
@@ -1854,7 +1854,7 @@ GET /exchange/wallets/confirm/withdraw?code=<withdrawConfirmCode>
 
 <a name="cancelwithdraw"/>
 
-#### 6.5.2 Cancel withdraw
+#### Cancel withdraw
    * Withdraw request can be canceled before mannual `review`;
 
 * Request
@@ -1869,7 +1869,7 @@ Body:
 
 <a name="listwithdraw"/>
 
-#### 6.5.4 List withdraws
+#### List withdraws
 
 * Request
 
@@ -1882,7 +1882,7 @@ GET /exchange/wallets/withdrawList?currency=<currency>&limit=<limit>&offset=<off
 
 <a name="withdrawaddrmgmt"/>
 
-#### 6.5.5 Withdraw address management
+#### Withdraw address management
    * Withdraw address management support create, remove and list. Recommend manage it from website.
 
 * Request
@@ -1915,16 +1915,16 @@ Body:
 
 <a name="restapilistv1"/>
 
-## 7. REST API List (Version 1)
+## REST API List (Version 1)
 
 
 <a name="mdapilistv1"/>
 
-### 7.1 Market Data API List
+### Market Data API List
 
 <a name="queryorderbookv1"/>
 
-#### 7.1.1 Query Order Book
+#### Query Order Book
 
 * Request：
 ```json
@@ -2022,7 +2022,7 @@ GET /v1/md/orderbook?symbol=BTCUSD
 
 <a name="querytradesv1"/>
 
-#### 7.1.2 Query Recent Trades
+#### Query Recent Trades
 
 * Request：
 ```json
@@ -2104,7 +2104,7 @@ GET /v1/md/trade?symbol=BTCUSD
 
 <a name="query24hrstickerv1"/>
 
-#### 7.1.3 Query 24 Hours Ticker
+#### Query 24 Hours Ticker
 
 * Request：
 ```json
@@ -2188,7 +2188,7 @@ GET /v1/md/ticker/24hr?symbol=BTCUSD
 
 <a name="query24hrstickerallv1"/>
 
-#### 7.1.4 Query 24 Hours Ticker Summary
+#### Query 24 Hours Ticker Summary
 
 * Request：
 ```json
@@ -2298,14 +2298,14 @@ GET /v1/md/ticker/24hr/all
 
 <a name="sessionmanagement"/>
 
-## 1. Session Management
+## Session Management
 
 * Each client is required to actively send heartbeat (ping) message to Phemex data gateway ('DataGW' in short) with interval less than 30 seconds, otherwise DataGW will drop the connection. If a client sends a ping message, DataGW will reply with a pong message.
 * Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3 heartbeat intervals*.
 
 <a name="wsapiratelimits"/>
 
-## 2 API Rate Limits
+## API Rate Limits
 
 * Each Client has concurrent connection limit to *5* in maximum.
 * Each connection has subscription limit to *20* in maximum.
@@ -2313,11 +2313,11 @@ GET /v1/md/ticker/24hr/all
 
 <a name="wsapilist"/>
 
-## 3. WebSocket API List
+## WebSocket API List
 
 <a name="heartbeat"/>
 
-### 3.1 Heartbeat
+### Heartbeat
 
 * Request：
 ```
@@ -2354,7 +2354,7 @@ GET /v1/md/ticker/24hr/all
 
 <a name="apiuserauth"/>
 
-### 3.2 API User Authentication
+### API User Authentication
 
 Market trade/orderbook are published publicly without user authentication.
 While for client private account/position/order data, the client should send user.auth message to Data Gateway to authenticate the session.
@@ -2407,7 +2407,7 @@ While for client private account/position/order data, the client should send use
 
 <a name="booksub"/>
 
-### 3.3 Subscribe OrderBook 
+### Subscribe OrderBook 
 
 On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later order book updates will be published. 
 
@@ -2506,7 +2506,7 @@ On each successful subscription, DataGW will immediately send the current Order 
 
 <a name="bookunsub"/>
 
-###  3.4 Unsubscribe OrderBook
+### Unsubscribe OrderBook
 
 It unsubscribes all orderbook related subscriptions.
 
@@ -2535,7 +2535,7 @@ It unsubscribes all orderbook related subscriptions.
 
 <a name="tradesub"/>
 
-### 3.5 Subscribe Trade
+### Subscribe Trade
 
 On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
 
@@ -2666,7 +2666,7 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 
 <a name="tradeunsub"/>
 
-### 3.6 Unsubscribe Trade
+### Unsubscribe Trade
 
 It unsubscribes all trade subscriptions or for a symbol.
 
@@ -2705,7 +2705,7 @@ It unsubscribes all trade subscriptions or for a symbol.
 
 <a name="klinesub"/>
 
-### 3.7 Subscribe Kline
+### Subscribe Kline
 
 On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all the later kline update will be published in real-time.
 
@@ -2863,7 +2863,7 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 <a name="klineunsub"/>
 
-### 3.8 Unsubscribe Kline
+### Unsubscribe Kline
 
 It unsubscribes all kline subscriptions or for a symbol.
 
@@ -2902,7 +2902,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 <a name="aopsub"/>
 
-### 3.9 Subscribe Account-Order-Position (AOP)
+### Subscribe Account-Order-Position (AOP)
 
 AOP subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends AOP messages back to client accordingly. 0 or more latest account snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a trading account information, holding positions, and open / max 100 closed / max 100 filled order event message history.
 
@@ -2975,7 +2975,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 <a name="aopunsub"/>
 
-### 3.10 Unsubscribe Account-Order-Position (AOP)
+### Unsubscribe Account-Order-Position (AOP)
 * Request：
 
 ```
@@ -3001,7 +3001,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 <a name="tickersub"/>
 
-### 3.11 Subscribe 24 Hours Ticker
+### Subscribe 24 Hours Ticker
 On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 5 seconds.
 
 * Request
@@ -3044,7 +3044,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-#### 24 Hours Ticker Message Format：
+#### Hours Ticker Message Format：
 
 {
   "market24h": {
@@ -3106,7 +3106,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 <a name="symbpricesub"/>
 
-### 3.12 Subscribe tick event for symbol price
+### Subscribe tick event for symbol price
 
    * Every trading symbol has a suite of other symbols, each symbol follows same patterns,
    i.e. `index` symbol follows a pattern `.<BASECURRENCY>`,

@@ -67,11 +67,11 @@
 
 <a name="restresponse"/>
 
-## 1 Restful API Response
+## Restful API Response
 
 <a name="httpreturncodes"/>
 
-### 1.1 HTTP Return Codes
+### HTTP Return Codes
 
 * HTTP `401` return code is used when unauthenticated
 * HTTP `403` return code is used when lack of priviledge.
@@ -80,7 +80,7 @@
 
 <a name="responseformat"/>
 
-### 1.2 Rest Response format
+### Rest Response format
 
    * All restful API except ***starting*** with `/md` shares same response format.
 
@@ -101,11 +101,11 @@
 
 <a name="errorcode"/>
 
-### 1.3 Error codes
+### Error codes
 
 [Trading Error Codes](TradingErrorCode.md)
 
-## 2. HTTP REST Request Header 
+## HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
 * x-phemex-access-token : This is ***API-KEY*** (id field) from Phemex site.
@@ -115,7 +115,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="apiratelimits"/>
 
-## 3. API Rate Limits
+## API Rate Limits
 
 * Every Client has the API call rate limit as 500 per minute.
 * Every HTTP Rest response will contain a `X-RateLimit-Remaining` header which has the remain request count in this round.
@@ -124,7 +124,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="securitytype"/>
 
-## 4. Endpoint security type
+## Endpoint security type
 
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
 * Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
@@ -133,7 +133,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample1"/>
 
-### 4.1 Signature Example 1: HTTP GET Request
+### Signature Example 1: HTTP GET Request
 
 * API REST Request URL: https://api.phemex.com/spot/wallets?currency=BTC 
    * Request Path: /spot/wallets
@@ -144,7 +144,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample2"/>
 
-### 4.2 Singature Example 2: HTTP GET Request with multiple query string
+### Singature Example 2: HTTP GET Request with multiple query string
 
 * API REST Request URL: https://api.phemex.com/spot/orders/active?symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc 
     * Request Path: /spot/orders/active
@@ -156,7 +156,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="signatureexample3"/>
 
-### 4.3 Signature Example 3: HTTP POST Request
+### Signature Example 3: HTTP POST Request
 
 * API REST Request URL: https://api.phemex.com/spot/orders
    * Request Path: /spot/orders
@@ -172,7 +172,7 @@ Every HTTP Rest Request must have the following Headers:
 
    ```
 
-## 5. Request/response field explained
+## Request/response field explained
 
 
 <a name="spotCurrencySym"/>
@@ -209,7 +209,7 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="commconsts"/>
 
-### 5.2 Common constants
+### Common constants
 
 * order type
 
@@ -257,15 +257,15 @@ Every HTTP Rest Request must have the following Headers:
 
 <a name="restapilist"/>
 
-## 6. REST API List
+## REST API List
 
 <a name="marketapilist"/>
 
-### 6.1 Market API List 
+### Market API List 
 
 <a name="queryproductinfo"/>
 
-#### 6.1.1 Query Product Information 
+#### Query Product Information 
 
 * Request：
 ```json
@@ -277,11 +277,11 @@ GET /exchange/public/cfg/v2/products
 
 <a name="mdapilist"/>
 
-### 6.3 Market Data API List
+### Market Data API List
 
 <a name="queryorderbook"/>
 
-#### 6.3.1 Query Order Book
+#### Query Order Book
 
 * Request：
 ```json
@@ -379,7 +379,7 @@ GET /md/orderbook?symbol=BTCUSD
 
 <a name="querytrades"/>
 
-#### 6.3.2 Query Recent Trades
+#### Query Recent Trades
 
 * Request：
 ```json
@@ -457,7 +457,7 @@ GET /md/trade?symbol=sBTCUSDT
 
 <a name="query24hrsticker"/>
 
-#### 6.3.3 Query 24 Hours Ticker
+#### Query 24 Hours Ticker
 
 * Request：
 ```json
@@ -526,11 +526,11 @@ GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 
 <a name="mdapilistv1"/>
 
-### 7.1 Market Data API List
+### Market Data API List
 
 <a name="queryorderbookv1"/>
 
-#### 7.1.1 Query Order Book
+#### Query Order Book
 
 * Request：
 ```json
@@ -817,14 +817,14 @@ GET /spot/wallets?currency=<currency>
 
 <a name="sessionmanagement"/>
 
-## 1. Session Management
+## Session Management
 
 * Each client is required to actively send heartbeat (ping) message to Phemex data gateway ('DataGW' in short) with interval less than 30 seconds, otherwise DataGW will drop the connection. If a client sends a ping message, DataGW will reply with a pong message.
 * Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3 heartbeat intervals*.
 
 <a name="wsapiratelimits"/>
 
-## 2 API Rate Limits
+## API Rate Limits
 
 * Each Client has concurrent connection limit to *5* in maximum.
 * Each connection has subscription limit to *20* in maximum.
@@ -832,11 +832,11 @@ GET /spot/wallets?currency=<currency>
 
 <a name="wsapilist"/>
 
-## 3. WebSocket API List
+## WebSocket API List
 
 <a name="heartbeat"/>
 
-### 3.1 Heartbeat
+### Heartbeat
 
 * Request：
 ```
@@ -873,7 +873,7 @@ GET /spot/wallets?currency=<currency>
 
 <a name="apiuserauth"/>
 
-### 3.2 API User Authentication
+### API User Authentication
 
 Market trade/orderbook are published publicly without user authentication.
 While for client private account/position/order data, the client should send user.auth message to Data Gateway to authenticate the session.
@@ -926,7 +926,7 @@ While for client private account/position/order data, the client should send use
 
 <a name="booksub"/>
 
-### 3.3 Subscribe OrderBook 
+### Subscribe OrderBook 
 
 On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later order book updates will be published. 
 
@@ -1025,7 +1025,7 @@ On each successful subscription, DataGW will immediately send the current Order 
 
 <a name="bookunsub"/>
 
-###  3.4 Unsubscribe OrderBook
+### Unsubscribe OrderBook
 
 It unsubscribes all orderbook related subscriptions.
 
@@ -1054,7 +1054,7 @@ It unsubscribes all orderbook related subscriptions.
 
 <a name="tradesub"/>
 
-### 3.5 Subscribe Trade
+### Subscribe Trade
 
 On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
 
@@ -1185,7 +1185,7 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 
 <a name="tradeunsub"/>
 
-### 3.6 Unsubscribe Trade
+### Unsubscribe Trade
 
 It unsubscribes all trade subscriptions.
 
@@ -1215,7 +1215,7 @@ It unsubscribes all trade subscriptions.
 
 <a name="klinesub"/>
 
-### 3.7 Subscribe Kline
+### Subscribe Kline
 
 On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all the later kline update will be published in real-time.
 
@@ -1373,7 +1373,7 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 <a name="klineunsub"/>
 
-### 3.8 Unsubscribe Kline
+### Unsubscribe Kline
 
 It unsubscribes all kline subscriptions or for a symbol.
 
@@ -1412,7 +1412,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 <a name="wosub"/>
 
-### 3.7 Subscribe Wallet-Order messages
+### Subscribe Wallet-Order messages
 
 WO subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends WO messages back to client accordingly. 0 or more latest WO snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a users' wallets and open / max 100 closed / max 100 filled order event message history.
 
@@ -1485,7 +1485,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 
 <a name="wounsub"/>
 
-### 3.8 Unsubscribe Wallet-Order
+### Unsubscribe Wallet-Order
 * Request：
 
 ```
@@ -1511,7 +1511,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 
 <a name="tickersub"/>
 
-### 3.9 Subscribe 24 Hours Ticker
+### Subscribe 24 Hours Ticker
 On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 5 seconds.
 
 * Request
@@ -1554,7 +1554,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-#### 24 Hours Ticker Message Format：
+#### Hours Ticker Message Format：
 
 ```
 {
@@ -1608,7 +1608,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 <a name="symbpricesub"/>
 
-### 3.10 All Trading Symbols
+### All Trading Symbols
 
    | symbol  |
    |---------|
