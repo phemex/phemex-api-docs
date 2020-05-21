@@ -66,6 +66,8 @@
     * [Unsubscribe OrderBook](#bookunsub)
     * [Subscribe Trade](#tradesub)
     * [Unsubscribe Trade](#tradeunsub)
+    * [Subscribe Kline](#klinesub)
+    * [Unsubscribe Kline](#klinesub)
     * [Subscribe Account-Order-Position (AOP)](#aopsub)
     * [Unsubscribe Account-Order-Position (AOP)](#aopunsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
@@ -2666,14 +2668,219 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 
 ### 3.6 Unsubscribe Trade
 
-It unsubscribes all trade subscriptions.
+It unsubscribes all trade subscriptions or for a symbol.
+
+* Request
+
+```
+# unsubscribe all trade subsciptions
+{
+  "id": <id>,
+  "method": "trade.unsubscribe",
+  "params": [
+  ]
+}
+
+# unsubscribe all trade subsciptions for a symbol
+{
+  "id": <id>,
+  "method": "trade.unsubscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
+```
+
+* Response:
+
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+<a name="klinesub"/>
+
+### 3.7 Subscribe Kline
+
+On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all the later kline update will be published in real-time.
 
 * Request
 
 ```
 {
   "id": <id>,
-  "method": "trade.subscribe",
+  "method": "kline.subscribe",
+  "params": [
+    "<symbol>",
+    "<interval>"
+  ]
+}
+```
+
+* Response:
+
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+* Sample:
+
+```json
+# subscribe 1-day kline
+> {
+  "id": 1234,
+  "method": "kline.subscribe",
+  "params": [
+    "BTCUSD",
+    86400
+  ]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+#### Kline Message Format：
+
+```
+{
+  "klines": [
+    [
+      <timestamp>,
+      "<interval>",
+      <lastCloseEp>,
+      <openEp>,
+      <highEp>,
+      <lowEp>,
+      <closeEp>,
+      <volume>,
+      <turnoverEv>,
+    ],
+    .
+    .
+    .
+  ],
+  "sequence": <sequence>,
+  "symbol": "<symbol>",
+  "type": "<type>"
+}
+```
+
+| Field       | Type   | Description      | Possible values |
+|-------------|--------|------------------|-----------------|
+| timestamp   | Integer| Timestamp in nanoseconds for each trade ||
+| interval    | Integer| Kline interval type      | 60, 300, 900, 1800, 3600, 14400, 86400, 604800, 2592000, 7776000, 31104000 |
+| lastCloseEp | Integer| Scaled last close price  |                 |
+| openEp      | Integer| Scaled open price        |                 |
+| highEp      | Integer| Scaled high price        |                 |
+| lowEp       | Integer| Scaled low price         |                 |
+| closeEp     | Integer| Scaled close price       |                 |
+| volume      | Integer| Trade voulme during the current kline interval ||
+| turnoverEv  | Integer| Scaled turnover value    |                 |
+| sequence    | Integer| Latest message sequence  ||
+| symbol      | String | Contract symbol name     ||
+| type        | String | Message type     |snapshot, incremental |
+  
+
+* Sample
+```json
+< {
+  "kline": [
+    [
+      1590019200,
+      86400,
+      95165000,
+      95160000,
+      95160000,
+      95160000,
+      95160000,
+      164,
+      1723413
+    ],
+    [
+      1589932800,
+      86400,
+      97840000,
+      97840000,
+      98480000,
+      92990000,
+      95165000,
+      246294692,
+      2562249857942
+    ],
+    [
+      1589846400,
+      86400,
+      97335000,
+      97335000,
+      99090000,
+      94490000,
+      97840000,
+      212484260,
+      2194232158593
+    ]
+  ],
+  "sequence": 1118993873,
+  "symbol": "BTCUSD",
+  "type": "snapshot"
+}
+
+< {
+  "kline": [
+    [
+      1590019200,
+      86400,
+      95165000,
+      95160000,
+      95750000,
+      92585000,
+      93655000,
+      84414679,
+      892414738605
+    ]
+  ],
+  "sequence": 1122006398,
+  "symbol": "BTCUSD",
+  "type": "incremental"
+}
+```
+
+<a name="klineunsub"/>
+
+### 3.8 Unsubscribe Kline
+
+It unsubscribes all kline subscriptions or for a symbol.
+
+* Request
+
+```
+# unsubscribe all Kline subscriptions
+{
+  "id": <id>,
+  "method": "kline.unsubscribe",
+  "params": []
+}
+
+# unsubscribe all Kline subscriptions of a symbol
+{
+  "id": <id>,
+  "method": "kline.unsubscribe",
   "params": [
     "<symbol>"
   ]
@@ -2695,7 +2902,7 @@ It unsubscribes all trade subscriptions.
 
 <a name="aopsub"/>
 
-### 3.7 Subscribe Account-Order-Position (AOP)
+### 3.9 Subscribe Account-Order-Position (AOP)
 
 AOP subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends AOP messages back to client accordingly. 0 or more latest account snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a trading account information, holding positions, and open / max 100 closed / max 100 filled order event message history.
 
@@ -2768,7 +2975,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 <a name="aopunsub"/>
 
-### 3.8 Unsubscribe Account-Order-Position (AOP)
+### 3.10 Unsubscribe Account-Order-Position (AOP)
 * Request：
 
 ```
@@ -2794,7 +3001,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 
 <a name="tickersub"/>
 
-### 3.9 Subscribe 24 Hours Ticker
+### 3.11 Subscribe 24 Hours Ticker
 On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 5 seconds.
 
 * Request
@@ -2899,7 +3106,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 <a name="symbpricesub"/>
 
-### 3.11 Subscribe tick event for symbol price
+### 3.12 Subscribe tick event for symbol price
 
    * Every trading symbol has a suite of other symbols, each symbol follows same patterns,
    i.e. `index` symbol follows a pattern `.<BASECURRENCY>`,

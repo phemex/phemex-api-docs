@@ -41,6 +41,8 @@
     * [Unsubscribe OrderBook](#bookunsub)
     * [Subscribe Trade](#tradesub)
     * [Unsubscribe Trade](#tradeunsub)
+    * [Subscribe Kline](#klinesub)
+    * [Unsubscribe Kline](#klinesub)
     * [Subscribe Wallet-Order)](#wosub)
     * [Unsubscribe Wallet-Order](#wounsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
@@ -1193,6 +1195,202 @@ It unsubscribes all trade subscriptions.
 {
   "id": <id>,
   "method": "trade.subscribe",
+  "params": [
+    "<symbol>"
+  ]
+}
+```
+
+* Response:
+
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+<a name="klinesub"/>
+
+### 3.7 Subscribe Kline
+
+On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all the later kline update will be published in real-time.
+
+* Request
+
+```
+{
+  "id": <id>,
+  "method": "kline.subscribe",
+  "params": [
+    "<symbol>",
+    "<interval>"
+  ]
+}
+```
+
+* Response:
+
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+* Sample:
+
+```json
+# subscribe 1-day kline
+> {
+  "id": 1234,
+  "method": "kline.subscribe",
+  "params": [
+    "sBTCUSDT",
+    86400
+  ]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+#### Kline Message Format：
+
+```
+{
+  "klines": [
+    [
+      <timestamp>,
+      "<interval>",
+      <lastCloseEp>,
+      <openEp>,
+      <highEp>,
+      <lowEp>,
+      <closeEp>,
+      <volumeEv>,
+      <turnoverEv>,
+    ],
+    .
+    .
+    .
+  ],
+  "sequence": <sequence>,
+  "symbol": "<symbol>",
+  "type": "<type>"
+}
+```
+
+| Field       | Type   | Description      | Possible values |
+|-------------|--------|------------------|-----------------|
+| timestamp   | Integer| Timestamp in nanoseconds for each trade ||
+| interval    | Integer| Kline interval type      | 60, 300, 900, 1800, 3600, 14400, 86400, 604800, 2592000, 7776000, 31104000 |
+| lastCloseEp | Integer| Scaled last close price  |                 |
+| openEp      | Integer| Scaled open price        |                 |
+| highEp      | Integer| Scaled high price        |                 |
+| lowEp       | Integer| Scaled low price         |                 |
+| closeEp     | Integer| Scaled close price       |                 |
+| volumeEv    | Integer| Scaled trade voulme during the current kline interval ||
+| turnoverEv  | Integer| Scaled turnover value    |                 |
+| sequence    | Integer| Latest message sequence  ||
+| symbol      | String | Contract symbol name     ||
+| type        | String | Message type     |snapshot, incremental |
+  
+
+* Sample
+```json
+< {
+  "kline": [
+    [
+      1590019200,
+      86400,
+      952057000000,
+      952000000000,
+      955587000000,
+      947835000000,
+      954446000000,
+      1162621600,
+      11095452729869
+    ],
+    [
+      1589932800,
+      86400,
+      977566000000,
+      978261000000,
+      984257000000,
+      935452000000,
+      952057000000,
+      11785486656,
+      113659374080189
+    ],
+    [
+      1589846400,
+      86400,
+      972343000000,
+      972351000000,
+      989607000000,
+      949106000000,
+      977566000000,
+      11337554900,
+      109928494593609
+    ]
+  ],
+  "sequence": 380876982,
+  "symbol": "sBTCUSDT",
+  "type": "snapshot"
+}
+
+< {
+  "kline": [
+    [
+      1590019200,
+      86400,
+      952057000000,
+      952000000000,
+      955587000000,
+      928440000000,
+      941597000000,
+      4231329700,
+      40057408967508
+    ]
+  ],
+  "sequence": 396865028,
+  "symbol": "sBTCUSDT",
+  "type": "incremental"
+}
+```
+
+<a name="klineunsub"/>
+
+### 3.8 Unsubscribe Kline
+
+It unsubscribes all kline subscriptions or for a symbol.
+
+* Request
+
+```
+# unsubscribe all Kline subscriptions
+{
+  "id": <id>,
+  "method": "kline.unsubscribe",
+  "params": []
+}
+
+# unsubscribe all Kline subscriptions of a symbol
+{
+  "id": <id>,
+  "method": "kline.unsubscribe",
   "params": [
     "<symbol>"
   ]
