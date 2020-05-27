@@ -529,7 +529,7 @@ POST /orders
 ```
 
 * Important fields description
-   * Order average filled price,  inverse contract:`avgPrice = cumQty/cumValueEv`; linear contract: `avgPrice = cumValueEv/cumQty`
+   * Order average filled price,  inverse contract:`avgPrice = (cumQty/cumValueEv)/contractSize`; linear contract: `avgPrice = (cumValueEv/cumQty)/contractSize`. `contractSize` is fixed in [product](#marketapilist) api.
 
 | Field | Description |
 |------|----------|
