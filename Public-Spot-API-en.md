@@ -30,6 +30,8 @@
       * [Query Open Order by clOrdID or orderID](#spotQueryOpenOrder)
       * [List all Open Orders by Symbol](#spotListAllOpenOrder)
       * [Query Wallets](#spotQueryWallet)
+      * [Query Closed orders](#spotQueryClosedOrder)
+      * [Query history trades](#spotQueryHistTrade)
 
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -808,7 +810,211 @@ GET /spot/wallets?currency=<currency>
 }
 ```
 
+<a name="spotQueryClosedOrder"/>
 
+#### Query spot closed orders
+    * Query closed orders by symbol
+
+* Http Request
+
+```
+GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordType=<ordType1,orderType2>&start=<start>&end=<end>&limit=<limit>&offset=<offset>
+
+```
+
+| Field      | Type | Required | Description |  Possible Values |
+|-----------|------|----------|-------------|------------------|
+| symbol    | String | Yes    | symbol to query | [Trading symbols](#symbpricesub) |
+| ordStatus | enum   | No     | order status filter |[common constants for order status](#commconsts) |
+| ordType   | enum   | No     | order type filter |[common constants for order type](#commconsts) |
+| start     | integer | No    | Epoch millisecond, start of time range    |  within 3 month        |
+| end       | integer | No    | Epoch millisecond, end of time range      | within 3 months |
+
+
+* Http Response
+
+   * return a list of spot order model.
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 2,
+            "rows": [
+            {
+                "orderID": "string",
+                "stopPxEp": 0,
+                "avgPriceEp": 0,
+                "qtyType": "<ByQuote/ByBase>",
+                "leavesBaseQtyEv": 0,
+                "leavesQuoteQtyEv": 0,
+                "baseQtyEv": "0",
+                "feeCurrency": "string",
+                "stopDirection": "UNSPECIFIED",
+                "symbol": "string",
+                "side": "enum",
+                "quoteQtyEv": 0,
+                "priceEp": 0,
+                "ordType": "enum",
+                "timeInForce": "enum",
+                "ordStatus": "enum",
+                "execStatus": "enum",
+                "createTimeNs": 0,
+                "cumFeeEv": 0,
+                "cumBaseValueEv": 0,
+                "cumQuoteValueEv": 0 
+            }]
+        }
+}
+
+```
+
+* Sample Response
+
+```
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 2,
+            "rows": [
+            {
+                "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
+                "stopPxEp": 0,
+                "avgPriceEp": 970056000000,
+                "qtyType": "ByQuote",
+                "leavesBaseQtyEv": 0,
+                "leavesQuoteQtyEv": 0,
+                "baseQtyEv": "0",
+                "feeCurrency": "1",
+                "stopDirection": "UNSPECIFIED",
+                "symbol": "sBTCUSDT",
+                "side": "Buy",
+                "quoteQtyEv": 1000000000,
+                "priceEp": 970056000000,
+                "ordType": "Limit",
+                "timeInForce": "GoodTillCancel",
+                "ordStatus": "Filled",
+                "execStatus": "MakerFill",
+                "createTimeNs": 1589449348601287000,
+                "cumFeeEv": 0,
+                "cumBaseValueEv": 103000,
+                "cumQuoteValueEv": 999157680
+            }
+            ]
+        }
+}
+
+```
+
+
+<a name="spotQueryHistTrade"/>
+
+#### Query spot history trades
+   
+   * Query spot history trades by symbol
+
+* Http Request
+
+```
+GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&offset=<offset>
+
+```
+
+| Field | Type | Required | Description | Possible values |
+|-------|------|----------|-------------|-----------------|
+| symbol | string | Yes   | symbol to query | [spot symbol list](#spotSymList) |
+| start | integer | No    | Epoch millisecond, start of time range      |  |
+| end   | integer | No    | Epoch millisecond, end of time range  | | 
+
+* Http Response
+
+```
+
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 1,
+            "rows": [
+            {
+                "qtyType": "ByQuote/ByBase",
+                "transactTimeNs": 0,
+                "clOrdID": "string"
+                "orderID": "string",
+                "symbol": "string",
+                "side": "enum",
+                "priceEP": 0,
+                "baseQtyEv": 0,
+                "quoteQtyEv": 0,
+                "action": "enum",
+                "execStatus": "enum",
+                "ordStatus": "enum",
+                "ordType": "enum",
+                "execInst": "enum",
+                "timeInForce": enum",
+                "stopDirection": "enum",
+                "tradeType": "enum",
+                "stopPxEp": 0,
+                "execId": "0"
+                "execPriceEp": 0,
+                "execBaseQtyEv": 0,
+                "execQuoteQtyEv": 0,
+                "leavesBaseQtyEv": 0,
+                "leavesQuoteQtyEv": 0,
+                "execFeeEv": 0,
+                "feeRateEr": 0
+            }
+            ]
+        }
+}
+
+```
+
+* Sample Response
+
+```
+
+{
+    "code": 0,
+        "msg": "OK",
+        "data": {
+            "total": 1,
+            "rows": [
+            {
+                "qtyType": "ByQuote",
+                "transactTimeNs": 1589450974800550100,
+                "clOrdID": "8ba59d40-df25-d4b0-14cf-0703f44e9690",
+                "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
+                "symbol": "sBTCUSDT",
+                "side": "Buy",
+                "priceEP": 970056000000,
+                "baseQtyEv": 0,
+                "quoteQtyEv": 1000000000,
+                "action": "New",
+                "execStatus": "MakerFill",
+                "ordStatus": "Filled",
+                "ordType": "Limit",
+                "execInst": "None",
+                "timeInForce": "GoodTillCancel",
+                "stopDirection": "UNSPECIFIED",
+                "tradeType": "Trade",
+                "stopPxEp": 0,
+                "execId": "c6bd8979-07ba-5946-b07e-f8b65135dbb1",
+                "execPriceEp": 970056000000,
+                "execBaseQtyEv": 103000,
+                "execQuoteQtyEv": 999157680,
+                "leavesBaseQtyEv": 0,
+                "leavesQuoteQtyEv": 0,
+                "execFeeEv": 0,
+                "feeRateEr": 0
+            }
+            ]
+        }
+}
+
+```
 
 
 <a name="wsapi"/>
