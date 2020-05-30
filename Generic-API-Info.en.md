@@ -81,7 +81,7 @@
 | /spot/orders | POST | 1 | Place spot order |
 | /spot/orders | PUT | 1 | Amend spot order |
 | /spot/orders | DELETE | 2 | Cancel spot order  |
-| /spot/orders/all | DELETE | 1 | Cancel spot orders by symbol |
+| /spot/orders/all | DELETE | 2 | Cancel spot orders by symbol |
 | /spot/orders/active | GET | 1 | Query open spot order |
 | /spot/orders | GET | 1 | Query all open spot orders by symbol |
 
