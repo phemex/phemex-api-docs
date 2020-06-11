@@ -3002,7 +3002,7 @@ AOP subscription requires the session been authorized successfully. DataGW extra
 <a name="tickersub"/>
 
 ### Subscribe 24 Hours Ticker
-On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 5 seconds.
+On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 1 second.
 
 * Request
 
