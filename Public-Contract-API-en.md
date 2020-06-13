@@ -479,7 +479,7 @@ POST /orders
 | priceEp | Integer | - | Scaled price, required for limit order | | 
 | ordType | Enum | - | default to Limit | Market, Limit, Stop, StopLimit, MarketIfTouched, LimitIfTouched, Pegged | 
 | stopPxEp | Integer | - | Trigger price for stop orders | |
-| timeInForce | Enum | - | Time in force. default to GoodTillCancel | Day,GoodTillCancel, ImmediateOrCancel, FillOrKill | 
+| timeInForce | Enum | - | Time in force. default to GoodTillCancel | GoodTillCancel, ImmediateOrCancel, FillOrKill, PostOnly| 
 | reduceOnly | Boolean | - | whether reduce position side only. Enable this flag, i.e. reduceOnly=true, position side won't change | true, false |
 | closeOnTrigger | Boolean | - | implicitly reduceOnly, plus cancel other orders in the same direction(side) when necessary | true, false|
 | takeProfitEp | Integer | - | Scaled take profit price | |
