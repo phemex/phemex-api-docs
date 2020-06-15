@@ -119,10 +119,15 @@ Every HTTP Rest Request must have the following Headers:
 
 ## API Rate Limits
 
-* Every Client has the API call rate limit as 500 per minute.
-* Every HTTP Rest response will contain a `X-RateLimit-Remaining` header which has the remain request count in this round.
-* When client gets HTTP RESPONSE Code 429 means it reached limit, `X-RateLimit-Retry-After` header means the seconds that client should wait before next round.
+* Ratelimte group of contract trading api is ***SPOTORDER***.  
+* RateLimit Explained [phemex ratelimite docs](/Generic-API-Info.en.md)
+* Contract trading api response carries following headers.
 
+```
+X-RateLimit-Remaining-SPOTORDER, # Remaining request permits in this minute
+X-RateLimit-Capacity-SPOTORDER, # Request ratelimit capacity
+X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current ratelimited user
+```
 
 <a name="securitytype"/>
 
