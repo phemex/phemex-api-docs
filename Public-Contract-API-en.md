@@ -15,9 +15,9 @@
   * [Request/Response field explained](#fieldexplained)
     * [Price/Ratio/Value Scales](#scalingfactors)
     * [Common constants](#commconsts)
-  * [REST API List (version 0)](#restapilist)
-    * [Market API List (Version 1 & Version 0)](#marketapilist)
-      * [Query Product Information (Version 1 & Version 0)](#queryproductinfo)
+  * [REST API List](#restapilist)
+    * [Market API List](#marketapilist)
+      * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
       * [Amend Order by OrderID](#amendorder)
@@ -49,13 +49,6 @@
       * [Cancel withdraw](#cancelwithdraw)
       * [List withdraw requests](#listwithdraw)
       * [Withdraw address management](#withdrawaddrmgmt)
-  * [REST API List (version 1)](#restapilistv1)
-    * [Market Data API List](#mdapilistv1)
-      * [Query Order Book](#queryorderbookv1)
-      * [Query Recent Trades](#querytradesv1)
-      * [Query 24 Hours Ticker](#query24hrstickerv1)
-      * [Query 24 Hours Ticker Summary](#query24hrstickerallv1)
-
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
   * [API Rate Limits](#wsapiratelimits)
@@ -282,16 +275,14 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 <a name="marketapilist"/>
 
-### Market API List (Version 1 & Version 0)
+### Market API List
 
 <a name="queryproductinfo"/>
 
-#### Query Product Information (Version 1 & Version 0)
+#### Query Product Information
 
 * Request：
 ```json
-GET /exchange/public/products
-
 GET /v1/exchange/public/products
 ```
 
@@ -1192,7 +1183,7 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 
 <a name="mdapilist"/>
 
-### Market Data API List (Version 0)
+### Market Data API List
 
 <a name="queryorderbook"/>
 
@@ -1917,385 +1908,6 @@ Body:
     "data": 1 //subject to change
 }
 
-```
-
-<a name="restapilistv1"/>
-
-## REST API List (Version 1)
-
-
-<a name="mdapilistv1"/>
-
-### Market Data API List
-
-<a name="queryorderbookv1"/>
-
-#### Query Order Book
-
-* Request：
-```json
-GET /v1/md/orderbook?symbol=<symbol>&id=<id>
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
-
-* Response:
-```
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "book": {
-      "asks": [
-        [
-          <priceEp>,
-          <size>
-        ],
-        ...
-        ...
-        ...
-      ],
-      "bids": [
-        [
-          <priceEp>,
-          <size>
-        ],
-        ...
-        ...
-        ...
-      ],
-    ]
-    },
-    "depth": 30,
-    "sequence": <sequence>,
-    "symbol": "<symbol>",
-    "timestamp": "<timestamp>",
-    "type": "snapshot"
-  }
-}
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| timestamp   | Integer| Timestamp in nanoseconds                   |              |
-| priceEp     | Integer| Scaled book level price                    |              |
-| size        | Integer| Scaled book level size                     |              |
-| sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-
-* Sample：
-```json
-GET /v1/md/orderbook?symbol=BTCUSD
-
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "book": {
-      "asks": [
-        [
-          87705000,
-          1000000
-        ],
-        [
-          87710000,
-          200000
-        ]
-      ],
-      "bids": [
-        [
-          87700000,
-          2000000
-        ],
-        [
-          87695000,
-          200000
-        ]
-      ]
-    },
-    "depth": 30,
-    "sequence": 455476965,
-    "symbol": "BTCUSD",
-    "timestamp": 1583552267253988998,
-    "type": "snapshot"
-  }
-}
-```
-
-
-<a name="querytradesv1"/>
-
-#### Query Recent Trades
-
-* Request：
-```json
-GET /v1/md/trade?symbol=<symbol>&id=<id>
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
-
-* Response:
-```
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "type": "snapshot",
-    "sequence": <sequence>,
-    "symbol": "<symbol>",
-    "trades": [
-      [
-        <timestamp>,
-        <trade_id>,
-        "<side>",
-        <priceEp>,
-        <size>
-      ],
-      ...
-      ...
-      ...
-    ]
-  }
-}
-
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| timestamp   | Integer| Timestamp in nanoseconds                   |              |
-| trade id    | Integer| Unique identifier for each trade           |              |
-| side        | String | Trade side string                          | Buy, Sell    |
-| priceEp     | Integer| Scaled trade price                         |              |
-| size        | Integer| Scaled trade size                          |              |
-| sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-
-* Sample：
-```json
-GET /v1/md/trade?symbol=BTCUSD
-
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "sequence": 15934323,
-    "symbol": "BTCUSD",
-    "trades": [
-      [
-        1579164056368538508,
-        453309780000,
-        "Sell",
-        86960000,
-        121
-      ],
-      [
-        1579164055036820552,
-        453308810000,
-        "Sell",
-        86960000,
-        58
-      ]
-    ],
-    "type": "snapshot"
-  }
-}
-
-```
-
-<a name="query24hrstickerv1"/>
-
-#### Query 24 Hours Ticker
-
-* Request：
-```json
-GET /v1/md/ticker/24hr?symbol=<symbol>&id=<id>
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
-
-* Response:
-```
-{
-  "error": null,
-  "id": 0,
-  "result": {
-    "askEp": <ask priceEp>,
-    "bidEp": <bid priceEp>,
-    "openEp": <open priceEp>,
-    "highEp": <high priceEp>,
-    "lowEp": <low priceEp>,
-    "lastEp": <last priceEp>,
-    "indexEp": <index priceEp>,
-    "markEp": <index priceEp>,
-    "openInterest": <open interest>,
-    "fundingRateEr": <funding rateEr>,
-    "predFundingRateEr": <predicated funding rateEr>,
-    "timestamp": "<timestamp>",
-    "symbol": "<symbol>",
-    "turnover": <turnoverEv>,
-    "volume": <volume>
-  }
-}
-```
-
-| Field         | Type   | Description                                | Possible values |
-|---------------|--------|--------------------------------------------|--------------|
-| ask priceEp   | Integer| Latest scaled ask price                    |              |
-| bid priceEp   | Integer| Latest scaled bid price                    |              |
-| open priceEp  | Integer| Scaled open price in last 24 hours         |              |
-| high priceEp  | Integer| Scaled highest price in last 24 hours      |              |
-| low priceEp   | Integer| Scaled lowest price in last 24 hours       |              |
-| last priceEp  | Integer| Scaled last price in last 24 hours         |              |
-| index priceEp | Integer| Scaled index price                         |              |
-| mark priceEp  | Integer| Scaled mark price                          |              |
-| open interest | Integer| current open interest                      |              |
-| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| funding rateEr| Integer| Scaled funding rate                        |              |
-| predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
-| timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
-| volume        | Integer| Symbol trade volume in last 24 hours       |              |
-
-* Sample：
-```json
-GET /v1/md/ticker/24hr?symbol=BTCUSD
-
-{
-  "error": null,
-  "id": 1234,
-  "result": {
-    "askEp": 91230000,
-    "bidEp": 91225000,
-    "fundingRateEr": 235950,
-    "highEp": 91825000,
-    "indexEp": 90955275,
-    "lastEp": 91225000,
-    "lowEp": 90800000,
-    "markEp": 91055001,
-    "openEp": 90815000,
-    "openInterest": 1986019,
-    "predFundingRateEr": 263402,
-    "symbol": "BTCUSD",
-    "timestamp": 1583554617386787208,
-    "turnoverEv": 1155678314931,
-    "volume": 105502896
-  }
-}
-```
-
-<a name="query24hrstickerallv1"/>
-
-#### Query 24 Hours Ticker Summary
-
-* Request：
-```json
-GET /v1/md/ticker/24hr/all?id=<id>
-```
-
-| Field       | Type   | Description                                | Possible values |
-|-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
-
-* Response:
-```
-{
-  "error": null,
-  "id": 0,
-  "result": [
-    {
-			"askEp": <ask priceEp>,
-			"bidEp": <bid priceEp>,
-			"openEp": <open priceEp>,
-			"highEp": <high priceEp>,
-			"lowEp": <low priceEp>,
-			"lastEp": <last priceEp>,
-			"indexEp": <index priceEp>,
-			"markEp": <index priceEp>,
-			"openInterest": <open interest>,
-			"fundingRateEr": <funding rateEr>,
-			"predFundingRateEr": <predicated funding rateEr>,
-			"timestamp": "<timestamp>",
-			"symbol": "<symbol>",
-			"turnover": <turnoverEv>,
-			"volume": <volume>
-		}
-  ]
-}
-```
-
-| Field         | Type   | Description                                | Possible values |
-|---------------|--------|--------------------------------------------|--------------|
-| ask priceEp   | Integer| Latest scaled ask price                    |              |
-| bid priceEp   | Integer| Latest scaled bid price                    |              |
-| open priceEp  | Integer| Scaled open price in last 24 hours         |              |
-| high priceEp  | Integer| Scaled highest price in last 24 hours      |              |
-| low priceEp   | Integer| Scaled lowest price in last 24 hours       |              |
-| last priceEp  | Integer| Scaled last price in last 24 hours         |              |
-| index priceEp | Integer| Scaled index price                         |              |
-| mark priceEp  | Integer| Scaled mark price                          |              |
-| open interest | Integer| current open interest                      |              |
-| symbol        | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| funding rateEr| Integer| Scaled funding rate                        |              |
-| predicated funding rateEr| Integer| Scaled predicated funding rate  |              |
-| timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
-| volume        | Integer| Symbol trade volume in last 24 hours       |              |
-
-
-* Sample：
-```json
-GET /v1/md/ticker/24hr/all
-
-{
-  "error": null,
-  "id": 1234,
-  "result": [
-    {
-      "askEp": 91175000,
-      "bidEp": 91170000,
-      "fundingRateEr": 235950,
-      "highEp": 91825000,
-      "indexEp": 90888300,
-      "lastEp": 91175000,
-      "lowEp": 90800000,
-      "markEp": 90981511,
-      "openEp": 90815000,
-      "openInterest": 1986019,
-      "predFundingRateEr": 264999,
-      "symbol": "BTCUSD",
-      "timestamp": 1583555482434187069,
-      "turnoverEv": 1158643084026,
-      "volume": 105773279
-    },
-    {
-      "askEp": 2443000,
-      "bidEp": 2442000,
-      "fundingRateEr": 210102,
-      "highEp": 2469000,
-      "indexEp": 2435050,
-      "lastEp": 2441000,
-      "lowEp": 2290000,
-      "markEp": 2437273,
-      "openEp": 2293500,
-      "openInterest": 926113,
-      "predFundingRateEr": 254756,
-      "symbol": "ETHUSD",
-      "timestamp": 1583555482434235628,
-      "turnoverEv": 79922947694,
-      "volume": 6691863
-    }
-  ]
-}
 ```
 
 <a name="wsapi"/>
