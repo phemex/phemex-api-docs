@@ -582,8 +582,6 @@ GET /accounts/accountPositions?currency=<currency>
                 "markPrice": 9316.9002,
                 "markValueEv": 0,
                 "markValue": null,
-                "unRealisedPosLossEv": 0,
-                "unRealisedPosLoss": null,
                 "estimatedOrdLossEv": 0,
                 "estimatedOrdLoss": 0,
                 "usedBalanceEv": 0,
@@ -593,17 +591,26 @@ GET /accounts/accountPositions?currency=<currency>
                 "stopLossEp": 0,
                 "stopLoss": null,
                 "realisedPnlEv": 0,
-                "realisedPnl":
-                    null,
-                "cumRealisedPnlEv":
-                    0,
-                "cumRealisedPnl":
-                    null
+                "realisedPnl": null,
+                "cumRealisedPnlEv": 0,
+                "cumRealisedPnl": null
             }
             ]
         }
 }
 ```
+
+<b>Note</b> `unRealizedPnlEv` needs to be calculated in client side with latest `markPrice`, formula is as below.
+
+```
+Inverse contract: unRealizedPnl = (posSize/contractSize)/avgEntryPrice - (posSize/contractSize)/markPrice)
+
+Linear contract:  unRealizedPnl = (posSize/contractSize) * markPrice - (posSize/contractSize)/avgEntryPrice
+
+posSize is a signed vaule. contractSize is a fixed value.
+
+```
+
 
 <a name="changeleverage"/>
 
