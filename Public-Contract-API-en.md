@@ -218,6 +218,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | ALGOUSD| 10,000      | 100,000,000 |      10,000 |
 | YFIUSD | 10,000      | 100,000,000 |      10,000 |
 | DOTUSD | 10,000      | 100,000,000 |      10,000 |
+| UNIUSD | 10,000      | 100,000,000 |      10,000 |
 
 <a name="commconsts"/>
 
@@ -2616,6 +2617,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | ALGOUSD| .ALGO        | .MALGO       | .ALGOFR                        | .ALGOFR8H|
    | YFIUSD | .YFI         | .MYFI        | .YFIFR                         | .YFIFR8H |
    | DOTUSD | .DOT         | .MDOT        | .DOTFR                         | .DOTFR8H |
+   | UNIUSD | .UNI         | .MUNI        | .UNIFR                         | .UNIFR8H |
 
 
 * Request
