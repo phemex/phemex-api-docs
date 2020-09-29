@@ -32,6 +32,10 @@
       * [Query Wallets](#spotQueryWallet)
       * [Query Closed orders](#spotQueryClosedOrder)
       * [Query history trades](#spotQueryHistTrade)
+    * [Spot Asset Api List](#spotAssetAPIList)
+      * [Query Deposit history](#depositHist)
+      * [Query withdraw history](#withdrawHist)
+
 
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -1019,6 +1023,68 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
         }
 }
 
+```
+
+<a name="spotAssetApiList"/>
+
+# Spot Asset API
+
+<a name="depositHist"/>
+
+#### Query recent deposit history within 3 months
+
+* Http Request
+
+```
+GET /exchange/wallets/depositList?currency=<currency>&offset=<offset>&limit=<limit>
+```
+
+| Field    | Type   | Required  | Description| Possible Values |
+|----------|--------|-----------|------------|-----------------|
+| currency | String | True      | the currency to query | BTC,ETH, ... |
+
+
+* Response
+
+```
+{ 
+    address: "1xxxxxxxxxxxxxxxxxx"
+    amountEv: 1000000
+    confirmations: 1
+    createdAt: 1574685871000
+    currency: "BTC"
+    currencyCode: 1
+    status: "Success"
+    txHash: "9e84xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    type: "Deposit"
+}
+```
+
+<a name="withdrawHist"/>
+
+#### Query recent withdraw history within 3 months
+
+* Http Request
+
+```
+GET /exchange/wallets/withdrawList?currency=<currency>&offset=<offset>&limit=<limit>
+```
+
+* Response
+
+```
+{
+    address: "1Lxxxxxxxxxxx"
+    amountEv: 200000
+    currency: "BTC"
+    currencyCode: 1
+    expiredTime: 0
+    feeEv: 50000
+    rejectReason: null
+    status: "Succeed"
+    txHash: "44exxxxxxxxxxxxxxxxxxxxxx"
+    withdrawStatus: ""
+}
 ```
 
 
