@@ -1277,6 +1277,8 @@ On each successful subscription, DataGW will immediately send the current Order 
 
 #### OrderBook Message:
 
+DataGW publishes order book message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published with 60-second interval for client self-verification.
+
 * Message Format：
  
 ```
@@ -1406,6 +1408,9 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 ```
 
 #### Trade Message Format：
+
+DataGW publishes trade message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published on connection initial setup for client recovery.
+
 
 ```
 {
@@ -1570,6 +1575,8 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 ```
 
 #### Kline Message Format：
+
+DataGW publishes kline message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published on connection initial setup for client recovery.
 
 ```
 {
