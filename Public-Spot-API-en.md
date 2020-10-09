@@ -33,6 +33,7 @@
       * [Query Closed orders](#spotQueryClosedOrder)
       * [Query history trades](#spotQueryHistTrade)
     * [Spot Asset Api List](#spotAssetAPIList)
+      * [Query Deposit address](#depositAddr)
       * [Query Deposit history](#depositHist)
       * [Query withdraw history](#withdrawHist)
 
@@ -1028,6 +1029,31 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
 <a name="spotAssetApiList"/>
 
 # Spot Asset API
+
+<a name="depositAddr"/>
+
+#### Query deposit address by currency
+
+* Http Request
+
+```
+GET /exchange/wallets/v2/depositAddress?currency=<currency>
+
+```
+
+| Field    | Type   | Required  | Description| Possible Values |
+|----------|--------|-----------|------------|-----------------|
+| currency | String | True      | the currency to query | BTC,ETH, ... |
+
+* Response
+
+```
+{
+    "address": "1Cdxxxxxxxxxxxxxx",
+    "tag":null
+}
+
+```
 
 <a name="depositHist"/>
 
