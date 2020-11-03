@@ -214,7 +214,6 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | ADAUSD | 10,000      | 100,000,000 |      10,000 |
 | BCHUSD | 10,000      | 100,000,000 |      10,000 |
 | COMPUSD| 10,000      | 100,000,000 |      10,000 |
-| LENDUSD| 10,000      | 100,000,000 |      10,000 |
 | ALGOUSD| 10,000      | 100,000,000 |      10,000 |
 | YFIUSD | 10,000      | 100,000,000 |      10,000 |
 | DOTUSD | 10,000      | 100,000,000 |      10,000 |
@@ -2620,7 +2619,6 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | ADAUSD | .ADA         | .MADA        | .ADAFR                         | .ADAFR8H |
    | BCHUSD | .BCH         | .MBCH        | .BCHFR                         | .BCHFR8H |
    | COMPUSD| .COMP        | .MCOMP       | .COMPFR                        | .COMPFR8H|
-   | LENDUSD| .LEND        | .MLEND       | .LENDFR                        | .LENDFR8H|
    | ALGOUSD| .ALGO        | .MALGO       | .ALGOFR                        | .ALGOFR8H|
    | YFIUSD | .YFI         | .MYFI        | .YFIFR                         | .YFIFR8H |
    | DOTUSD | .DOT         | .MDOT        | .DOTFR                         | .DOTFR8H |
