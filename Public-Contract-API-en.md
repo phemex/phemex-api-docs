@@ -332,7 +332,7 @@ POST /orders
 | side |  Enum | Yes | Order direction, Buy or Sell | Buy, Sell | 
 | orderQty | Integer | Yes | Order quntity | |
 | priceEp | Integer | - | Scaled price, required for limit order | | 
-| ordType | Enum | - | default to Limit | Market, Limit, Stop, StopLimit, MarketIfTouched, LimitIfTouched, Pegged | 
+| ordType | Enum | - | default to Limit | Market, Limit, Stop, StopLimit, MarketIfTouched, LimitIfTouched| 
 | stopPxEp | Integer | - | Trigger price for stop orders | |
 | timeInForce | Enum | - | Time in force. default to GoodTillCancel | GoodTillCancel, ImmediateOrCancel, FillOrKill, PostOnly| 
 | reduceOnly | Boolean | - | whether reduce position side only. Enable this flag, i.e. reduceOnly=true, position side won't change | true, false |
@@ -341,7 +341,7 @@ POST /orders
 | stopLossEp | Integer | - | Scaled stop loss price | | 
 | triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByLastPrice |
 | pegOffsetValueEp | Integer | - | Trailing offset from current price. Negative value when position is long, positive when position is short | |
-| pegPriceType | Enum | - | Peg price type |TrailingStopPeg, TrailingTakeProfitPeg |
+| pegPriceType | Enum | - | Trailing order price type |TrailingStopPeg, TrailingTakeProfitPeg |
 | text | String | No | order comments | | 
 
 
