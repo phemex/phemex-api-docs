@@ -50,7 +50,7 @@
     * [Unsubscribe Trade](#tradeunsub)
     * [Subscribe Kline](#klinesub)
     * [Unsubscribe Kline](#klinesub)
-    * [Subscribe Wallet-Order)](#wosub)
+    * [Subscribe Wallet-Order](#wosub)
     * [Unsubscribe Wallet-Order](#wounsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
     * [All Trading Symbols](#symbpricesub)
@@ -1779,7 +1779,6 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 |-------------|--------|------------------|-----------------|
 | timestamp   | Integer| Transaction timestamp in nanoseconds | |
 | sequence    | Integer| Latest message sequence |          |
-| symbol      | String | Symbol name    |          |
 | type        | String | Message type     | snapshot, incremental |
 
 
