@@ -1580,7 +1580,7 @@ DataGW publishes kline message with types: incremental, snapshot. Incremental me
 
 ```
 {
-  "klines": [
+  "kline": [
     [
       <timestamp>,
       "<interval>",
