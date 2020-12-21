@@ -25,6 +25,7 @@
       * [Bulk Cancel Orders](#cancelorder)
       * [Cancel All Orders](#cancelall)
       * [Query Trading Account and Positions](#querytradeaccount)
+      * [Query Trading Account and Positions with unrealized PNL](#queryPosWithPnl)
       * [Change Position Leverage](#changeleverage)
       * [Change Position Risklimt](#changerisklimit)
       * [Assign Position Balance in Isolated Margin Mode](#assignposbalance)
@@ -136,7 +137,7 @@ Every HTTP Rest Request must have the following Headers:
 ## API Rate Limits
 
 * Ratelimte group of contract trading api is ***CONTRACT***.  
-* RateLimit Explained [phemex ratelimite docs](/Generic-API-Info.en.md)
+* RateLimit Explained [phemex ratelimit docs](/Generic-API-Info.en.md)
 * Contract trading api response carries following headers.
 
 ```
@@ -611,6 +612,78 @@ posSize is a signed vaule. contractSize is a fixed value.
 
 ```
 
+#### Query trading account and positions with unrealized-pnl
+
+<a name="queryPosWithPnl"/>
+
+Below API presents unrealized pnl at `markprice` of positions with **considerable** cost, thus its [ratelimit](/Generic-API-Info.en.md#contractAPIGroup) weight is very high.
+
+* Request
+
+```
+GET /accounts/positions?currency=<currency>
+
+```
+
+* Response
+
+```
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "account": {
+      "accountId": 111100001,
+      "currency": "BTC",
+      "accountBalanceEv": 879599942377,
+      "totalUsedBalanceEv": 285,
+      "bonusBalanceEv": 0
+    },
+    "positions": [
+      {
+        "accountID": 111100001,
+        "symbol": "BTCUSD",
+        "currency": "BTC",
+        "side": "Buy",
+        "positionStatus": "Normal",
+        "crossMargin": false,
+        "leverageEr": 0,
+        "initMarginReqEr": 1000000,
+        "maintMarginReqEr": 500000,
+        "riskLimitEv": 10000000000,
+        "size": 5,
+        "valueEv": 26435,
+        "avgEntryPriceEp": 189143181,
+        "posCostEv": 285,
+        "assignedPosBalanceEv": 285,
+        "bankruptCommEv": 750000,
+        "bankruptPriceEp": 5000,
+        "positionMarginEv": 879599192377,
+        "liquidationPriceEp": 5000,
+        "deleveragePercentileEr": 0,
+        "buyValueToCostEr": 1150750,
+        "sellValueToCostEr": 1149250,
+        "markPriceEp": 238287555,
+        "markValueEv": 0,
+        "unRealisedPosLossEv": 0,
+        "estimatedOrdLossEv": 0,
+        "usedBalanceEv": 285,
+        "takeProfitEp": 0,
+        "stopLossEp": 0,
+        "cumClosedPnlEv": -8913353,
+        "cumFundingFeeEv": 123996,
+        "cumTransactFeeEv": 940245,
+        "realisedPnlEv": 0,
+        "unRealisedPnlEv": 5452,
+        "cumRealisedPnlEv": 0
+      }
+    ]
+  }
+}
+
+```
+
+<b>Note</b> Highly recommend calculating `unRealizedPnlEv` in client side with latest `markPrice` to avoid ratelimit penalty.
 
 <a name="changeleverage"/>
 

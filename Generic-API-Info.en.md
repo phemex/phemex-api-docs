@@ -57,6 +57,7 @@
 
 ### Api Groups
 
+<a name="contractAPIGroup"/>
    * Contract group
 
    Contract group is for contract trading, it contains following api.
@@ -71,9 +72,11 @@
 | /orders/activeList | GET | 1 | Query open orders by symbol |
 | /orders/active | GET | 1 | Query open order by orderID  |
 | /accounts/accountPositions | GET | 1 | Query account & position by currency |
+| /accounts/positions | GET | 25 | Query positions with un-realized-pnl |
 
    * SpotOrder group
 
+<a name="spotAPIGroup"/>
    SpotOrder group is for spot trading, which contains following api.
 
 | Path | Method | Weight | Description |
