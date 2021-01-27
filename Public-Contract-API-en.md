@@ -604,9 +604,9 @@ GET /accounts/accountPositions?currency=<currency>
 <b>Note</b> `unRealizedPnlEv` needs to be calculated in client side with latest `markPrice`, formula is as below.
 
 ```
-Inverse contract: unRealizedPnl = (posSize/contractSize)/avgEntryPrice - (posSize/contractSize)/markPrice)
+Inverse contract: unRealizedPnl = (posSize/contractSize) / avgEntryPrice - (posSize/contractSize) / markPrice)
 
-Linear contract:  unRealizedPnl = (posSize/contractSize) * markPrice - (posSize/contractSize)/avgEntryPrice
+Linear contract:  unRealizedPnl = (posSize/contractSize) * markPrice - (posSize/contractSize) * avgEntryPrice
 
 posSize is a signed vaule. contractSize is a fixed value.
 
