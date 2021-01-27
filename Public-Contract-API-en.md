@@ -1129,13 +1129,12 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 
 * Request：
 ```json
-GET /md/orderbook?symbol=<symbol>&id=<id>
+GET /md/orderbook?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -1227,13 +1226,12 @@ GET /md/orderbook?symbol=BTCUSD
 
 * Request：
 ```json
-GET /md/trade?symbol=<symbol>&id=<id>
+GET /md/trade?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -1305,13 +1303,12 @@ GET /md/trade?symbol=BTCUSD
 
 * Request：
 ```json
-GET /md/ticker/24hr?symbol=<symbol>&id=<id>
+GET /md/ticker/24hr?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | Contract symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```

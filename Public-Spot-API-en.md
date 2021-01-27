@@ -297,13 +297,12 @@ GET /exchange/public/cfg/v2/products
 
 * Request：
 ```json
-GET /md/orderbook?symbol=<symbol>&id=<id>
+GET /md/orderbook?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -395,13 +394,12 @@ GET /md/orderbook?symbol=sBTCUSDT
 
 * Request：
 ```json
-GET /md/trade?symbol=<symbol>&id=<id>
+GET /md/trade?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -473,13 +471,12 @@ GET /md/trade?symbol=sBTCUSDT
 
 * Request：
 ```json
-GET /md/spot/ticker/24hr?symbol=<symbol>&id=<id>
+GET /md/spot/ticker/24hr?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
@@ -546,13 +543,12 @@ GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 
 * Request：
 ```json
-GET /v1/md/orderbook?symbol=<symbol>&id=<id>
+GET /v1/md/orderbook?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
 | symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
-| id          | Integer| Optional. Request id                       |              |
 
 * Response:
 ```
