@@ -52,10 +52,10 @@
   |  11044  |  TE_FALLING_TRIGGER_DIRECTLY = 11044;  |  Details: Conditional order would be triggered immediately  |  
   |  11045  |  TE_TRIGGER_PRICE_TOO_LARGE = 11045;  |  Details: Conditional order trigger price is too high  |  
   |  11046  |  TE_TRIGGER_PRICE_TOO_SMALL = 11046;  |  Details: Conditional order trigger price is too low  |  
-  |  11047  |  TE_BUY_TP_SHOULD_GT_BASE = 11047;  |  Details: TakeProfile BUY conditional order trigger price needs to be greater than reference price  |  
+  |  11047  |  TE_BUY_TP_SHOULD_GT_BASE = 11047;  |  Details: TakeProfit BUY conditional order trigger price needs to be greater than reference price  |  
   |  11048  |  TE_BUY_SL_SHOULD_LT_BASE = 11048;  |  Details: StopLoss BUY condition order price needs to be less than the reference price  |  
   |  11049  |  TE_BUY_SL_SHOULD_GT_LIQ = 11049;  |  Details: StopLoss BUY condition order price needs to be greater than liquidation price or it will not trigger  |  
-  |  11050  |  TE_SELL_TP_SHOULD_LT_BASE = 11050;  |  Details: TakeProfile SELL conditional order trigger price needs to be less than reference price  |  
+  |  11050  |  TE_SELL_TP_SHOULD_LT_BASE = 11050;  |  Details: TakeProfit SELL conditional order trigger price needs to be less than reference price  |  
   |  11051  |  TE_SELL_SL_SHOULD_LT_LIQ = 11051;  |  Details: StopLoss SELL condition order price needs to be less than liquidation price or it will not trigger  |  
   |  11052  |  TE_SELL_SL_SHOULD_GT_BASE = 11052;  |  Details: StopLoss SELL condition order price needs to be greater than the reference price  |  
   |  11053  |  TE_PRICE_TOO_LARGE = 11053;  |    |  
