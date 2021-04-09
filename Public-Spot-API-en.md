@@ -1312,7 +1312,7 @@ DataGW publishes order book message with types: incremental, snapshot. Increment
 | priceEp     | Integer| Scaled price     |                 |
 | qty         | Integer| Price level size. Non-zero qty indicates price level insertion or updation, and qty 0 indicates price level deletion. |                 |
 | sequence    | Integer| Latest message sequence |          |
-| depth       | Integer| Market depth     |                 |
+| depth       | Integer| Market depth     | 30              |
 | type        | String | Message type     | snapshot, incremental |
   
 
