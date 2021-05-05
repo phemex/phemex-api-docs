@@ -121,3 +121,21 @@
   |  11113  |  TE_USER_ID_INVALID  |  Details: UserId is invalid  |  
   |  11114  |  TE_ORDER_VALUE_TOO_LARGE  |  Details: Order value is too large  |  
   |  11115  |  TE_ORDER_VALUE_TOO_SMALL  |  Details: Order value is too small  |  
+  |  11116  |  TE_BO_NUM_EXCEEDS| Details: the total count of brakcet orders should equal or less than 5 |
+  |  11117  |  TE_BO_CANNOT_HAVE_BO_WITH_DIFF_SIDE| Details: all bracket orders should have the same Side.|
+  |  11118  |  TE_BO_TP_PRICE_INVALID| Details: bracker order take profit price is invalid|
+  |  11119  |  TE_BO_SL_PRICE_INVALID| Details: bracker order stop loss price is invalid|
+  |  11120  |  TE_BO_SL_TRIGGER_PRICE_INVALID| Details: bracker order stop loss trigger price is invalid|
+  |  11121  |  TE_BO_CANNOT_REPLACE| Details: cannot replace bracket order.|
+  |  11122  |  TE_BO_BOTP_STATUS_INVALID| Details: bracket take profit order status is invalid |
+  |  11123  |  TE_BO_CANNOT_PLACE_BOTP_OR_BOSL_ORDER| Details: cannot place bracket take profit order |
+  |  11124  |  TE_BO_CANNOT_REPLACE_BOTP_OR_BOSL_ORDER| Details: cannot place bracket stop loss order|
+  |  11125  |  TE_BO_CANNOT_CANCEL_BOTP_OR_BOSL_ORDER| Details: cannot cancel bracket sl/tp order|
+  |  11126  |  TE_BO_DONOT_SUPPORT_API| Details: doesn't support bracket order via API|
+  |  11128  |  TE_BO_INVALID_EXECINST| Details: ExecInst value is invalid|
+  |  11129  |  TE_BO_MUST_BE_SAME_SIDE_AS_POS| Details: bracket order should have the same side as position's side|
+  |  11130  |  TE_BO_WRONG_SL_TRIGGER_TYPE| Details: bracket stop loss order trigger type is invalid|
+  |  11131  |  TE_BO_WRONG_TP_TRIGGER_TYPE| Details: bracket take profit order trigger type is invalid|
+  |  11132  |  TE_BO_ABORT_BOSL_DUE_BOTP_CREATE_FAILED| Details: cancel bracket stop loss order due failed to create take profit order.|
+  |  11133  |  TE_BO_ABORT_BOSL_DUE_BOPO_CANCELED| Details: cancel bracket stop loss order due main order canceled.|
+  |  11134  |  TE_BO_ABORT_BOTP_DUE_BOPO_CANCELED| Details: cancel bracket take profit order due main order canceled.|
