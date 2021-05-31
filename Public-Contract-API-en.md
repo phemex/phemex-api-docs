@@ -219,6 +219,27 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | YFIUSD | 10,000      | 100,000,000 |      10,000 |
 | DOTUSD | 10,000      | 100,000,000 |      10,000 |
 | UNIUSD | 10,000      | 100,000,000 |      10,000 |
+| BATUSD | 10,000      | 100,000,000 |      10,000 |
+| CHZUSD | 10,000      | 100,000,000 |      10,000 |
+| MANAUSD| 10,000      | 100,000,000 |      10,000 |
+| ENJUSD | 10,000      | 100,000,000 |      10,000 |
+|SUSHIUSD| 10,000      | 100,000,000 |      10,000 |
+| SNXUSD | 10,000      | 100,000,000 |      10,000 |
+| GRTUSD | 10,000      | 100,000,000 |      10,000 |
+| MKRUSD | 10,000      | 100,000,000 |      10,000 |
+| TRXUSD | 10,000      | 100,000,000 |      10,000 |
+| EOSUSD | 10,000      | 100,000,000 |      10,000 |
+| ONTUSD | 10,000      | 100,000,000 |      10,000 |
+| NEOUSD | 10,000      | 100,000,000 |      10,000 |
+| ZECUSD | 10,000      | 100,000,000 |      10,000 |
+| FILUSD | 10,000      | 100,000,000 |      10,000 |
+| KSMUSD | 10,000      | 100,000,000 |      10,000 |
+| XMRUSD | 10,000      | 100,000,000 |      10,000 |
+| QTUMUSD| 10,000      | 100,000,000 |      10,000 |
+| XLMUSD | 10,000      | 100,000,000 |      10,000 |
+| ATOMUSD| 10,000      | 100,000,000 |      10,000 |
+| LUNAUSD| 10,000      | 100,000,000 |      10,000 |
+| SOLUSD | 10,000      | 100,000,000 |      10,000 |
 
 <a name="commconsts"/>
 
@@ -2693,6 +2714,27 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | YFIUSD | .YFI         | .MYFI        | .YFIFR                         | .YFIFR8H |
    | DOTUSD | .DOT         | .MDOT        | .DOTFR                         | .DOTFR8H |
    | UNIUSD | .UNI         | .MUNI        | .UNIFR                         | .UNIFR8H |
+   | BATUSD | .BAT         | .MBAT        | .BATFR                         | .BATFR8H |
+   | CHZUSD | .CHZ         | .MCHZ        | .CHZFR                         | .CHZFR8H |
+   | MANAUSD| .MANA        | .MMANA       | .MANAFR                        | .MANAFR8H|
+   | ENJUSD | .ENJ         | .MENJ        | .ENJFR                         | .ENJFR8H |
+   |SUSHIUSD| .SUSHI       | .MSUSHI      | .SUSHIFR                       |.SUSHIFR8H|
+   | SNXUSD | .SNX         | .MSNX        | .SNXFR                         | .SNXFR8H |
+   | GRTUSD | .GRT         | .MGRT        | .GRTFR                         | .GRTFR8H |
+   | MKRUSD | .MKR         | .MMKR        | .MKRFR                         | .MKRFR8H |
+   | TRXUSD | .TRX         | .MTRX        | .TRXFR                         | .TRXFR8H |
+   | EOSUSD | .EOS         | .MEOS        | .EOSFR                         | .EOSFR8H |
+   | ONTUSD | .ONT         | .MONT        | .ONTFR                         | .ONTFR8H |
+   | NEOUSD | .NEO         | .MNEO        | .NEOFR                         | .NEOFR8H |
+   | ZECUSD | .ZEC         | .MZEC        | .ZECFR                         | .ZECFR8H |
+   | FILUSD | .FIL         | .MFIL        | .FILFR                         | .FILFR8H |
+   | KSMUSD | .KSM         | .MKSM        | .KSMFR                         | .KSMFR8H |
+   | XMRUSD | .XMR         | .MXMR        | .XMRFR                         | .XMRFR8H |
+   | QTUMUSD| .QTUM        | .MQTUM       | .QTUMFR                        |.QTUMFR8H |
+   | XLMUSD | .XLM         | .MXLM        | .XLMFR                         | .XLMFR8H |
+   | ATOMUSD| .ATOM        | .MATOM       | .ATOMFR                        | .ATOMFR8H|
+   | LUNAUSD| .LUNA        | .MLUNA       | .LUNAFR                        | .LUNAFR8H|
+   | SOLUSD | .SOL         | .MSOL        | .SOLFR                         | .SOLFR8H |
 
 
 * Request

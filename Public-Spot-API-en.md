@@ -1923,5 +1923,23 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    |sLINKUSDT|
    |sXTZUSDT |
    |sLTCUSDT |
-
+   |sADAUSDT |
+   |sTRXUSDT |
+   |sONTUSDT |
+   |sBCHUSDT |
+   |sNEOUSDT |
+   |sEOSUSDT |
+   |sDOGEUSDT|
+   |sBATUSDT |
+   |sCHZUSDT |
+   |sMANAUSDT|
+   |sENJUSDT |
+   |sSUSHIUSDT|
+   |sSNXUSDT |
+   |sGRTUSDT |
+   |sMKRUSDT |
+   |sUNIUSDT |
+   |sAAVEUSDT|
+   |sYFIUSDT |
+   |sCOMPUSDT|
 
