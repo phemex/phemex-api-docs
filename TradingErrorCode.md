@@ -31,7 +31,7 @@
   |  11023  |  TE_REJECT_DUE_TO_IN_PROCESS_OF_LIQ = 11023;  |  Details: Account is in the process of liquidation  |  
   |  11024  |  TE_REJECT_DUE_TO_IN_PROCESS_OF_ADL = 11024;  |  Details: Account is in the process of auto-deleverage  |  
   |  11025  |  TE_ROUTE_ERROR = 11025;  |  Details: Request is routed to the wrong trading engine  |  
-  |  11026  |  TE_UID_ACCOUNT_MISMATCH = 11026;  |    |  
+  |  11026  |  TE_UID_ACCOUNT_MISMATCH = 11026;  |    | 
   |  11027  |  TE_SYMBOL_INVALID = 11027;  |  Details: Invalid number ID or name  |  
   |  11028  |  TE_CURRENCY_INVALID = 11028;  |  Details: Invalid currency ID or name  |  
   |  11029  |  TE_ACTION_INVALID = 11029;  |  Details: Unrecognized request type  |  
@@ -58,7 +58,7 @@
   |  11050  |  TE_SELL_TP_SHOULD_LT_BASE = 11050;  |  Details: TakeProfit SELL conditional order trigger price needs to be less than reference price  |  
   |  11051  |  TE_SELL_SL_SHOULD_LT_LIQ = 11051;  |  Details: StopLoss SELL condition order price needs to be less than liquidation price or it will not trigger  |  
   |  11052  |  TE_SELL_SL_SHOULD_GT_BASE = 11052;  |  Details: StopLoss SELL condition order price needs to be greater than the reference price  |  
-  |  11053  |  TE_PRICE_TOO_LARGE = 11053;  |    |  
+  |  11053  |  TE_PRICE_TOO_LARGE = 11053;  |  Details: Order price is too large  |  
   |  11054  |  TE_PRICE_WORSE_THAN_BANKRUPT = 11054;  |  Details: Order price cannot be more aggressive than bankrupt price if this order has instruction to close a position  |  
   |  11055  |  TE_PRICE_TOO_SMALL = 11055;  |  Details: Order price is too low  |  
   |  11056  |  TE_QTY_TOO_LARGE = 11056;  |  Details: Order quantity is too large  |  
