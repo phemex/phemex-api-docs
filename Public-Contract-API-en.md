@@ -416,7 +416,48 @@ POST /orders
 | leavesQty | unfilled order quantity | 
 | leavesValueEv | unfilled order value |
 
+* More order types
+
+  * Trailing stop order(Assume current position is long, current last-price is 32k)
+
+  ```
+  {
+  "symbol": "BTCUSD",
+  "side": "Sell", // assume current position is long
+  "ordType": "Stop",
+  "orderQty": 0,
+  "priceEp": 0,
+  "triggerType": "ByLastPrice",
+  "stopPxEp": 315000, // "if position is long, this value should be less than last-price; if position is short, this value is larger than last-price",
+  "timeInForce": "ImmediateOrCancel",
+  "closeOnTrigger": true, 
+  "pegPriceType": "TrailingStopPeg",
+  "pegOffsetValueEp": -10000000, // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign
+  "clOrdID": "cl-order-id"
+  }
+  ```
+
+  * Trailing stop order with activiation price
+
+  ```
+  {
+  "symbol": "BTCUSD",
+  "side": "Sell",
+  "ordType": "Stop",
+  "orderQty": 0,
+  "priceEp": 0,
+  "triggerType": "ByLastPrice",
+  "stopPxEp": 340000000, // activation price of this trailing order, this value should be larger than last-price
+  "timeInForce": "ImmediateOrCancel",
+  "closeOnTrigger": true,
+  "pegPriceType": "TrailingTakeProfitPeg",
+  "pegOffsetValueEp": -10000000,//retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign  
+  "clOrdID": "cl-order-id"
+  }
+  ```
+
 <a name="amendorder"/>
+
 
 #### Amend order by orderID
 
@@ -1071,6 +1112,18 @@ GET /exchange/order?symbol=<symbol>&clOrdID=<clOrdID1,clOrdID2>
 ```
 GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&offset=<offset>&withCount=<withCount>
 ```
+
+| Field     | Type     | Required | Description                                                     | Possible Values                 | 
+|-----------|----------|----------|-----------------------------------------------------------------|---------------------------------|
+| symbol    | String   | Yes      | Trading symbol                                                  | BTCUSD, ETHUSD ...              |
+| tradeType | String   | No       | Trade type of execution order                                   | Trade,Funding,AdlTrade,LiqTrade |
+| start     | Long     | No       | Epoch time in milli-seconds of range start                      | --                              |
+| end       | Long     | No       | Epoch time in milli-seconds of range end                        | --                              |
+| limit     | Integer  | No       | The expected count of returned data-set. Default to 50          | --                              |
+| offset    | Integer  | No       | Offset of total dataset in a range                              | --                              |
+| withCount | Boolean  | No       | A flag to tell if the count of total result set is required     | --                              |
+
+
 
 * Response
   * Response of this API includes normal trade, funding records,  liquidation, ADL trades,etc. `tradeType` can distiguish these types.
