@@ -125,6 +125,7 @@
 [Trading Error Codes](TradingErrorCode.md)
 
 <a name="httprestheader"/>
+
 ## HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
