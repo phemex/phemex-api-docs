@@ -124,6 +124,7 @@
 
 [Trading Error Codes](TradingErrorCode.md)
 
+<a name="httprestheader"/>
 ## HTTP REST Request Header 
 
 Every HTTP Rest Request must have the following Headers:
@@ -131,6 +132,8 @@ Every HTTP Rest Request must have the following Headers:
 * x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (Now() + 1 minute)
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
+Optional Headers:
+* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes.
 
 <a name="apiratelimits"/>
 
