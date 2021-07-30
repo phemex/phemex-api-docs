@@ -195,7 +195,7 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 * Spot Currency and its scale factor
 
-| currency | value scale  factor | min value  |  max value |
+| currency | value scale factor | min value  |  max value |
 |--------|---------------|------------|------------|
 | BTC    | 8             | 1          | 5000000000000000000 |
 | USDT   | 8             | 1          | 5000000000000000000 |
@@ -209,14 +209,16 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 * Spot symbol and its scale factor
 
-|  symbol|  type|  baseTickSize|  baseTickSizeEv|  quoteTickSize|  quoteTickSizeEv|  baseQtyPrecision|  quoteQtyPrecision|  pricePrecision|  minOrderValue|  minOrderValueEv|  maxBaseOrderSize|  maxBaseOrderSizeEv|  maxOrderValue|  maxOrderValueEv|  defaultTakerFee|  defaultTakerFeeEr|  defaultMakerFee|  defaultMakerFeeEr|
-|---------|---------|-------------|-----------|-----------------|------------|------------|-------------|------|--------|-------|------|--------|-------|------|------|-------|-------|--------|
-|sBTCUSDT|Spot|0.000001BTC|100|0.01USDT|1000000|6|2|2|10USDT|1000000000|1000BTC|100000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
-|sETHUSDT|Spot|0.00001ETH|1000|0.01USDT|1000000|5|2|2|10USDT|1000000000|10000ETH|1000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
-|sXRPUSDT|Spot|0.1XRP|10000000|0.00001USDT|1000|1|2|5|10USDT|1000000000|5000000XRP|500000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
-|sLINKUSDT|Spot|0.01LINK|1000000|0.0001USDT|10000|2|2|4|10USDT|1000000000|5000000LINK|500000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
-|sXTZUSDT|Spot|0.01XTZ|1000000|0.0001USDT|10000|2|2|4|10USDT|1000000000|2000000XTZ|200000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
-|sLTCUSDT|Spot|0.00001LTC|1000|0.001USDT|100000|5|2|3|10USDT|1000000000|100000LTC|10000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+All spot symbols use the same price and ratio scale factors (price scale facor(Ep) = 8, ratio scale factor(Er) = 8).
+
+|  symbol|  type | price scale factor | ratio scale factor |  baseTickSize|  baseTickSizeEv|  quoteTickSize|  quoteTickSizeEv|  baseQtyPrecision|  quoteQtyPrecision|  pricePrecision|  minOrderValue|  minOrderValueEv|  maxBaseOrderSize|  maxBaseOrderSizeEv|  maxOrderValue|  maxOrderValueEv|  defaultTakerFee|  defaultTakerFeeEr|  defaultMakerFee|  defaultMakerFeeEr|
+|---------|---------|---------|---------|-------------|-----------|-----------------|------------|------------|-------------|------|--------|-------|------|--------|-------|------|------|-------|-------|--------|
+|sBTCUSDT|Spot|8|8|0.000001BTC|100|0.01USDT|1000000|6|2|2|10USDT|1000000000|1000BTC|100000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+|sETHUSDT|Spot|8|8|0.00001ETH|1000|0.01USDT|1000000|5|2|2|10USDT|1000000000|10000ETH|1000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+|sXRPUSDT|Spot|8|8|0.1XRP|10000000|0.00001USDT|1000|1|2|5|10USDT|1000000000|5000000XRP|500000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+|sLINKUSDT|Spot|8|8|0.01LINK|1000000|0.0001USDT|10000|2|2|4|10USDT|1000000000|5000000LINK|500000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+|sXTZUSDT|Spot|8|8|0.01XTZ|1000000|0.0001USDT|10000|2|2|4|10USDT|1000000000|2000000XTZ|200000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
+|sLTCUSDT|Spot|8|8|0.00001LTC|1000|0.001USDT|100000|5|2|3|10USDT|1000000000|100000LTC|10000000000000|5000000USDT|500000000000000|0.001|100000|0.001|100000|
 
 
 <a name="commconsts"/>
