@@ -315,8 +315,9 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 #### Query Product Information
 
 * Request：
+
 ```json
-GET /exchange/public/cfg/v2/products
+GET /exchange/public/products 
 ```
 
 <a name="orderapilist"/>

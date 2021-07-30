@@ -282,9 +282,9 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 #### Query Product Information 
 
 * Request：
-```json
-GET /exchange/public/cfg/v2/products
 
+```json
+GET /exchange/public/products
 ```
 
 
