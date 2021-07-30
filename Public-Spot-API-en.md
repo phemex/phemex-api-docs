@@ -280,9 +280,9 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 #### Query Product Information 
 
 * Request：
-```json
-GET /exchange/public/cfg/v2/products
 
+```json
+GET /exchange/public/products
 ```
 
 
