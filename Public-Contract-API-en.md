@@ -1,6 +1,4 @@
-## Table of Contents
-* [Phemex Public API](#publicapi)
-  * [General Public API Information](#general)
+## Table of Contents * [Phemex Public API](#publicapi) * [General Public API Information](#general)
 * [REST API Standards](#restapi)
   * [HTTP Restful Response](#restresponse)
     * [HTTP Return Codes](#httpreturncodes)
@@ -20,6 +18,7 @@
       * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
+      * [Place Order With Put Method](#placeorderwithput)
       * [Amend Order by OrderID](#amendorder)
       * [Cancel Single Order by OrderID](#cancelsingleorder)
       * [Bulk Cancel Orders](#cancelorder)
@@ -459,6 +458,18 @@ POST /orders
   "clOrdID": "cl-order-id"
   }
   ```
+
+<a name="placeorderwithput"/>
+
+#### Place order with argument in url query string
+
+* Request
+
+```
+/orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&closeOnTrigger=<closeOnTrigger>&orderQty=<orderQty>&displayQty=<displayQty>&ordType=<ordType>&priceEp=<priceEp>&side=<side>&text=<text>&timeInForce=<timeInForce>&stopPxEp=<stopPxEp>&takeProfitEp=<takeProfitEp>&stopLossEp=<stopLossEp>&pegOffsetValueEp=<pegOffsetValueEp>&pegPriceType=<pegPriceType>&trailingStopEp=<trailingStopEp>&triggerType=<triggerType>&tpTrigger=<tpTrigger>&tpSlTs=<tpSlTs>&slTrigger=<slTrigger>
+```
+
+  * Fields are the same as [above place-order](#placeorder)
 
 <a name="amendorder"/>
 
