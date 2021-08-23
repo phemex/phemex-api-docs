@@ -284,7 +284,7 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 * Request：
 
 ```json
-GET /exchange/public/products
+GET /public/products
 ```
 
 

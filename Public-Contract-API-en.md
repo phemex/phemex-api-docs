@@ -316,7 +316,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 * Request：
 
 ```json
-GET /exchange/public/products 
+GET /public/products 
 ```
 
 <a name="orderapilist"/>
