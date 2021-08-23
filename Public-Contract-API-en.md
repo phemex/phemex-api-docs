@@ -585,7 +585,7 @@ DELETE /orders/all?symbol=<symbol>&untriggered=<untriggered>&text=<text>
 | Field       | Type   | Required  | Description                    | Possible values         |
 |-------------|--------|-----------|--------------------------------|-------------------------|
 | symbol      | String | Yes       | which Symbol to cancel         | [Trading symbols](#symbpricesub) |
-| untriggerred| Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
+| untriggered | Boolean| No        | default to false, default cancel non-conditional order; if intending to cancel conditional order, set this to true| true,false|
 | text        | comments| No       | comments of this operation, limited to 40 characters  |  |
 
 * Response
