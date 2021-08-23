@@ -75,9 +75,9 @@
 ## General Public API Information
 
 * Phemex provides HTTP Rest API for client to operate Orders, all endpoints return a JSON object.
-* The Rest API base endpoint is: **https://api.phemex.com**, or for the testnet is:  **https://testnet-api.phemex.com** 
+* The default Rest API base endpoint is: **https://api.phemex.com**. The High rate limit Rest API base endpoint is: **https://vapi.phemex.com**. Or for the testnet is:  **https://testnet-api.phemex.com** 
 * Phemex provides WebSocket API for client to receive market data, order and position updates.
-* The WebSocket API url is: **wss://phemex.com/ws**, or for the testnet is:  **wss://testnet.phemex.com/ws** 
+* The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss://vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws** 
 
 <a name="restapi"/>
 
