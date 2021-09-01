@@ -683,7 +683,7 @@ GET /accounts/accountPositions?currency=<currency>
 ```
 Inverse contract: unRealizedPnl = (posSize/contractSize) / avgEntryPrice - (posSize/contractSize) / markPrice)
 
-Linear contract:  unRealizedPnl = (posSize/contractSize) * markPrice - (posSize/contractSize) * avgEntryPrice
+Linear contract:  unRealizedPnl = (posSize*contractSize) * markPrice - (posSize*contractSize) * avgEntryPrice
 
 posSize is a signed vaule. contractSize is a fixed value.
 
