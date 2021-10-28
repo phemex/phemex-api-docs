@@ -124,7 +124,8 @@ Every HTTP Rest Request must have the following Headers:
 
 ## API Rate Limits
 
-* Ratelimte group of contract trading api is ***SPOTORDER***.  
+* [Order spamming limitations](https://phemex.com/user-guides/order-spamming-limitations)
+* RateLimit group of contract trading api is ***SPOTORDER***.  
 * RateLimit Explained [phemex ratelimite docs](/Generic-API-Info.en.md)
 * Contract trading api response carries following headers.
 
