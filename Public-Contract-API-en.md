@@ -364,9 +364,11 @@ POST /orders
 | timeInForce | Enum | - | Time in force. default to GoodTillCancel | GoodTillCancel, ImmediateOrCancel, FillOrKill, PostOnly| 
 | reduceOnly | Boolean | - | whether reduce position side only. Enable this flag, i.e. reduceOnly=true, position side won't change | true, false |
 | closeOnTrigger | Boolean | - | implicitly reduceOnly, plus cancel other orders in the same direction(side) when necessary | true, false|
+| triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByLastPrice |
 | takeProfitEp | Integer | - | Scaled take profit price | |
 | stopLossEp | Integer | - | Scaled stop loss price | | 
-| triggerType | Enum | - | Trigger source, whether trigger by mark price, index price or last price | ByMarkPrice, ByLastPrice |
+| slTrigger | Enum | - |Trigger source, by mark-price or last-price | ByMarkPrice, ByLastPrice |
+| tpTrigger | Enum | - | Trigger source, by mark-price or last-price | ByMarkPrice, ByLastPrice |
 | pegOffsetValueEp | Integer | - | Trailing offset from current price. Negative value when position is long, positive when position is short | |
 | pegPriceType | Enum | - | Trailing order price type |TrailingStopPeg, TrailingTakeProfitPeg |
 
@@ -421,6 +423,91 @@ POST /orders
 | leavesValueEv | unfilled order value |
 
 * More order types
+
+  * Stop loss and Take profit orders
+    * stop-loss sell order:   trigger-price (stopPxEp) < last-price.
+    * stop-loss buy order:    trigger-price (stopPxEP) > last-price.
+    * take-profit buy order:  trigger-price (stopPxEP) < last-price.
+    * take-profit sell order: trigger-price (stopPxEp) > last-price.
+
+  * StopLoss Sell order, triggered order is placed as limit order (Assume current last-price is 30k)
+
+  ```
+  {
+      "clOrdID": "stop-loss-order-then-limit",
+      "symbol": "BTCUSD",
+      "side": "Sell",
+      "ordType": "StopLimit",
+      "triggerType": "ByMarkPrice",
+      "stopPxEp": "299550000", // "trigger price, when ordType= Stop/StopLimit and side = Sell, stopPxEp must less than last-price"
+      "priceEp": "299650000", // "when ordType = StopLimit, priceEp is required, when ordType = Stop, priceEp is not required "
+      "orderQty": 10000
+  }
+
+  ```
+
+  * StopLoss Buy order, triggered order is placed as market order (Assume current last-price is 30k)
+
+  ```
+  {
+      "clOrdID": "stop-loss-order-then-market",
+      "symbol": "BTCUSD",
+      "side": "Buy",
+      "ordType": "Stop",
+      "triggerType": "ByMarkPrice",
+      "stopPxEp": "333550000", // "trigger price, when ordType = Stop/StopLimit and side = Buy, stopPxEp must be larger than last-price"
+      "priceEp": "0",// not required 
+      "orderQty": 10000
+  }
+
+  ```
+
+  * Take-profit Sell order, triggered order is placed as limit order (Assume current last-price is 30k)
+
+  ```
+  {
+      "clOrdID": "take-profit-order-then-limit",
+      "symbol": "BTCUSD",
+      "side": "Sell",
+      "ordType": "LimitIfTouched",
+      "triggerType": "ByMarkPrice",
+      "stopPxEp": "333550000", // "trigger price, when ordType = LimitIfTouched/MarketIfTouched and side = Sell, stopPxEp is larger than last-price"
+      "priceEp": "334550000", // "when ordType = LimitIfTouched, priceEp is required, when ordType = MarketIfTouched, priceEp is not required "
+      "orderQty": 10000
+  }
+  ```
+
+  * Take-profit Buy order, triggered order is placed as market order (Assume current last-price is 30k)
+
+  ```
+  {
+      "clOrdID": "take-profit-order-then-market",
+      symbol": "BTCUSD",
+      "side": "Buy",
+      "ordType": "MarketIfTouched",
+      "triggerType": "ByLastPrice",
+      "stopPxEp": "299550000", // "when ordType = LimitIfTouched/MarketIfTouched and side = Buy, stopPxEp is less than last-price"
+      "priceEp": "0", // "not required"
+      "orderQty": 10000
+  }
+  ```
+
+  * Place a order with stop-loss and take-profit
+
+  ```
+  {
+      "clOrdID": "order-with-take-profit-stop-loss",
+      "symbol": "BTCUSD",
+      "side": "Buy",
+      "priceEp": 300000000,
+      "orderQty": 1000,
+      "ordType": "Limit",
+      "takeProfitEp": 3111100000,
+      "tpTrigger": "ByLastPrice",
+      "stopLossEp": "299990000",
+      "slTrigger": "ByMarkPrice"
+  }
+  ```
 
   * Trailing stop order(Assume current position is long, current last-price is 32k)
 
