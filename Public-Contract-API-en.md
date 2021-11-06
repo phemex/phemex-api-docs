@@ -18,7 +18,8 @@
       * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order](#placeorder)
-      * [Place Order With Put Method](#placeorderwithput)
+      * [Order examples](#orderexample)
+      * [Place Order With Put Method, *Prefered*](#placeorderwithput)
       * [Amend Order by OrderID](#amendorder)
       * [Cancel Single Order by OrderID](#cancelsingleorder)
       * [Bulk Cancel Orders](#cancelorder)
@@ -422,13 +423,19 @@ POST /orders
 | leavesQty | unfilled order quantity | 
 | leavesValueEv | unfilled order value |
 
-* More order types
+<a name="orderexample"/>
 
-  * Stop loss and Take profit orders
-    * stop-loss sell order:   trigger-price (stopPxEp) < last-price.
-    * stop-loss buy order:    trigger-price (stopPxEP) > last-price.
-    * take-profit buy order:  trigger-price (stopPxEP) < last-price.
-    * take-profit sell order: trigger-price (stopPxEp) > last-price.
+* More order type examples
+
+  * Stop-loss orders (ordType = Stop/StopLimit) and Take-profit order (ordType = MarketIfTouched/LimitIfTouched)
+  * Stop-loss order is triggered when price moves against order-side(buy/sell), while Take-profit order is triggered when price moves in profitable direction to order-side(buy/sell).
+
+    | ordType                         | side | parameter requirements            | trigger condition |
+    |---------------------------------|------|-----------------------------------|-------------------|
+    | Stop/StopLimit                  | Sell |  stopPxEp < last-price/mark-price | last/mark-price <= stopPxEp  |
+    | Stop/StopLimit                  | Buy  |  stopPxEp > last-price/mark-price | last/mark-price >= stopPxEp  |
+    | MarketIfTouched/LimitIfTouched  | Sell |  stopPxEp > last-price/mark-price | last/mark-price >= stopPxEp  |
+    | MarketIfTouched/LimitIfTouched  | Buy  |  stopPxEp < last-price/mark-price | last/mark-price <= stopPxEp  |
 
   * StopLoss Sell order, triggered order is placed as limit order (Assume current last-price is 30k)
 
