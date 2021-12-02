@@ -17,9 +17,9 @@
     * [Market API List](#marketapilist)
       * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
-      * [Place Order](#placeorder)
-      * [Order examples](#orderexample)
       * [Place Order With Put Method, *Prefered*](#placeorderwithput)
+      * [Order examples](#orderexample)
+      * [Place Order](#placeorder)
       * [Amend Order by OrderID](#amendorder)
       * [Cancel Single Order by OrderID](#cancelsingleorder)
       * [Bulk Cancel Orders](#cancelorder)
@@ -134,7 +134,7 @@ Every HTTP Rest Request must have the following Headers:
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 Optional Headers:
-* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes.
+* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in resolving latency issues.
 
 <a name="apiratelimits"/>
 
@@ -317,7 +317,7 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 * Request：
 
-```json
+```
 GET /public/products 
 ```
 
@@ -325,32 +325,14 @@ GET /public/products
 
 ### Trade API List
 
-<a name="placeorder"/>
+<a name="placeorderwithput"/>
 
-#### Place Order 
+#### Place order with argument in url query string
 
-* HTTP Request:
+* Request
 
-```json
-POST /orders
-
-{
-  "actionBy": "FromOrderPlacement",
-  "symbol": "BTCUSD",
-  "clOrdID": "uuid-1573058952273",
-  "side": "Sell",
-  "priceEp": 93185000,
-  "orderQty": 7,
-  "ordType": "Limit",
-  "reduceOnly": false,
-  "triggerType": "UNSPECIFIED",
-  "pegPriceType": "UNSPECIFIED",
-  "timeInForce": "GoodTillCancel",
-  "takeProfitEp": 0,
-  "stopLossEp": 0,
-  "pegOffsetValueEp": 0,
-  "pegPriceType": "UNSPECIFIED"
-}
+```
+PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&closeOnTrigger=<closeOnTrigger>&orderQty=<orderQty>&displayQty=<displayQty>&ordType=<ordType>&priceEp=<priceEp>&side=<side>&text=<text>&timeInForce=<timeInForce>&stopPxEp=<stopPxEp>&takeProfitEp=<takeProfitEp>&stopLossEp=<stopLossEp>&pegOffsetValueEp=<pegOffsetValueEp>&pegPriceType=<pegPriceType>&trailingStopEp=<trailingStopEp>&triggerType=<triggerType>&tpTrigger=<tpTrigger>&tpSlTs=<tpSlTs>&slTrigger=<slTrigger>
 ```
 
 | Field | Type | Required | Description | Possible values |
@@ -554,18 +536,35 @@ POST /orders
   }
   ```
 
-<a name="placeorderwithput"/>
+<a name="placeorder"/>
 
-#### Place order with argument in url query string
+#### Place Order 
 
-* Request
+* HTTP Request:
 
 ```
-/orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&closeOnTrigger=<closeOnTrigger>&orderQty=<orderQty>&displayQty=<displayQty>&ordType=<ordType>&priceEp=<priceEp>&side=<side>&text=<text>&timeInForce=<timeInForce>&stopPxEp=<stopPxEp>&takeProfitEp=<takeProfitEp>&stopLossEp=<stopLossEp>&pegOffsetValueEp=<pegOffsetValueEp>&pegPriceType=<pegPriceType>&trailingStopEp=<trailingStopEp>&triggerType=<triggerType>&tpTrigger=<tpTrigger>&tpSlTs=<tpSlTs>&slTrigger=<slTrigger>
+POST /orders
+
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSD",
+  "clOrdID": "uuid-1573058952273",
+  "side": "Sell",
+  "priceEp": 93185000,
+  "orderQty": 7,
+  "ordType": "Limit",
+  "reduceOnly": false,
+  "triggerType": "UNSPECIFIED",
+  "pegPriceType": "UNSPECIFIED",
+  "timeInForce": "GoodTillCancel",
+  "takeProfitEp": 0,
+  "stopLossEp": 0,
+  "pegOffsetValueEp": 0,
+  "pegPriceType": "UNSPECIFIED"
+}
 ```
 
-  * Fields are the same as [above place-order](#placeorder)
-
+  * Fields are the same as [above place-order](#placeorderwithput)
 <a name="amendorder"/>
 
 
@@ -701,7 +700,7 @@ GET /accounts/accountPositions?currency=<currency>
 
 * Response
 
-```json
+```
 {
     "code": 0,
         "msg": "",
@@ -1312,7 +1311,7 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 #### Query Order Book
 
 * Request：
-```json
+```
 GET /md/orderbook?symbol=<symbol>
 ```
 

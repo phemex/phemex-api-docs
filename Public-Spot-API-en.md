@@ -23,6 +23,7 @@
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
     * [Spot Trading Api List](#spotTradingApi)
+      * [Place Order With PUT method, *Preferred*](#spotPutPlaceOrder)
       * [Place Order](#spotPlaceOrder)
       * [Amend Order](#spotAmendOrder)
       * [Cancel Order](#spotCancelOrder)
@@ -119,6 +120,8 @@ Every HTTP Rest Request must have the following Headers:
 * x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (Now() + 1 minute)
 * x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
+Optional Headers:
+* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in resolving latency issues.
 
 <a name="apiratelimits"/>
 
@@ -426,7 +429,7 @@ GET /md/orderbook?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
-```json
+```
 GET /md/orderbook?symbol=sBTCUSDT
 
 {
@@ -470,7 +473,7 @@ GET /md/orderbook?symbol=sBTCUSDT
 #### Query Recent Trades
 
 * Request：
-```json
+```
 GET /md/trade?symbol=<symbol>
 ```
 
@@ -513,7 +516,7 @@ GET /md/trade?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
-```json
+```
 GET /md/trade?symbol=sBTCUSDT
 
 {
@@ -547,7 +550,7 @@ GET /md/trade?symbol=sBTCUSDT
 #### Query 24 Hours Ticker
 
 * Request：
-```json
+```
 GET /md/spot/ticker/24hr?symbol=<symbol>
 ```
 
@@ -589,7 +592,7 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 | volumeEv      | Integer| The scaled trade volume in last 24 hours   |              |
 
 * Sample：
-```json
+```
 GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 
 {
@@ -619,7 +622,7 @@ GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 #### Query Order Book
 
 * Request：
-```json
+```
 GET /v1/md/orderbook?symbol=<symbol>
 ```
 
@@ -672,7 +675,7 @@ GET /v1/md/orderbook?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
 
 * Sample：
-```json
+```
 GET /v1/md/orderbook?symbol=sBTCUSDT
 
 {
@@ -714,29 +717,12 @@ GET /v1/md/orderbook?symbol=sBTCUSDT
 
 ### Spot Trading Api List
 
-<a name="spotPlaceOrder"/>
-
-#### Place order
+<a name="spotPutPlaceOrder"/>
 
 * Http Request:
 
-```json
-POST /spot/orders
-
-{  
-    "symbol":"sBTCUSDT",
-    "clOrdID":"",
-    "side":"Buy/Sell",
-    "qtyType":"ByBase/ByQuote",
-    "quoteQtyEv":0,
-    "baseQtyEv":0,
-    "priceEp":0,
-    "stopPxEp":0,
-    "trigger":"UNSPECIFIED",
-    "ordType":"Limit",
-    "timeInForce":"GoodTillCancel",
-}
-
+```
+PUT /spot/orders/create?symbol=<symbol>&trigger=<trigger>&clOrdID=<clOrdID>&priceEp=<priceEp>&baseQtyEv=<baseQtyEv>&quoteQtyEv=<quoteQtyEv>&stopPxEp=<stopPxEp>&text=<text>&side=<side>&qtyType=<qtyType>&ordType=<ordType>&timeInForce=<timeInForce>&execInst=<execInst>
 ```
 
 | Field       | Type   | Required | Description               | Possible values |
@@ -754,7 +740,7 @@ POST /spot/orders
 
 * Http Response
 
-```json
+```
 
 {
     "code": 0,
@@ -788,8 +774,35 @@ POST /spot/orders
             "pegOffsetValueEp": 0
         }
 }
+```
+
+<a name="spotPlaceOrder"/>
+
+#### Place order
+
+* Http Request:
 
 ```
+POST /spot/orders
+
+{  
+    "symbol":"sBTCUSDT",
+    "clOrdID":"",
+    "side":"Buy/Sell",
+    "qtyType":"ByBase/ByQuote",
+    "quoteQtyEv":0,
+    "baseQtyEv":0,
+    "priceEp":0,
+    "stopPxEp":0,
+    "trigger":"UNSPECIFIED",
+    "ordType":"Limit",
+    "timeInForce":"GoodTillCancel"
+}
+
+```
+
+  * Fields are the same as [above place-order](#spotPutPlaceOrder)
+
 <a name="spotAmendOrder"/>
 
 #### Amend Order
