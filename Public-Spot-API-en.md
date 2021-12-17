@@ -1123,13 +1123,20 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
 * Http Request
 
 ```
-GET /exchange/wallets/v2/depositAddress?currency=<currency>
+GET /exchange/wallets/v2/depositAddress?currency=<currency>&chainName=<chainName>
 
 ```
 
 | Field    | Type   | Required  | Description| Possible Values |
 |----------|--------|-----------|------------|-----------------|
-| currency | String | True      | the currency to query | BTC,ETH, ... |
+| currency | String | True      | the currency to query | BTC,ETH, USDT ... |
+| chainName| String | True      | the chain for this currency | BTC, ETH, EOS |
+
+* chainName is provided by below currency settings interface.
+
+```
+GET /exchange/public/cfg/chain-settings?currency=<currency>
+```
 
 * Response
 
@@ -1140,6 +1147,7 @@ GET /exchange/wallets/v2/depositAddress?currency=<currency>
 }
 
 ```
+
 
 <a name="depositHist"/>
 
