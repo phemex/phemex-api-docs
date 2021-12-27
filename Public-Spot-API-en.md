@@ -54,8 +54,8 @@
     * [Subscribe Wallet-Order](#wosub)
     * [Unsubscribe Wallet-Order](#wounsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
-    * [All Spot trading products](#productinfo)
     * [All Spot trading currencies](#currencyinfo)
+    * [All Spot trading products](#productinfo)
 
 <a name="publicapi"/>
 
@@ -199,6 +199,7 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ### Spot Currency and Symbols
 
 * Spot Currency and its scale factor
+See [all spot trading currencies](#currencyinfo) for details.
 
 
 <a name="spotSymList"/>
