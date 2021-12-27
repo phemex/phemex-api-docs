@@ -204,47 +204,49 @@ X-RateLimit-Retry-After-CONTRACT, # Reset timeout in seconds for current ratelim
 <a name="scalingfactors"/>
 
 Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting.
-* Fields with post-fix "Ep" are scaled prices
-* Fields with post-fix "Er" are scaled ratios
-* Fields with post-fix "Ev" are scaled values
+* Fields with post-fix "Ep" are scaled prices, `priceScale` in [products](#queryproductinfo)
+* Fields with post-fix "Er" are scaled ratios, `ratioScale` in [products](#queryproductinfo)
+* Fields with post-fix "Ev" are scaled values, `valueScale` of `settleCurrency` in [products](#queryproductinfo) 
 
-| Symbol | Price scale | Ratio scale | Value scale |
-|--------|-------------|-------------|-------------|
-| BTCUSD | 10,000      | 100,000,000 | 100,000,000 |
-| ETHUSD | 10,000      | 100,000,000 |      10,000 |
-| XRPUSD | 10,000      | 100,000,000 |      10,000 |
-| LINKUSD| 10,000      | 100,000,000 |      10,000 |
-| XTZUSD | 10,000      | 100,000,000 |      10,000 |
-| LTCUSD | 10,000      | 100,000,000 |      10,000 |
-| GOLDUSD| 10,000      | 100,000,000 |      10,000 |
-| ADAUSD | 10,000      | 100,000,000 |      10,000 |
-| BCHUSD | 10,000      | 100,000,000 |      10,000 |
-| COMPUSD| 10,000      | 100,000,000 |      10,000 |
-| ALGOUSD| 10,000      | 100,000,000 |      10,000 |
-| YFIUSD | 10,000      | 100,000,000 |      10,000 |
-| DOTUSD | 10,000      | 100,000,000 |      10,000 |
-| UNIUSD | 10,000      | 100,000,000 |      10,000 |
-| BATUSD | 10,000      | 100,000,000 |      10,000 |
-| CHZUSD | 10,000      | 100,000,000 |      10,000 |
-| MANAUSD| 10,000      | 100,000,000 |      10,000 |
-| ENJUSD | 10,000      | 100,000,000 |      10,000 |
-|SUSHIUSD| 10,000      | 100,000,000 |      10,000 |
-| SNXUSD | 10,000      | 100,000,000 |      10,000 |
-| GRTUSD | 10,000      | 100,000,000 |      10,000 |
-| MKRUSD | 10,000      | 100,000,000 |      10,000 |
-| TRXUSD | 10,000      | 100,000,000 |      10,000 |
-| EOSUSD | 10,000      | 100,000,000 |      10,000 |
-| ONTUSD | 10,000      | 100,000,000 |      10,000 |
-| NEOUSD | 10,000      | 100,000,000 |      10,000 |
-| ZECUSD | 10,000      | 100,000,000 |      10,000 |
-| FILUSD | 10,000      | 100,000,000 |      10,000 |
-| KSMUSD | 10,000      | 100,000,000 |      10,000 |
-| XMRUSD | 10,000      | 100,000,000 |      10,000 |
-| QTUMUSD| 10,000      | 100,000,000 |      10,000 |
-| XLMUSD | 10,000      | 100,000,000 |      10,000 |
-| ATOMUSD| 10,000      | 100,000,000 |      10,000 |
-| LUNAUSD| 10,000      | 100,000,000 |      10,000 |
-| SOLUSD | 10,000      | 100,000,000 |      10,000 |
+| Symbol | Price scale | Ratio scale | Value scale | settlement currency |
+|--------|-------------|-------------|-------------|---------------------|
+| BTCUSD | 10,000      | 100,000,000 | 100,000,000 | BTC                |
+| cETHUSD| 10,000      | 100,000,000 | 100,000,000 | ETH                |
+| uBTCUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| ETHUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| XRPUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| LINKUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| XTZUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| LTCUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| GOLDUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| ADAUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| BCHUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| COMPUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| ALGOUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| YFIUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| DOTUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| UNIUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| BATUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| CHZUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| MANAUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| ENJUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+|SUSHIUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| SNXUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| GRTUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| MKRUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| TRXUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| EOSUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| ONTUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| NEOUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| ZECUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| FILUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| KSMUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| XMRUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| QTUMUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| XLMUSD | 10,000      | 100,000,000 |      10,000 | USD                |
+| ATOMUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| LUNAUSD| 10,000      | 100,000,000 |      10,000 | USD                |
+| SOLUSD | 10,000      | 100,000,000 |      10,000 | USD                |
 
 <a name="commconsts"/>
 
