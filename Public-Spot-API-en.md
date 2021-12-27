@@ -54,7 +54,8 @@
     * [Subscribe Wallet-Order](#wosub)
     * [Unsubscribe Wallet-Order](#wounsub)
     * [Subscribe 24 Hours Ticker](#tickersub)
-    * [All Trading Symbols](#symbpricesub)
+    * [All Spot trading products](#productinfo)
+    * [All Spot trading currencies](#currencyinfo)
 
 <a name="publicapi"/>
 
@@ -199,54 +200,6 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 * Spot Currency and its scale factor
 
-| currency | value scale factor | min value  |  max value | need addr arg |
-|--------|---------------|------------|------------|------------|
-|BTC|8|1|5e+18|0|
-|USDT|8|1|5e+18|0|
-|ETH|8|1|5e+18|0|
-|XRP|8|1|5e+18|1|
-|LINK|8|1|5e+18|0|
-|XTZ|8|1|5e+18|0|
-|LTC|8|1|5e+18|0|
-|ADA|8|1|5e+18|0|
-|TRX|8|1|5e+18|0|
-|ONT|8|1|5e+18|0|
-|BCH|8|1|5e+18|0|
-|NEO|8|1|5e+18|0|
-|EOS|8|1|5e+18|1|
-|COMP|8|1|5e+18|0|
-|LEND|8|1|5e+18|0|
-|YFI|8|1|5e+18|0|
-|DOT|8|1|5e+18|0|
-|UNI|8|1|5e+18|0|
-|AAVE|8|1|5e+18|0|
-|DOGE|8|1|5e+18|0|
-|BAT|8|1|5e+18|0|
-|CHZ|8|1|5e+18|0|
-|MANA|8|1|5e+18|0|
-|ENJ|8|1|5e+18|0|
-|SUSHI|8|1|5e+18|0|
-|SNX|8|1|5e+18|0|
-|GRT|8|1|5e+18|0|
-|MKR|8|1|5e+18|0|
-|ALGO|8|1|5e+18|0|
-|VET|8|1|5e+18|0|
-|ZEC|8|1|5e+18|0|
-|FIL|8|1|5e+18|0|
-|KSM|8|1|5e+18|0|
-|XMR|8|1|5e+18|0|
-|QTUM|8|1|5e+18|0|
-|XLM|8|1|5e+18|1|
-|ATOM|8|1|5e+18|1|
-|LUNA|8|1|5e+18|1|
-|SOL|8|1|5e+18|0|
-|AXS|8|1|5e+18|0|
-|MATIC|8|1|5e+18|0|
-|SHIB|2|1|5e+18|0|
-|FTM|8|1|5e+18|0|
-|DYDX|8|1|5e+18|0|
-|VPAD|4|1|5e+18|0|
-
 
 <a name="spotSymList"/>
 
@@ -254,53 +207,7 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 All spot symbols use the same price and ratio scale factors (price scale facor(Ep) = 8, ratio scale factor(Er) = 8).
 
-|  symbol|  type | price scale factor | ratio scale factor |  baseTickSize|  baseTickSizeEv|  quoteTickSize|  quoteTickSizeEv|  baseQtyPrecision|  quoteQtyPrecision|  pricePrecision|  minOrderValue|  minOrderValueEv|  maxBaseOrderSize|  maxBaseOrderSizeEv|  maxOrderValue|  maxOrderValueEv|  defaultTakerFee|  defaultTakerFeeEr|  defaultMakerFee|  defaultMakerFeeEr|
-|---------|---------|---------|---------|-------------|-----------|-----------------|------------|------------|-------------|------|--------|-------|------|--------|-------|------|------|-------|-------|--------|
-|sBTCUSDT|Spot|8|8|0.000001 BTC|100|0.01 USDT|1000000|6|2|2|10 USDT|1000000000|1000 BTC|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sETHUSDT|Spot|8|8|0.00001 ETH|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10000 ETH|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sXRPUSDT|Spot|8|8|0.1 XRP|10000000|0.00001 USDT|1000|1|2|5|10 USDT|1000000000|5000000 XRP|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sLINKUSDT|Spot|8|8|0.01 LINK|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|5000000 LINK|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sXTZUSDT|Spot|8|8|0.01 XTZ|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|2000000 XTZ|200000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sLTCUSDT|Spot|8|8|0.00001 LTC|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|100000 LTC|10000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sADAUSDT|Spot|8|8|0.1 ADA|10000000|0.00005 USDT|5000|1|2|5|10 USDT|1000000000|5000000 ADA|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sTRXUSDT|Spot|8|8|0.1 TRX|10000000|0.00005 USDT|5000|1|2|5|10 USDT|1000000000|5000000 TRX|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sONTUSDT|Spot|8|8|0.1 ONT|10000000|0.0005 USDT|50000|1|2|4|10 USDT|1000000000|5000000 ONT|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sBCHUSDT|Spot|8|8|0.00001 BCH|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10000 BCH|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sNEOUSDT|Spot|8|8|0.001 NEO|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|5000000 NEO|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sEOSUSDT|Spot|8|8|0.01 EOS|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|5000000 EOS|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sDOGEUSDT|Spot|8|8|1 DOGE|100000000|0.000001 USDT|100|0|2|6|10 USDT|1000000000|5000000 DOGE|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sBATUSDT|Spot|8|8|0.01 BAT|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 BAT|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sCHZUSDT|Spot|8|8|0.01 CHZ|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|700000 CHZ|70000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sMANAUSDT|Spot|8|8|0.01 MANA|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|400000 MANA|40000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sENJUSDT|Spot|8|8|0.01 ENJ|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 ENJ|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sSUSHIUSDT|Spot|8|8|0.001 SUSHI|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|40000 SUSHI|4000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sSNXUSDT|Spot|8|8|0.001 SNX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 SNX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sGRTUSDT|Spot|8|8|0.01 GRT|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 GRT|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sUNIUSDT|Spot|8|8|0.001 UNI|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|15000 UNI|1500000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sAAVEUSDT|Spot|8|8|0.0001 AAVE|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 AAVE|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sYFIUSDT|Spot|8|8|0.00001 YFI|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10 YFI|1000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sCOMPUSDT|Spot|8|8|0.0001 COMP|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 COMP|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sMKRUSDT|Spot|8|8|0.00001 MKR|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|100 MKR|10000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sDOTUSDT|Spot|8|8|0.001 DOT|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 DOT|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sALGOUSDT|Spot|8|8|0.01 ALGO|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 ALGO|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sVETUSDT|Spot|8|8|0.1 VET|10000000|0.000001 USDT|100|1|2|6|10 USDT|1000000000|2000000 VET|200000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sZECUSDT|Spot|8|8|0.0001 ZEC|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|2000 ZEC|200000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sFILUSDT|Spot|8|8|0.0001 FIL|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|3000 FIL|300000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sKSMUSDT|Spot|8|8|0.0001 KSM|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 KSM|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sXMRUSDT|Spot|8|8|0.0001 XMR|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1500 XMR|150000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sQTUMUSDT|Spot|8|8|0.001 QTUM|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 QTUM|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sXLMUSDT|Spot|8|8|0.01 XLM|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|1000000 XLM|100000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sATOMUSDT|Spot|8|8|0.001 ATOM|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|20000 ATOM|2000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sLUNAUSDT|Spot|8|8|0.001 LUNA|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|40000 LUNA|4000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sSOLUSDT|Spot|8|8|0.001 SOL|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 SOL|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sAXSUSDT|Spot|8|8|0.001 AXS|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 AXS|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sMATICUSDT|Spot|8|8|0.01 MATIC|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 MATIC|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sSHIBUSDT|Spot|8|8|1 SHIB|100|0.00000001 USDT|1|0|2|8|10 USDT|1000000000|5000000000 SHIB|500000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sFTMUSDT|Spot|8|8|0.01 FTM|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 FTM|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sDYDXUSDT|Spot|8|8|0.001 DYDX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 DYDX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
-|sVPADUSDT|Spot|8|8|0.1 VPAD|1000|0.000001 USDT|100|1|2|6|10 USDT|1000000000|15000000 VPAD|150000000000|500000 USDT|50000000000000|0.001|100000|0.001|100000|
-
-
+See [all spot trading products](#productinfo) for details.
 
 <a name="commconsts"/>
 
@@ -364,7 +271,7 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 
 * Request：
 
-```json
+```
 GET /public/products
 ```
 
@@ -379,13 +286,13 @@ GET /public/products
 #### Query Order Book
 
 * Request：
-```json
+```
 GET /md/orderbook?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
+| symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
 ```
@@ -429,7 +336,7 @@ GET /md/orderbook?symbol=<symbol>
 | priceEp     | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
+| symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
 ```
@@ -482,7 +389,7 @@ GET /md/trade?symbol=<symbol>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
+| symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
 ```
@@ -516,7 +423,7 @@ GET /md/trade?symbol=<symbol>
 | priceEp     | Integer| Scaled trade price                         |              |
 | size        | Integer| Scaled trade size                          |              |
 | sequence    | Integer| Current message sequence                   |              |
-| symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
+| symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
 ```
@@ -559,7 +466,7 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | symbol name                                | [Trading symbols](#symbpricesub) |
+| symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
 ```
@@ -590,7 +497,7 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 | bid priceEp   | Integer| Scaled bid price                           |              |
 | ask priceEp   | Integer| Scaled ask price                           |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| symbol        | String | symbol name                                | [Trading symbols](#symbpricesub) |
+| symbol        | String | symbol name                                | [Trading symbols](#productinfo) |
 | turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
 | volumeEv      | Integer| The scaled trade volume in last 24 hours   |              |
 
@@ -631,7 +538,7 @@ GET /v1/md/orderbook?symbol=<symbol>
 
 | Field       | Type   | Description                                | Possible values |
 |-------------|--------|--------------------------------------------|--------------|
-| symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
+| symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Response:
 ```
@@ -675,7 +582,7 @@ GET /v1/md/orderbook?symbol=<symbol>
 | priceEp     | Integer| Scaled book level price                    |              |
 | size        | Integer| Scaled book level size                     |              |
 | sequence    | Integer| current message sequence                   |              |
-| symbol      | String | Spot symbol name                       | [Trading symbols](#symbpricesub) |
+| symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
 ```
@@ -923,7 +830,7 @@ GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordT
 
 | Field      | Type | Required | Description |  Possible Values |
 |-----------|------|----------|-------------|------------------|
-| symbol    | String | Yes    | symbol to query | [Trading symbols](#symbpricesub) |
+| symbol    | String | Yes    | symbol to query | [Trading symbols](#productinfo) |
 | ordStatus | enum   | No     | order status filter |[common constants for order status](#commconsts) |
 | ordType   | enum   | No     | order type filter |[common constants for order type](#commconsts) |
 | start     | integer | No    | Epoch millisecond, start of time range    |  within 3 month        |
@@ -1257,7 +1164,7 @@ GET /exchange/wallets/withdrawList?currency=<currency>&offset=<offset>&limit=<li
 ```
 
 * Sample：
-```json
+```
 > {
   "id": 1234,
   "method": "server.ping",
@@ -1302,7 +1209,7 @@ While for client private account/position/order data, the client should send use
 
 * Sample:
 
-```json
+```
 > {
   "method": "user.auth",
   "params": [
@@ -1353,7 +1260,7 @@ On each successful subscription, DataGW will immediately send the current Order 
 ```
 
 * Sample：
-```json
+```
 > {
   "id": 1234,
   "method": "orderbook.subscribe",
@@ -1419,7 +1326,7 @@ DataGW publishes order book message with types: incremental, snapshot. Increment
 
 * Sample：
  
-```json
+```
 < {"book":{"asks":[[892697000000,1781800],[892708000000,7543500],[892718000000,6552500],[892720000000,4714100],[892728000000,8431000],[892735000000,11644800],[892756000000,5909600],[892790000000,9053100],[892798000000,3336400],[892819000000,1689500],[892828000000,1616700],[892855000000,6484000],[892869000000,6873200],[892872000000,1919900],[892875000000,2373200],[892942000000,1875300],[892944000000,3117500],[892962000000,1353500],[892965000000,2589800],[892966000000,11169800],[892973000000,7829700],[892977000000,2697200],[892978000000,2110700],[892985000000,12563700],[892988000000,5374100],[893023000000,3816000],[893031000000,5852700],[893035000000,4990900],[893061000000,3479500],[893083000000,327900]],"bids":[[892376000000,6866500],[892354000000,14209000],[892353000000,5287200],[892348000000,6417800],[892340000000,8074400],[892334000000,3991900],[892303000000,4558000],[892295000000,10154700],[892280000000,16214500],[892277000000,11425300],[892270000000,39156500],[892268000000,13821100],[892260000000,32157500],[892257000000,5466100],[892252000000,11468700],[892241000000,13940300],[892226000000,33832300],[892220000000,3000000],[892171000000,4320400],[892165000000,4454000],[892152000000,5336400],[892144000000,4539200],[892134000000,7472200],[892127000000,5352700],[892087000000,10264400],[892082000000,4908000],[892038000000,1485500],[892031000000,4089200],[892030000000,4895500],[892014000000,3846600]]},"depth":30,"sequence":677996311,"symbol":"sBTCUSDT","timestamp":1590570810187570850,"type":"snapshot"}
 < {"book":{"asks":[[892696000000,1669700],[892697000000,10455500],[892728000000,0],[892735000000,0],[892748000000,1550900],[892790000000,0],[892819000000,19087900],[892860000000,17152500],[892882000000,11546100],[892893000000,10986500],[892973000000,0],[892985000000,0],[893004000000,8306500],[893061000000,0],[893065000000,5446400],[893073000000,0],[893083000000,0],[893073000000,0],[893083000000,0]],"bids":[]},"depth":30,"sequence":677996548,"symbol":"sBTCUSDT","timestamp":1590570810819505422,"type":"incremental"}
 < {"book":{"asks":[],"bids":[[892387000000,4792900],[892354000000,3170700],[892226000000,0],[892187000000,14425000],[892171000000,6366500],[892165000000,0],[892135000000,11511400],[892134000000,0],[892127000000,0],[892090000000,5446000],[892079000000,4687800],[892041000000,8590200],[892030000000,0],[892014000000,0]]},"depth":30,"sequence":677996941,"symbol":"sBTCUSDT","timestamp":1590570811244188841,"type":"incremental"}
@@ -1486,7 +1393,7 @@ On each successful subscription, DataGW will send the 1000 history trades immedi
 
 * Sample:
 
-```json
+```
 > {
   "id": 1234,
   "method": "trade.subscribe",
@@ -1540,7 +1447,7 @@ DataGW publishes trade message with types: incremental, snapshot. Incremental me
   
 
 * Sample
-```json
+```
 < {
   "sequence": 1167852,
   "symbol": "sBTCUSDT",
@@ -1651,7 +1558,7 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 * Sample:
 
-```json
+```
 # subscribe 1-day kline
 > {
   "id": 1234,
@@ -1716,7 +1623,7 @@ DataGW publishes kline message with types: incremental, snapshot. Incremental me
   
 
 * Sample
-```json
+```
 < {
   "kline": [
     [
@@ -1846,7 +1753,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 ```
 
 * Sample
-```json
+```
 > {
   "id": 1234,
   "method": "wo.subscribe",
@@ -1882,7 +1789,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 
 * Sample:
 
-```json
+```
 < {"orders":{"closed":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"bizError":0,"clOrdID":"123456","createTimeNs":1587463924959744646,"cumBaseQtyEv":10000,"cumFeeEv":0,"cumQuoteQtyEv":66900000,"curBaseWalletQtyEv":899990000,"curQuoteWalletQtyEv":66900000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":0,"leavesQuoteQtyEv":0,"ordStatus":"Filled","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","pegOffsetValueEp":0,"priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587463924964876798,"triggerTimeNs":0,"userID":200076}],"fills":[{"avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"clOrdID":"123456","execBaseQtyEv":10000,"execFeeEv":0,"execID":"8135ebe3-f767-577b-b70d-1a839d5178e0","execPriceEp":669000000000,"execQuoteQtyEv":66900000,"feeCurrency":"BTC","lastLiquidityInd":"RemovedLiquidity","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","symbol":"sBTCUSDT","transactTimeNs":1587463924964876798,"userID":200076}],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"31f793f4-163d-aa3f-5994-0e1164719ba2","createTimeNs":1587547657438535949,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"b98b25c5-6aa4-4158-b9e5-477e37bd46d8","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587547657442752950,"triggerTimeNs":0,"userID":200076}]},"sequence":349,"timestamp":1587549121318737606,"type":"snapshot","wallets":[{"balanceEv":0,"currency":"LTC","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":100000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"ETH","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XRP","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"LINK","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XTZ","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 < {"orders":{"closed":[],"fills":[],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"0c1099e5-b900-5351-cf60-edb15ea2539c","createTimeNs":1587549529513521745,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"494a6cbb-32b3-4d6a-b9b7-196ea2506fb5","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587549529518394235,"triggerTimeNs":0,"userID":200076}]},"sequence":350,"timestamp":1587549529519959388,"type":"incremental","wallets":[{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":200000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 
@@ -1944,7 +1851,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```json
+```
 > {
   "method": "spot_market24h.subscribe",
   "params": [],
@@ -1988,13 +1895,13 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 | bid priceEp   | Integer| Scaled bid price                           |              |
 | ask priceEp   | Integer| Scaled ask price                           |              |
 | timestamp     | Integer| Timestamp in nanoseconds                   |              |
-| symbol        | String | Spot Symbol name                       | [Trading symbols](#symbpricesub) |
+| symbol        | String | Spot Symbol name                       | [Trading symbols](#productinfo) |
 | turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
 | volumeEv      | Integer| The scaled trade volume in last 24 hours   |              |
   
 * Sample:
 
-```json
+```
 < {
   "spot_market24h": {
     "askEp": 892100000000,
@@ -2012,35 +1919,106 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 }
 ```
 
-<a name="symbpricesub"/>
+<a name="currencyinfo"/>
 
-### All Trading Symbols
+### All Spot trading currencies
 
-   | symbol  |
-   |---------|
-   |sBTCUSDT |
-   |sXRPUSDT |
-   |sETHUSDT |
-   |sLINKUSDT|
-   |sXTZUSDT |
-   |sLTCUSDT |
-   |sADAUSDT |
-   |sTRXUSDT |
-   |sONTUSDT |
-   |sBCHUSDT |
-   |sNEOUSDT |
-   |sEOSUSDT |
-   |sDOGEUSDT|
-   |sBATUSDT |
-   |sCHZUSDT |
-   |sMANAUSDT|
-   |sENJUSDT |
-   |sSUSHIUSDT|
-   |sSNXUSDT |
-   |sGRTUSDT |
-   |sMKRUSDT |
-   |sUNIUSDT |
-   |sAAVEUSDT|
-   |sYFIUSDT |
-   |sCOMPUSDT|
+| currency | value scale factor | min value  |  max value | need addr arg |
+|--------|---------------|------------|------------|------------|
+|BTC|8|1|5e+18|0|
+|USDT|8|1|5e+18|0|
+|ETH|8|1|5e+18|0|
+|XRP|8|1|5e+18|1|
+|LINK|8|1|5e+18|0|
+|XTZ|8|1|5e+18|0|
+|LTC|8|1|5e+18|0|
+|ADA|8|1|5e+18|0|
+|TRX|8|1|5e+18|0|
+|ONT|8|1|5e+18|0|
+|BCH|8|1|5e+18|0|
+|NEO|8|1|5e+18|0|
+|EOS|8|1|5e+18|1|
+|COMP|8|1|5e+18|0|
+|LEND|8|1|5e+18|0|
+|YFI|8|1|5e+18|0|
+|DOT|8|1|5e+18|0|
+|UNI|8|1|5e+18|0|
+|AAVE|8|1|5e+18|0|
+|DOGE|8|1|5e+18|0|
+|BAT|8|1|5e+18|0|
+|CHZ|8|1|5e+18|0|
+|MANA|8|1|5e+18|0|
+|ENJ|8|1|5e+18|0|
+|SUSHI|8|1|5e+18|0|
+|SNX|8|1|5e+18|0|
+|GRT|8|1|5e+18|0|
+|MKR|8|1|5e+18|0|
+|ALGO|8|1|5e+18|0|
+|VET|8|1|5e+18|0|
+|ZEC|8|1|5e+18|0|
+|FIL|8|1|5e+18|0|
+|KSM|8|1|5e+18|0|
+|XMR|8|1|5e+18|0|
+|QTUM|8|1|5e+18|0|
+|XLM|8|1|5e+18|1|
+|ATOM|8|1|5e+18|1|
+|LUNA|8|1|5e+18|1|
+|SOL|8|1|5e+18|0|
+|AXS|8|1|5e+18|0|
+|MATIC|8|1|5e+18|0|
+|SHIB|2|1|5e+18|0|
+|FTM|8|1|5e+18|0|
+|DYDX|8|1|5e+18|0|
+|VPAD|4|1|5e+18|0|
+
+<a name="productinfo"/>
+
+### All Spot trading products
+
+|  symbol|  type | price scale factor | ratio scale factor |  baseTickSize|  baseTickSizeEv|  quoteTickSize|  quoteTickSizeEv|  baseQtyPrecision|  quoteQtyPrecision|  pricePrecision|  minOrderValue|  minOrderValueEv|  maxBaseOrderSize|  maxBaseOrderSizeEv|  maxOrderValue|  maxOrderValueEv|  defaultTakerFee|  defaultTakerFeeEr|  defaultMakerFee|  defaultMakerFeeEr|
+|---------|---------|---------|---------|-------------|-----------|-----------------|------------|------------|-------------|------|--------|-------|------|--------|-------|------|------|-------|-------|--------|
+|sBTCUSDT|Spot|8|8|0.000001 BTC|100|0.01 USDT|1000000|6|2|2|10 USDT|1000000000|1000 BTC|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sETHUSDT|Spot|8|8|0.00001 ETH|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10000 ETH|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sXRPUSDT|Spot|8|8|0.1 XRP|10000000|0.00001 USDT|1000|1|2|5|10 USDT|1000000000|5000000 XRP|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sLINKUSDT|Spot|8|8|0.01 LINK|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|5000000 LINK|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sXTZUSDT|Spot|8|8|0.01 XTZ|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|2000000 XTZ|200000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sLTCUSDT|Spot|8|8|0.00001 LTC|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|100000 LTC|10000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sADAUSDT|Spot|8|8|0.1 ADA|10000000|0.00005 USDT|5000|1|2|5|10 USDT|1000000000|5000000 ADA|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sTRXUSDT|Spot|8|8|0.1 TRX|10000000|0.00005 USDT|5000|1|2|5|10 USDT|1000000000|5000000 TRX|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sONTUSDT|Spot|8|8|0.1 ONT|10000000|0.0005 USDT|50000|1|2|4|10 USDT|1000000000|5000000 ONT|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sBCHUSDT|Spot|8|8|0.00001 BCH|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10000 BCH|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sNEOUSDT|Spot|8|8|0.001 NEO|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|5000000 NEO|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sEOSUSDT|Spot|8|8|0.01 EOS|1000000|0.0001 USDT|10000|2|2|4|10 USDT|1000000000|5000000 EOS|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sDOGEUSDT|Spot|8|8|1 DOGE|100000000|0.000001 USDT|100|0|2|6|10 USDT|1000000000|5000000 DOGE|500000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sBATUSDT|Spot|8|8|0.01 BAT|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 BAT|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sCHZUSDT|Spot|8|8|0.01 CHZ|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|700000 CHZ|70000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sMANAUSDT|Spot|8|8|0.01 MANA|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|400000 MANA|40000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sENJUSDT|Spot|8|8|0.01 ENJ|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 ENJ|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sSUSHIUSDT|Spot|8|8|0.001 SUSHI|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|40000 SUSHI|4000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sSNXUSDT|Spot|8|8|0.001 SNX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 SNX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sGRTUSDT|Spot|8|8|0.01 GRT|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 GRT|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sUNIUSDT|Spot|8|8|0.001 UNI|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|15000 UNI|1500000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sAAVEUSDT|Spot|8|8|0.0001 AAVE|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 AAVE|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sYFIUSDT|Spot|8|8|0.00001 YFI|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|10 YFI|1000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sCOMPUSDT|Spot|8|8|0.0001 COMP|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 COMP|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sMKRUSDT|Spot|8|8|0.00001 MKR|1000|0.01 USDT|1000000|5|2|2|10 USDT|1000000000|100 MKR|10000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sDOTUSDT|Spot|8|8|0.001 DOT|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 DOT|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sALGOUSDT|Spot|8|8|0.01 ALGO|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 ALGO|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sVETUSDT|Spot|8|8|0.1 VET|10000000|0.000001 USDT|100|1|2|6|10 USDT|1000000000|2000000 VET|200000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sZECUSDT|Spot|8|8|0.0001 ZEC|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|2000 ZEC|200000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sFILUSDT|Spot|8|8|0.0001 FIL|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|3000 FIL|300000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sKSMUSDT|Spot|8|8|0.0001 KSM|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1000 KSM|100000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sXMRUSDT|Spot|8|8|0.0001 XMR|10000|0.01 USDT|1000000|4|2|2|10 USDT|1000000000|1500 XMR|150000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sQTUMUSDT|Spot|8|8|0.001 QTUM|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 QTUM|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sXLMUSDT|Spot|8|8|0.01 XLM|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|1000000 XLM|100000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sATOMUSDT|Spot|8|8|0.001 ATOM|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|20000 ATOM|2000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sLUNAUSDT|Spot|8|8|0.001 LUNA|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|40000 LUNA|4000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sSOLUSDT|Spot|8|8|0.001 SOL|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 SOL|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sAXSUSDT|Spot|8|8|0.001 AXS|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|10000 AXS|1000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sMATICUSDT|Spot|8|8|0.01 MATIC|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|300000 MATIC|30000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sSHIBUSDT|Spot|8|8|1 SHIB|100|0.00000001 USDT|1|0|2|8|10 USDT|1000000000|5000000000 SHIB|500000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sFTMUSDT|Spot|8|8|0.01 FTM|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 FTM|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sDYDXUSDT|Spot|8|8|0.001 DYDX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 DYDX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
+|sVPADUSDT|Spot|8|8|0.1 VPAD|1000|0.000001 USDT|100|1|2|6|10 USDT|1000000000|15000000 VPAD|150000000000|500000 USDT|50000000000000|0.001|100000|0.001|100000|
+
 
