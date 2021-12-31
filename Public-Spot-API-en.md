@@ -37,8 +37,14 @@
       * [Query Deposit address](#depositAddr)
       * [Query Deposit history](#depositHist)
       * [Query withdraw history](#withdrawHist)
-
-
+    * [Spot Data Api List](#spotDataAPIList)
+      * [Query Funds History](#spotDataFundsHist)
+      * [Query Orders History](#spotDataOrdersHist)
+      * [Query Orders By Ids](#spotDataOrdersByIds)
+      * [Query PNLs](#spotDataPnls)
+      * [Query Trades](#spotDataTradesHist)
+      * [Query Trades By Ids](#spotDataTradesByIds)
+      
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
   * [API Rate Limits](#wsapiratelimits)
@@ -1116,6 +1122,285 @@ GET /exchange/wallets/withdrawList?currency=<currency>&offset=<offset>&limit=<li
     txHash: "44exxxxxxxxxxxxxxxxxxxxxx"
     withdrawStatus: ""
 }
+```
+
+<a name="spotDataApiList"/>
+
+### Spot Data Api List
+
+<a name="spotDataFundsHist"/>
+
+#### Query Funds History
+
+* Http Request
+
+```
+GET /api-data/spots/funds?currency=<currency>
+```
+
+| Field    | Type           | Required | Description               | Possible Values                 |
+|----------|----------------|----------|---------------------------|---------------------------------|
+| currency | String         | True     | the currency to query     | BTC,ETH, USDT ...               |
+| start    | Long           | False    | start time in millisecond | default 2 days ago from the end |
+| end      | Long           | False    | end time in millisecond   | default now                     |
+| offset   | Integer        | False    | page start from 0         | start from 0, default 0         |
+| limit    | Integer        | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```
+[
+  {
+    "action": "string",
+    "amountEv": 0,
+    "balanceEv": 0,
+    "bizCode": 0,
+    "createTime": 0,
+    "currency": "string",
+    "execId": "string",
+    "execSeq": 0,
+    "feeEv": 0,
+    "id": 0,
+    "side": "string",
+    "text": "string",
+    "transactTimeNs": 0
+  }
+]
+```
+
+<a name="spotDataOrdersHist"/>
+
+#### Query Orders History
+
+* Http Request
+
+```
+GET /api-data/spots/orders?symbol=<symbol>
+```
+
+| Field     | Type    | Required | Description               | Possible Values                 |
+|-----------|---------|----------|---------------------------|---------------------------------|
+| symbol    | String  | True     | the currency to query     | sBTCUSDT ...                    |
+| start     | Long    | False    | start time in millisecond | default 2 days ago from the end |
+| end       | Long    | False    | end time in millisecond   | default now                     |
+| offset    | Integer | False    | page start from 0         | start from 0, default 0         |
+| limit     | Integer | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```
+[
+  {
+    "avgPriceEp": 0,
+    "avgTransactPriceEp": 0,
+    "baseQtyEv": "string",
+    "createTimeNs": 0,
+    "cumBaseValueEv": 0,
+    "cumFeeEv": 0,
+    "cumQuoteValueEv": 0,
+    "execStatus": "string",
+    "feeCurrency": "string",
+    "leavesBaseQtyEv": 0,
+    "leavesQuoteQtyEv": 0,
+    "ordStatus": "string",
+    "ordType": "string",
+    "orderID": "string",
+    "priceEp": 0,
+    "qtyType": "string",
+    "quoteQtyEv": 0,
+    "side": "string",
+    "stopDirection": "string",
+    "stopPxEp": 0,
+    "symbol": "string",
+    "timeInForce": "string"
+  }
+]
+```
+
+<a name="spotDataOrdersByIds"/>
+
+#### Query Orders By Ids
+
+* Http Request
+
+```
+GET /api-data/spots/orders/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=<clOrdID>
+```
+
+| Field    | Type   | Required | Description           | Possible Values                                                                                                                           |
+|----------|--------|----------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol   | String | True     | the currency to query | sBTCUSDT ...                                                                                                                              |
+| orderID  | String | False    | order id              | orderID and clOrdID can not be both empty. If both IDs are given, it will return orderID if there is any, otherwise will try to find clOrdID |
+| clOrdID  | String | False    | client order id       | refer to orderID                                                                                                                          |
+
+
+* Response
+
+```
+[
+  {
+    "avgPriceEp": 0,
+    "avgTransactPriceEp": 0,
+    "baseQtyEv": "string",
+    "createTimeNs": 0,
+    "cumBaseValueEv": 0,
+    "cumFeeEv": 0,
+    "cumQuoteValueEv": 0,
+    "execStatus": "string",
+    "feeCurrency": "string",
+    "leavesBaseQtyEv": 0,
+    "leavesQuoteQtyEv": 0,
+    "ordStatus": "string",
+    "ordType": "string",
+    "orderID": "string",
+    "priceEp": 0,
+    "qtyType": "string",
+    "quoteQtyEv": 0,
+    "side": "string",
+    "stopDirection": "string",
+    "stopPxEp": 0,
+    "symbol": "string",
+    "timeInForce": "string"
+  }
+]
+```
+
+<a name="spotDataPnls"/>
+
+#### Query PNLs
+
+* Http Request
+
+```
+GET /api-data/spots/pnls
+```
+
+| Field    | Type   | Required | Description           | Possible Values                                                                                                                           |
+|----------|--------|----------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| start     | Long    | False    | start time in millisecond | default 2 days ago from the end |
+| end       | Long    | False    | end time in millisecond   | default now                     |
+
+* Response
+
+```
+[
+  {
+    "collectTime": 0,
+    "cumPnlEv": 0,
+    "dailyPnlEv": 0,
+    "userId": 0
+  }
+]
+```
+<a name="spotDataTradesHist"/>
+
+#### Query Trades History
+
+* Http Request
+
+```
+GET /api-data/spots/trades?symbol=<symbol>
+```
+
+| Field     | Type    | Required | Description               | Possible Values                 |
+|-----------|---------|----------|---------------------------|---------------------------------|
+| symbol    | String  | True     | the currency to query     | sBTCUSDT ...                    |
+| start     | Long    | False    | start time in millisecond | default 2 days ago from the end |
+| end       | Long    | False    | end time in millisecond   | default now                     |
+| offset    | Integer | False    | page start from 0         | start from 0, default 0         |
+| limit     | Integer | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```
+[
+  {
+    "action": "string",
+    "baseCurrency": "string",
+    "baseQtyEv": 0,
+    "clOrdID": "string",
+    "execBaseQtyEv": 0,
+    "execFeeEv": 0,
+    "execId": "string",
+    "execInst": "string",
+    "execPriceEp": 0,
+    "execQuoteQtyEv": 0,
+    "execStatus": "string",
+    "feeCurrency": "string",
+    "feeRateEr": 0,
+    "leavesBaseQtyEv": 0,
+    "leavesQuoteQtyEv": 0,
+    "ordStatus": "string",
+    "ordType": "string",
+    "orderID": "string",
+    "priceEP": 0,
+    "qtyType": "string",
+    "quoteCurrency": "string",
+    "quoteQtyEv": 0,
+    "side": "string",
+    "stopDirection": "string",
+    "stopPxEp": 0,
+    "symbol": "string",
+    "timeInForce": "string",
+    "tradeType": "string",
+    "transactTimeNs": 0
+  }
+]
+```
+
+<a name="spotDataTradesByIds"/>
+
+#### Query Orders By Ids
+
+* Http Request
+
+```
+GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=<clOrdID>
+```
+
+| Field    | Type   | Required | Description           | Possible Values                                                                                                                           |
+|----------|--------|----------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol   | String | True     | the currency to query | sBTCUSDT ...                                                                                                                              |
+| orderID  | String | False    | order id              | orderID and clOrdID can not be both empty. If both IDs are given, it will return orderID if there is any, otherwise will try to find clOrdID |
+| clOrdID  | String | False    | client order id       | refer to orderID                                                                                                                          |
+
+
+* Response
+
+```
+[
+  {
+    "action": "string",
+    "baseCurrency": "string",
+    "baseQtyEv": 0,
+    "clOrdID": "string",
+    "execBaseQtyEv": 0,
+    "execFeeEv": 0,
+    "execId": "string",
+    "execInst": "string",
+    "execPriceEp": 0,
+    "execQuoteQtyEv": 0,
+    "execStatus": "string",
+    "feeCurrency": "string",
+    "feeRateEr": 0,
+    "leavesBaseQtyEv": 0,
+    "leavesQuoteQtyEv": 0,
+    "ordStatus": "string",
+    "ordType": "string",
+    "orderID": "string",
+    "priceEP": 0,
+    "qtyType": "string",
+    "quoteCurrency": "string",
+    "quoteQtyEv": 0,
+    "side": "string",
+    "stopDirection": "string",
+    "stopPxEp": 0,
+    "symbol": "string",
+    "timeInForce": "string",
+    "tradeType": "string",
+    "transactTimeNs": 0
+  }
+]
 ```
 
 
