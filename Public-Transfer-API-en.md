@@ -16,7 +16,7 @@
     * [Spot currency and Symbol](#spotCurrencySym)
     * [Common constants](#commconsts)
   * [REST API List](#restapilist)
-    * [Transfer Api List](#spotDataAPIList)
+    * [Transfer Api List](#transferApiList)
       * [Transfer Between Spot and Futures](#assetsTransfer)
       * [Query Transfer History](#assetsTransferQuery)
       * [Spot Sub To Main Transfer](#spotSubToMainTransfer)
@@ -328,6 +328,8 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 <a name="transferApiList"/>
 
 ### Transfer API List
+
+<a name="assetsTransfer"/>
 
 #### Transfer Between Spot and Futures 
 
