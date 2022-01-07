@@ -549,7 +549,7 @@ GET /assets/spots/sub-accounts/transfer?currency=BTC
 ```
 <a name="universalTransfer"/>
 
-#### Universal Transfer(Main account only) - Transfer between sub to main or main to sub 
+#### Universal Transfer(Main account only) - Transfer between sub to main, main to sub or sub to sub
 
 * Http Request
 
@@ -671,7 +671,7 @@ POST /assets/convert
 * Http Request
 
 ```
-POST /assets/convert
+GET /assets/convert
 ```
 
 | Field        | Type     | Required | Description               | Possible Values                      |
