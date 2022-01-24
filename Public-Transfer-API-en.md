@@ -521,7 +521,7 @@ POST /assets/futures/sub-accounts/transfer
 * Http Request
 
 ```
-GET /assets/spots/sub-accounts/transfer?currency=BTC
+GET /assets/futures/sub-accounts/transfer?currency=BTC
 ```
 
 | Field    | Type    | Required | Description               | Possible Values                 |
