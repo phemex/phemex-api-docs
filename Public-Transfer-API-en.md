@@ -320,6 +320,16 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 |------------|-------------|
 | ByLastPrice | trigger by last price |
 
+* Transfer Status
+
+| Transfer Status | Description                     | 
+|-----------------|---------------------------------|
+| 3               | Rejected                        |
+| 6               | Got error and wait for recovery |
+| 10              | Success                         |
+| 11              | Failed                          |
+| others          | Under processing                |
+
 
 <a name="restapilist"/>
 
