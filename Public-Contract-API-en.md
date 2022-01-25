@@ -35,6 +35,7 @@
       * [Query User Trades by Symbol](#querytrade)
     * [Market Data API List ](#mdapilist)
       * [Query Order Book](#queryorderbook)
+      * [Query kline](#querykline)
       * [Query Recent Trades](#querytrades)
       * [Query 24 Hours Ticker](#query24hrsticker)
       * [Query History Trades](#queryhisttrades)
@@ -1410,6 +1411,46 @@ GET /md/orderbook?symbol=BTCUSD
 }
 ```
 
+<a name="querykline"/>
+
+### Query kline
+
+```
+GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
+
+```
+
+* Response
+
+{
+"code": 0,
+"msg": "OK",
+"data": {
+"total": -1,
+"rows": [[<timestamp>, <interval>, <last_close>, <open>, <high>, <low>, <close>, <volume>, <turnover>], [...]]
+}
+}
+
+| Field       | Type    | Required    | Description            | Possible Values                        |
+|-------------|---------|-------------|------------------------|----------------------------------------|
+|symbol       | String  | Yes         | symbol name            | BTCUSD,ETHUSD,uBTCUSD,cETHUSD,XRPUSD...| 
+| from        | Integer | Yes         | start time in seconds  |                                        |
+| to          | Integer | Yes         | end time in seconds    |                                        | 
+| resolution  | Integer | Yes         | kline interval         | describled as below                    |
+
+|resolution|Description |
+|----------|------------|
+|60|MINUTE_1|
+|300|MINUTE_5|
+|900|MINUTE_15|
+|1800|MINUTE_30|
+|3600|HOUR_1|
+|14400|HOUR_4|
+|86400|DAY_1|
+|604800|WEEK_1|
+|2592000|MONTH_1|
+|7776000|SEASON_1|
+|31104000|YEAR_1|
 
 <a name="querytrades"/>
 
