@@ -1422,6 +1422,7 @@ GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<re
 
 * Response
 
+```
 {
 "code": 0,
 "msg": "OK",
@@ -1430,6 +1431,7 @@ GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<re
 "rows": [[<timestamp>, <interval>, <last_close>, <open>, <high>, <low>, <close>, <volume>, <turnover>], [...]]
 }
 }
+```
 
 | Field       | Type    | Required    | Description            | Possible Values                        |
 |-------------|---------|-------------|------------------------|----------------------------------------|
