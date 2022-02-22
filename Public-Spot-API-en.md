@@ -31,8 +31,8 @@
       * [Query Open Order by clOrdID or orderID](#spotQueryOpenOrder)
       * [List all Open Orders by Symbol](#spotListAllOpenOrder)
       * [Query Wallets](#spotQueryWallet)
-      * [Query Closed orders](#spotQueryClosedOrder)
-      * [Query history trades](#spotQueryHistTrade)
+      * [Query Closed orders, *Deprecated*](#spotQueryClosedOrder)
+      * [Query history trades, *Deprecated*](#spotQueryHistTrade)
     * [Spot Asset Api List](#spotAssetAPIList)
       * [Query Deposit address](#depositAddr)
       * [Query Deposit history](#depositHist)
@@ -828,6 +828,8 @@ GET /spot/wallets?currency=<currency>
 #### Query spot closed orders
     * Query closed orders by symbol
 
+**NOTE:** deprecated, recommend [Query Orders by IDs](#spotDataOrdersByIds) 
+
 * Http Request
 
 ```
@@ -927,6 +929,8 @@ GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordT
 #### Query spot history trades
    
    * Query spot history trades by symbol
+
+**NOTE:**  Deprecated, recommend [Query Trades](#spotDataTradesHist)
 
 * Http Request
 

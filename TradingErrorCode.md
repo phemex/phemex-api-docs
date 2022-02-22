@@ -1,3 +1,4 @@
+## BizError Field
   |  code   |   Message   |   Description   |  
   |---------|-------------|-----------------|  
   |  19999  |  REQUEST_IS_DUPLICATED  |  Details: Duplicated request ID  |  
@@ -139,3 +140,14 @@
   |  11132  |  TE_BO_ABORT_BOSL_DUE_BOTP_CREATE_FAILED| Details: cancel bracket stop loss order due failed to create take profit order.|
   |  11133  |  TE_BO_ABORT_BOSL_DUE_BOPO_CANCELED| Details: cancel bracket stop loss order due main order canceled.|
   |  11134  |  TE_BO_ABORT_BOTP_DUE_BOPO_CANCELED| Details: cancel bracket take profit order due main order canceled.|
+
+
+## CxlRejReason Field
+
+| code | Reason | Description |
+|-----|---------|-------------|
+| 100 | CE_NO_ENOUGH_QTY | Details: qty is not enough |
+| 101 | CE_WILLCROSS | Details: passive order rejected due to price may cross  |
+| 116 | CE_NO_ENOUGH_BASE_QTY | Details: base-qty is not enough in spot-trading |
+| 117 | CE_NO_ENOUGH_QUOTE_QTY | Details: quote-qty is not enough in spot-trading |
+
