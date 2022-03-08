@@ -43,8 +43,8 @@
       * [Query client and wallets](#clientwalletquery)
       * [Transfer self balance to parent or subclients](#walletransferout)
       * [Transfer from sub-client wallet](#walletransferin)
-      * [Transfer between wallet and trading account](#transferwallettradingaccount)
-      * [Query wallet/tradingaccount transfer history](#transferwallettradingaccountquery)
+      * [Transfer between wallet and trading account, *Deprecated*](#transferwallettradingaccount)
+      * [Query wallet/tradingaccount transfer history, *Deprecated*](#transferwallettradingaccountquery)
     * [Future Data Api List](#futureDataAPIList)
       * [Query Funding Fees History](#futureDataFundingFeesHist)
       * [Query Orders History](#futureDataOrdersHist)
@@ -1825,7 +1825,7 @@ Body:
 
 <a name="transferwallettradingaccount"/>
 
-#### Transfer between wallet and trading accounts
+#### Transfer between wallet and trading accounts, *Deprecated*
 
 * Request
 ```
@@ -1877,7 +1877,7 @@ Body:
 
 <a name="transferwallettradingaccountquery"/>
 
-#### Query wallet/tradingaccount transfer history
+#### Query wallet/tradingaccount transfer history, *Deprecated*
 
 * Request
 
