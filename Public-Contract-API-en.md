@@ -349,7 +349,7 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 | symbol | String | Yes | Which symbol to place order | [Trading symbols](#symbpricesub) | 
 | clOrdID | String | Yes | client order id, max length is 40| |
 | side |  Enum | Yes | Order direction, Buy or Sell | Buy, Sell | 
-| orderQty | Integer | Yes | Order quntity | |
+| orderQty | Integer | Yes | Order quantity | |
 | priceEp | Integer | - | Scaled price, required for limit order | | 
 | ordType | Enum | - | default to Limit | Market, Limit, Stop, StopLimit, MarketIfTouched, LimitIfTouched| 
 | stopPxEp | Integer | - | Trigger price for stop orders | |
