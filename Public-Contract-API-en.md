@@ -615,7 +615,7 @@ PUT
 
 * Request
 ```
-DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
+DELETE /orders/cancel?orderID=<orderID>&symbol=<symbol>
 ```
 
 * Response
