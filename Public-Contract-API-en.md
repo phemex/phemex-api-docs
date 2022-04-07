@@ -43,8 +43,6 @@
       * [Query client and wallets](#clientwalletquery)
       * [Transfer self balance to parent or subclients](#walletransferout)
       * [Transfer from sub-client wallet](#walletransferin)
-      * [Transfer between wallet and trading account, *Deprecated*](#transferwallettradingaccount)
-      * [Query wallet/tradingaccount transfer history, *Deprecated*](#transferwallettradingaccountquery)
     * [Future Data Api List](#futureDataAPIList)
       * [Query Funding Fees History](#futureDataFundingFeesHist)
       * [Query Orders History](#futureDataOrdersHist)
@@ -1819,112 +1817,6 @@ Body:
 
 ```json
 {"code":0,"msg":"OK","data":"OK"}
-```
-
-***More developer friendly API is yet to come***
-
-<a name="transferwallettradingaccount"/>
-
-#### Transfer between wallet and trading accounts, *Deprecated*
-
-* Request
-```
-POST /exchange/margins
-
-Body:
-{
-    "btcAmount": 0.00, 
-    "btcAmountEv": 0, 
-    "linkKey": "unique-str-for-this-request", 
-    "moveOp": [1,2,3,4], 
-    "usdAmount": 0.00,
-    "usdAmountEv": 0
-}
-```
-   * `btcAmount/btcAmountEv` is required when `moveOp` is `1, 2, 3`. `btcAmountEv` favors over `btcAmount` when both provided. `0.002 btcAmount` or `200000 btcAmountEv` is the minimum when `moveOp` is `3`.
-   * `usdAmount/usdAmountEv` is required when `moveOp` is `4`. `usdAmountEv` favors over `usdAmount` when both provided. `1 usdAmount` or `10000 usdAmountEv` is the minimum.
-   * All amount must be positive
-
-| Field | Type | Required | Description | Possible values |
-|-------|------|----------|--------------|----------------|
-| moveOp | Integer | Yes | move operation, four types: 1- From BTC trading account to wallet; 2- From wallet to BTC trading account; 3 - From wallet to USD trading account; 4 - From USD trading account to wallet | 1,2,3,4 |
-| linkKey | String | No |  used for idempotency, unique string for one request, recommend UUID. System can generate it when not provided | | 
-| btcAmount | BigDecimal | - | unscaled BTC amount with at most 8 precision, optional | |
-| btcAmountEv | Integer | - |scaled BTC amount | |
-| usdAmount | BigDecimal | - | unscaled amount with at most 4 preision. | |
-| usdAmountEv | Integer | - | scaled USD amount | |
-
-* Response
-
-   * `status == 10` in the response body implies the operation succeeded or not, as underlying operation is async.
-
-```json
-{
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "moveOp": 1,
-            "fromCurrencyName": "BTC",
-            "toCurrencyName": "BTC",
-            "fromAmount": "0.10000000",
-            "toAmount": "0.10000000",
-            "linkKey": "2431ca9b-2dd4-44b8-91f3-2539bb62db2d",
-            "status": 10,
-        }
-}
-
-```
-
-<a name="transferwallettradingaccountquery"/>
-
-#### Query wallet/tradingaccount transfer history, *Deprecated*
-
-* Request
-
-```
-GET /exchange/margins/transfer?start=<start>&end=<end>&offset=<offset>&limit=<limit>&withCount=<withCount>
-```
-
-| Filed | Type | Required |  Description | Possible values |
-|-------|------|----------|--------------|-----------------|
-| start | Integer | No | epoch millis of start of time range, include | |
-| end | Integer | No | epoch millis of start of time range, exclude | |
-| offset | Integer | No | default 0, offset of the resultset | |
-| limit | Integer | No | default 50(subject to change) | |
-| withCount | Boolean | No | whether total records is required | true,false|
-
-* Response
-```json
-{
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "total": 589,
-            "rows": [
-            {
-                "moveOp": 1,
-                "fromCurrencyName": "BTC",
-                "toCurrencyName": "BTC",
-                "fromAmount": "0.10000000",
-                "toAmount": "0.10000000",
-                "linkKey": "2431ca9b-2dd4-44b8-91f3-2539bb62db2d",
-                "status": 10,
-                "createTime": 1580201427000
-            },
-            {
-                "moveOp": 4,
-                "fromCurrencyName": "USD",
-                "toCurrencyName": "BTC",
-                "fromAmount": "8310.12000000",
-                "toAmount": "0.99748508",
-                "linkKey": "r2-move-usd-200076-20200126",
-                "status": 10,
-                "createTime": 1579976362000
-            },
-            ...
-                ]
-        }
-}
 ```
 
 <a name="futureDataApiList"/>
