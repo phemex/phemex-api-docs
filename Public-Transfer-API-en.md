@@ -612,7 +612,7 @@ GET /assets/quote
 |--------------|--------|----------|----------------------|-----------------|
 | fromCurrency | String | True     | from currency        | BTC,USD ...     |
 | toCurrency   | String | True     | to currency          | BTC,USD ...     |
-| amountEv     | Long   | False    | amountEv to transfer | 100000 ...      |
+| fromAmountEv | Long   | True     | amountEv to transfer | 100000 ...      |
 
 
 * Response
