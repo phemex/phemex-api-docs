@@ -267,9 +267,6 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 | StopLimit | -- |
 | MarketIfTouched | -- |
 | LimitIfTouched | -- |
-| MarketAsLimit | -- |
-| StopAsLimit | -- |
-| MarketIfTouchedAsLimit | -- |
 
 
 * order Status
