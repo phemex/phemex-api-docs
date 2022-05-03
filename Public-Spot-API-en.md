@@ -230,10 +230,6 @@ See [all spot trading products](#productinfo) for details.
 | StopLimit | -- |
 | MarketIfTouched | -- |
 | LimitIfTouched | -- |
-| MarketAsLimit | -- |
-| StopAsLimit | -- |
-| MarketIfTouchedAsLimit | -- |
-
 
 * order Status
 
