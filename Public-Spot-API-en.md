@@ -1655,7 +1655,7 @@ It unsubscribes all orderbook related subscriptions.
 
 ### Subscribe Trade
 
-On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
+On each successful subscription, DataGW will send the 200 history trades immediately for the subscribed symbol and all the later trades will be published.
 
 * Request
 
