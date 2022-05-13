@@ -62,6 +62,8 @@
     * [Subscribe 24 Hours Ticker](#tickersub)
     * [All Spot trading currencies](#currencyinfo)
     * [All Spot trading products](#productinfo)
+    * [Subscribe Investment Account](#investmentaccount)
+
 
 <a name="publicapi"/>
 
@@ -1655,7 +1657,7 @@ It unsubscribes all orderbook related subscriptions.
 
 ### Subscribe Trade
 
-On each successful subscription, DataGW will send the 1000 history trades immediately for the subscribed symbol and all the later trades will be published.
+On each successful subscription, DataGW will send the 200 history trades immediately for the subscribed symbol and all the later trades will be published.
 
 * Request
 
@@ -2311,4 +2313,82 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 |sDYDXUSDT|Spot|8|8|0.001 DYDX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 DYDX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
 |sVPADUSDT|Spot|8|8|0.1 VPAD|1000|0.000001 USDT|100|1|2|6|10 USDT|1000000000|15000000 VPAD|150000000000|500000 USDT|50000000000000|0.001|100000|0.001|100000|
 
+<a name="investmentaccount"/>
+
+### Subscribe Investment Account
+
+* Request：
+```
+{
+  "id": <id>,
+  "method": "wm.subscribe",
+  "params": []
+}
+```
+
+* Response:
+```
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+      "status":"success"
+    }
+}
+
+{
+  "investments":[
+    {
+      "currency":<currency>,
+      "balanceEv":<balanceEv>,
+      "userId":<id>,
+      "demandPendingInterestBalanceEv":<demandPendingInterestBalanceEv>,
+      "demandInterestedBalanceEv":<demandInterestedBalanceEv>,
+      "timedDepositBalanceEv":<timedDepositBalanceEv>,
+      "currentTimeMillis":<currentTimeMillis>
+  ]
+}
+```
+
+* Sample：
+```
+{
+  "id": 1234,
+  "method": "wm.subscribe",
+  "params": []
+}
+
+{
+  "error": null,
+  "id": 1234,
+  "result": {
+      "status":"success"
+    }
+}
+
+{
+  "investments":[
+    {
+      "currency":"USDT",
+      "balanceEv":21797700000,
+      "userId":1234,
+      "demandPendingInterestBalanceEv":0,
+      "demandInterestedBalanceEv":0,
+      "timedDepositBalanceEv":20000000000,
+      "currentTimeMillis":1653972360161
+    },
+    {
+      "currency":"BTC",
+      "balanceEv":0,
+      "userId":1234,
+      "demandPendingInterestBalanceEv":0,
+      "demandInterestedBalanceEv":0,
+      "timedDepositBalanceEv":0,
+      "currentTimeMillis":1653972360166
+    }
+  ]
+}
+
+
+```
 
