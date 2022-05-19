@@ -2018,7 +2018,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 ### Subscribe Wallet-Order messages
 
-WO subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends WO messages back to client accordingly. 0 or more latest WO snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a users' wallets and open / max 100 closed / max 100 filled order event message history.
+WO subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends WO messages back to client accordingly. 0 or more latest WO snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a users' wallets and open / limited closed / limited filled order event message history.
 
 * Request
 
@@ -2026,7 +2026,9 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 {
   "id": <id>,
   "method": "wo.subscribe",
-  "params": []
+  "params": [
+    "close/fills limits(default 0, means max 100)
+  ]
 }
 ```
 
