@@ -2315,6 +2315,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 <a name="investmentaccount"/>
 
 ### Subscribe Investment Account
+on subscription to investment account then you will get your investment information of each currency type.
 
 * Request：
 ```
@@ -2334,20 +2335,8 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
       "status":"success"
     }
 }
-
-{
-  "investments":[
-    {
-      "currency":<currency>,
-      "balanceEv":<balanceEv>,
-      "userId":<id>,
-      "demandPendingInterestBalanceEv":<demandPendingInterestBalanceEv>,
-      "demandInterestedBalanceEv":<demandInterestedBalanceEv>,
-      "timedDepositBalanceEv":<timedDepositBalanceEv>,
-      "currentTimeMillis":<currentTimeMillis>
-  ]
-}
 ```
+
 
 * Sample：
 ```
@@ -2364,7 +2353,37 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
       "status":"success"
     }
 }
+```
 
+#### Investment Account Message Format：
+
+```
+{
+  "investments":[
+    {
+      "currency":<currency>,
+      "balanceEv":<balanceEv>,
+      "userId":<userId>,
+      "demandPendingInterestBalanceEv":<demandPendingInterestBalanceEv>,
+      "demandInterestedBalanceEv":<demandInterestedBalanceEv>,
+      "timedDepositBalanceEv":<timedDepositBalanceEv>,
+      "currentTimeMillis":<currentTimeMillis>
+  ]
+}
+```
+
+| Field       | Type   | Description      | Possible values |
+|-------------|--------|------------------|-----------------|
+| currency    | String |invested currency |      BTC,ETH    |
+| balanceEv   | Long   |invested amount   |        0        |
+| userId      | Long   | your user id     | 1234            |
+| demandPendingInterestBalanceEv | Long   | pending interest for flexible product  | 0 |
+| demandInterestedBalanceEv      | Long   | paid interest for flexible product     | 0 |
+| timedDepositBalanceEv          | Long | amount for fixed product                 | 20000000000 |
+| currentTimeMillis              | Long |   time in milli    | 1653972360166 |
+
+* Sample：
+```
 {
   "investments":[
     {
@@ -2387,6 +2406,5 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
     }
   ]
 }
-
-
 ```
+
