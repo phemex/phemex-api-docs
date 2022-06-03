@@ -3057,7 +3057,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
    | ATOMUSD     | .ATOM        | .MATOM        | .ATOMFR      | .ATOMFR8H           |
    | LUNAUSD     | .LUNA        | .MLUNA        | .LUNAFR      | .LUNAFR8H           |
    | SOLUSD      | .SOL         | .MSOL         | .SOLFR       | .SOLFR8H            |
-   | u1000RSRUSD | .u1000RSR    | .Mu1000RSR    | .u1000RSR    | .u1000RSRUSDFR8H    |
+   | u1000RSRUSD | .u1000RSR    | .Mu1000RSR    | .u1000RSR    | .u1000RSRFR8H       |
 
 * Request
 
