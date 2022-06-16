@@ -2204,7 +2204,7 @@ Body:
 ## API Rate Limits
 
 * Each Client has concurrent connection limit to *5* in maximum.
-* Each connection has subscription limit to *20* in maximum.
+* Each connection has subscription limit to *100* in maximum.
 * Each connection has throttle limit to *20* request/s.
 
 <a name="wsapilist"/>
