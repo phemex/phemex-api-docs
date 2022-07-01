@@ -1054,10 +1054,10 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 | Field                | Type   | Description                                | Possible values |
 |----------------------|--------|--------------------------------------------|--------------|
 | symbol | String | which symbol needs to query | [Trading symbols](#symbpricesub) |
-| start  | Integer | start time range, Epoch millis | |
+| start  | Integer | start time range, Epoch millis，available only from the last 2 month | |
 | end  | Integer | end time range, Epoch millis | |
 | offset | Integer | offset to resultset | | 
-| limit | Integer | limit of resultset  | | 
+| limit | Integer | limit of resultset, max 200 | | 
 | ordStatus | String | order status list filter | New, PartiallyFilled, Untriggered, Filled, Canceled | 
 
 * Response
@@ -1144,7 +1144,7 @@ GET /exchange/order/list?symbol=<symbol>&start=<start>&end=<end>&offset=<offset>
 GET /exchange/order?symbol=<symbol>&orderID=<orderID1,orderID2>
 GET /exchange/order?symbol=<symbol>&clOrdID=<clOrdID1,clOrdID2>
 ```
-
+Description : available only from the last 2 month
 * Response
 
 ```
@@ -1230,9 +1230,9 @@ GET /exchange/order/trade?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&
 |-----------|----------|----------|-----------------------------------------------------------------|---------------------------------|
 | symbol    | String   | Yes      | Trading symbol                                                  | BTCUSD, ETHUSD ...              |
 | tradeType | String   | No       | Trade type of execution order                                   | Trade,Funding,AdlTrade,LiqTrade |
-| start     | Long     | No       | Epoch time in milli-seconds of range start                      | --                              |
+| start     | Long     | No       | Epoch time in milli-seconds of range start. available only from the last 2 month                    | --                              |
 | end       | Long     | No       | Epoch time in milli-seconds of range end                        | --                              |
-| limit     | Integer  | No       | The expected count of returned data-set. Default to 50          | --                              |
+| limit     | Integer  | No       | The expected count of returned data-set. Default to 50. Max to 200| --                              |
 | offset    | Integer  | No       | Offset of total dataset in a range                              | --                              |
 | withCount | Boolean  | No       | A flag to tell if the count of total result set is required     | --                              |
 
