@@ -48,9 +48,9 @@
 
    | Group Name | Capacity |
    |------------|---------|
-   | Contract   |  500/minutes |
-   | SpotOrder  | trail, premium 500/minutes |
-   | Others     | 100/minutes  |
+   | Contract   | 500/minute |
+   | SpotOrder  | 500/minute |
+   | Others     | 100/minute |
 
 
 <a name="apigroup"/>
