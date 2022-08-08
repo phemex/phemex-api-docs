@@ -1532,7 +1532,7 @@ GET /md/trade?symbol=BTCUSD
 
 * Request：
 ```
-GET /md/ticker/24hr?symbol=<symbol>
+GET v1/md/ticker/24hr?symbol=<symbol>
 ```
 
 | Field       | Type   | Description                                | Possible values |
@@ -1545,19 +1545,21 @@ GET /md/ticker/24hr?symbol=<symbol>
   "error": null,
   "id": 0,
   "result": {
-    "open": <open priceEp>,
-    "high": <high priceEp>,
-    "low": <low priceEp>,
-    "close": <close priceEp>,
-    "indexPrice": <index priceEp>,
-    "markPrice": <mark priceEp>,
-    "openInterest": <open interest>,
-    "fundingRate": <funding rateEr>,
-    "predFundingRate": <predicated funding rateEr>,
-    "symbol": "<symbol>",
-    "turnover": <turnoverEv>,
-    "volume": <volume>,
-    "timestamp": <timestamp>
+      "askEp": <best ask priceEp>,
+      "bidEp": <best bid priceEp>,
+      "fundingRateEr": <funding rateEr>,
+      "highEp": <high priceEp>,
+      "indexEp": <index priceEp>,
+      "lastEp": <last priceEp>,
+      "lowEp": <low priceEp>,
+      "markEp": <mark priceEp>,
+      "openEp": <open priceEp>,
+      "openInterest": <open interest>,
+      "predFundingRateEr": <predicated funding rateEr>,
+      "symbol": <symbol>,
+      "timestamp": <timestamp>,
+      "turnoverEv": <turnoverEv>,
+      "volume": <volume>
   }
 }
 ```
@@ -1580,7 +1582,7 @@ GET /md/ticker/24hr?symbol=<symbol>
 
 * Sample：
 ```
-GET /md/ticker/24hr?symbol=BTCUSD
+GET v1/md/ticker/24hr?symbol=BTCUSD
 
 {
   "error": null,
