@@ -1411,6 +1411,10 @@ GET /md/orderbook?symbol=BTCUSD
 
 ### Query kline
 
+NOTE: 
+
+1. please be noted that kline interfaces have [rate limits](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#rate-limits) rule,  please check the Other group under [api groups](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#api-groups)
+
 ```
 GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
 
@@ -1432,8 +1436,8 @@ GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<re
 | Field       | Type    | Required    | Description            | Possible Values                        |
 |-------------|---------|-------------|------------------------|----------------------------------------|
 |symbol       | String  | Yes         | symbol name            | BTCUSD,ETHUSD,uBTCUSD,cETHUSD,XRPUSD...| 
-| from        | Integer | Yes         | start time in seconds  |                                        |
-| to          | Integer | Yes         | end time in seconds    |                                        | 
+| from        | Integer | Yes         | start time in seconds  | value aligned in resolution boundary |
+| to          | Integer | Yes         | end time in seconds    | value aligned in resolution boundary; Number of k-lines return between [`from`, `to`) should be less than 1000  | 
 | resolution  | Integer | Yes         | kline interval         | describled as below                    |
 
 |resolution|Description |
