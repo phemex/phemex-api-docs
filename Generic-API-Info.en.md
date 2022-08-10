@@ -50,7 +50,6 @@
    |------------|---------|
    | Contract   |  500/minute |
    | SpotOrder  |  500/minute |
-   | marketDataUser  |  100/minute |
    | Others     |  100/minute |
 
 
