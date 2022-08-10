@@ -1411,6 +1411,8 @@ GET /md/orderbook?symbol=BTCUSD
 
 ### Query kline
 
+NOTE: please be noted that kline interfaces have rate limit [https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#rate-limits](rate limits) rule,  please check the MarketData group under [https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#api-groups](api groups) 
+
 ```
 GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
 
