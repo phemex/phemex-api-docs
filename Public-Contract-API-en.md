@@ -1411,6 +1411,13 @@ GET /md/orderbook?symbol=BTCUSD
 
 ### Query kline
 
+NOTE: 
+
+1. please be noted that kline interfaces have rate limit [rate limits](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#rate-limits) rule,  please check the Other group under [api groups](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#api-groups)
+2. in future version we may restrict the parameter `to` or/and `from` to be aligned by the resolution boundary. if requests from API do NOT meet market data argument rule, they may be rejected. If a request asks too many kline, the server may also reject the request. 
+3. this interface is marked ```@Deprecated```, we may provide an upgraded version to serve kline data, so please do NOT rely on this interface on mission critical tasks  
+
+
 ```
 GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
 

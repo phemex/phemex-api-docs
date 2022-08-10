@@ -50,6 +50,7 @@
    |------------|---------|
    | Contract   |  500/minute |
    | SpotOrder  |  500/minute |
+   | marketDataUser  |  100/minute |
    | Others     |  100/minute |
 
 
@@ -90,6 +91,14 @@
 
    * Others
 
-   APIs which is not in contract or spotOrder group is categoried into other group.
+<a name="otherGroup"/>
+
+   APIs which is not in contract or spotOrder group is categorized into other group.
+
+Because the number of interfaces in Other group may grow over time, the list below is not exhausted, the items in the table highlight interfaces that has weight other than 1, or interfaces that Phemex deems important. 
+
+   | Path | Method | Weight | Description |
+   |------|--------|--------|-------------|
+   | /exchange/public/md/kline | GET | 4 | kline query |
 
 
