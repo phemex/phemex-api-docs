@@ -50,6 +50,7 @@
    |------------|---------|
    | Contract   |  500/minute |
    | SpotOrder  |  500/minute |
+   | marketDataUser  |  100/minute |
    | Others     |  100/minute |
 
 
@@ -87,6 +88,15 @@
 | /spot/orders/all | DELETE | 2 | Cancel spot orders by symbol |
 | /spot/orders/active | GET | 1 | Query open spot order |
 | /spot/orders | GET | 1 | Query all open spot orders by symbol |
+
+   * marketDataUser group
+
+<a name="marketDataUser"/>
+   marketDataUser group is for public kline and other market data related APIs, which contains following published api.
+
+| Path | Method | Weight | Description |
+|------|--------|--------|-------------|
+| /exchange/public/md/kline | GET | 4 | kline query |
 
    * Others
 
