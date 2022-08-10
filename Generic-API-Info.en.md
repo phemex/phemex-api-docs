@@ -91,8 +91,8 @@
 
    * marketDataUser group
 
-<a name="marketDataUser"/>
-   marketDataUser group is for public kline and other market data related APIs, which contains following published api.
+<a name="marketDataGroup"/>
+   MarketData group is for public kline and other market data related APIs, which contains following published api.
 
 | Path | Method | Weight | Description |
 |------|--------|--------|-------------|
