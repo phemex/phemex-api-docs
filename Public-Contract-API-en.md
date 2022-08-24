@@ -1623,7 +1623,9 @@ GET /exchange/public/nomics/trades?market=<symbol>&since=<since>
 | Field  | Type     | Description                                                       | Possible values                   |
 |--------|----------|-------------------------------------------------------------------|-----------------------------------|
 | market | String   | the market of symbol                                              |[Trading symbols](#scalingfactors) |
-| since  | String   | Last id of response field, 0-0-0 is from the very initial trade   |                                   |
+| since  | String   | Last id of response field, 0-0-0 is from the very initial trade   | default 0-0-0                     |
+| start  | Integer  | Epoch time in milli-seconds of range start                        |                                   |
+| end    | Integer  | Epoch time in milli-seconds of range end                          |                                   |
 
 * Response
 
