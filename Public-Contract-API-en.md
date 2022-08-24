@@ -21,7 +21,7 @@
       * [Order examples](#orderexample)
       * [Place Order](#placeorder)
       * [Amend Order by OrderID](#amendorder)
-      * [Cancel Single Order by OrderID](#cancelsingleorder)
+      * [Cancel Single Order by OrderID or ClOrdID](#cancelsingleorder)
       * [Bulk Cancel Orders](#cancelorder)
       * [Cancel All Orders](#cancelall)
       * [Query Trading Account and Positions](#querytradeaccount)
@@ -606,12 +606,15 @@ PUT
 
 <a name="cancelsingleorder"/>
 
-#### Cancel Single Order
+#### Cancel Single Order by orderID or clOrdID
 
 * Request
 ```
 DELETE /orders/cancel?symbol=<symbol>&orderID=<orderID>
+DELETE /orders/cancel?symbol=<symbol>&clOrdID=<clOrdID>
 ```
+
+This api accepts Either `orderID` or `clOrdID` not both. i.e. it is an error if both parameters are provided.
 
 * Response
    * Full Order
