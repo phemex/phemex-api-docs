@@ -3103,7 +3103,7 @@ push event
         "last": <priceEp>,
             "scale": <scale>,
             "symbol": <symbol>
-            "timestmp": <timestamp_nano>
+            "timestamp": <timestamp_nano>
     }
 }
 ```
@@ -3114,8 +3114,8 @@ push event
 ```
 > {"method":"tick.subscribe","params":[".BTC"],"id":1580631267153}
 < {"error":null,"id":1580631267153,"result":{"status":"success"}}
-< {"tick":{"last":93385362,"scale":4,"symbol":".BTC","timestmp":1580635719408000000}}
-< {"tick":{"last":93390304,"scale":4,"symbol":".BTC","timestmp":1580635719821000000}}
-< {"tick":{"last":93403484,"scale":4,"symbol":".BTC","timestmp":1580635721424000000}}
+< {"tick":{"last":93385362,"scale":4,"symbol":".BTC","timestamp":1580635719408000000}}
+< {"tick":{"last":93390304,"scale":4,"symbol":".BTC","timestamp":1580635719821000000}}
+< {"tick":{"last":93403484,"scale":4,"symbol":".BTC","timestamp":1580635721424000000}}
 ```
 
