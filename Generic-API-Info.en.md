@@ -98,6 +98,6 @@ Because the number of interfaces in Other group may grow over time, the list bel
 
    | Path | Method | Weight | Description |
    |------|--------|--------|-------------|
-   | /exchange/public/md/kline | GET | 4 | kline query |
+   | /exchange/public/md/kline | GET | 10      | kline query |
 
 

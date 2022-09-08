@@ -1419,7 +1419,7 @@ NOTE:
 1. please be noted that kline interfaces have [rate limits](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#rate-limits) rule,  please check the Other group under [api groups](https://github.com/phemex/phemex-api-docs/blob/master/Generic-API-Info.en.md#api-groups)
 
 ```
-GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
+GET /exchange/public/md/v2/kline?symbol=<symbol>&resolution=<resolution>&limit=<limit>
 
 ```
 
@@ -1436,12 +1436,16 @@ GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<re
 }
 ```
 
-| Field       | Type    | Required    | Description            | Possible Values                        |
-|-------------|---------|-------------|------------------------|----------------------------------------|
-|symbol       | String  | Yes         | symbol name            | BTCUSD,ETHUSD,uBTCUSD,cETHUSD,XRPUSD...| 
-| from        | Integer | Yes         | start time in seconds  | value aligned in resolution boundary |
-| to          | Integer | Yes         | end time in seconds    | value aligned in resolution boundary; Number of k-lines return between [`from`, `to`) should be less than 1000  | 
-| resolution  | Integer | Yes         | kline interval         | describled as below                    |
+* Request
+
+| Field      | Type    | Required | Description     | Possible Values                         |
+|------------|---------|----------|-----------------|-----------------------------------------|
+| symbol     | String  | Yes      | symbol name     | BTCUSD,ETHUSD,uBTCUSD,cETHUSD,XRPUSD... | 
+| resolution | Integer | Yes      | kline interval  | described as below                      |
+| limit      | Integer | No       | limit of result | described as below                      | 
+
+
+* Value of `resolution`s
 
 |resolution|Description |
 |----------|------------|
@@ -1456,6 +1460,35 @@ GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<re
 |2592000|MONTH_1|
 |7776000|SEASON_1|
 |31104000|YEAR_1|
+
+* Value of `limit`s
+
+| limit    | Description |
+|----------|-------------|
+| 5        | limit 5     |
+| 10       | limit 10    |
+| 50      | limit 50    |
+| 100     | limit 100   |
+| 500     | limit 500   |
+| 1000    | limit 1000  |
+
+
+**NOTE**, for backward compatibility reason, phemex also provides kline query with from/to, however, this interface is **NOT** recommended.
+
+```
+GET /exchange/public/md/kline?symbol=<symbol>&to=<to>&from=<from>&resolution=<resolution>
+
+```
+
+
+
+| Field       | Type    | Required    | Description            | Possible Values                                                                                                |
+|-------------|---------|-------------|------------------------|----------------------------------------------------------------------------------------------------------------|
+|symbol       | String  | Yes         | symbol name            | BTCUSD,ETHUSD,uBTCUSD,cETHUSD,XRPUSD...                                                                        | 
+| from        | Integer | Yes         | start time in seconds  | value aligned in resolution boundary                                                                           |
+| to          | Integer | Yes         | end time in seconds    | value aligned in resolution boundary; Number of k-lines return between [`from`, `to`) should be less than 1000 | 
+| resolution  | Integer | Yes         | kline interval         | the same as described above                                                                                    |
+
 
 <a name="querytrades"/>
 
