@@ -10,7 +10,8 @@
     * [Signature Example 1: HTTP GET Request](#signatureexample1)
     * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
     * [Signature Example 3: HTTP POST Request](#signatureexample3)
-  * [Request/Response field explained](#fieldexplained)
+  * [Common data explained](#fieldexplained)
+    * [Margin Mode and Leverage](#marginModeAndLeverage)
     * [Price/Ratio/Value Scales](#scalingfactors)
     * [Common constants](#commconsts)
   * [REST API List](#restapilist)
@@ -204,6 +205,22 @@ X-RateLimit-Retry-After-CONTRACT, # Reset timeout in seconds for current ratelim
 
 ## Request/response field explained
 <a name="fieldexplained"/>
+
+### Margin mode and leverage
+<a name="marginModeAndLeverage"/>
+
+#### Leverage
+   * The absolute value of `leverageEr` determines initial-margin-rate, i.e. `initialMarginRate = 1/abs(leverage)`
+   * The sign of `leverageEr` indicates margin mode, i.e. `leverage <= 0` means `cross-margin-mode`, `leverage > 0` means `isolated-margin-mode`.
+   * The result of setting `leverageEr` to `0` is leverage to maximum leverage supported by user selected risklimit, and margin-mode is `cross-margin-mode`.
+
+#### Cross Margin Mode 
+   * `Position margin` includes two parts, one part is balance assigned to position, another part is account available balance. 
+   * Position in cross-margin-mode may be affected by other position, because account available balance is shared among all positions in cross mode.
+
+#### Isolated Margin Mode
+   * `Position margin` only includes balance assgined to position, by default it is initial-margin. 
+   * Position in isolatd-margin-mode is independent of other positions.
 
 ### Price/Ratio/Value Scales
 <a name="scalingfactors"/>
