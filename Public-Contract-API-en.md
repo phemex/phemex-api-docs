@@ -115,9 +115,9 @@
 
 ```json
 {
-    "code": <code>,
-    "msg": <msg>,
-    "data": <data>
+  "code": <code>,
+  "msg": <msg>,
+  "data": <data>
 }
 ```
 
@@ -543,39 +543,39 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 
     * Trailing stop order(Assume current position is long, current last-price is 32k)
 
-  ```
+  ```json
   {
-  "symbol": "BTCUSD",
-  "side": "Sell", // assume current position is long
-  "ordType": "Stop",
-  "orderQty": 0,
-  "priceEp": 0,
-  "triggerType": "ByLastPrice",
-  "stopPxEp": 315000, // "if position is long, this value should be less than last-price; if position is short, this value is larger than last-price",
-  "timeInForce": "ImmediateOrCancel",
-  "closeOnTrigger": true, 
-  "pegPriceType": "TrailingStopPeg",
-  "pegOffsetValueEp": -10000000, // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign
-  "clOrdID": "cl-order-id"
+    "symbol": "BTCUSD",
+    "side": "Sell", // assume current position is long
+    "ordType": "Stop",
+    "orderQty": 0,
+    "priceEp": 0,
+    "triggerType": "ByLastPrice",
+    "stopPxEp": 315000, // "if position is long, this value should be less than last-price; if position is short, this value is larger than last-price",
+    "timeInForce": "ImmediateOrCancel",
+    "closeOnTrigger": true, 
+    "pegPriceType": "TrailingStopPeg",
+    "pegOffsetValueEp": -10000000, // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign
+    "clOrdID": "cl-order-id"
   }
   ```
 
     * Trailing stop order with activiation price
 
-  ```
+  ```json
   {
-  "symbol": "BTCUSD",
-  "side": "Sell",
-  "ordType": "Stop",
-  "orderQty": 0,
-  "priceEp": 0,
-  "triggerType": "ByLastPrice",
-  "stopPxEp": 340000000, // activation price of this trailing order, this value should be larger than last-price
-  "timeInForce": "ImmediateOrCancel",
-  "closeOnTrigger": true,
-  "pegPriceType": "TrailingTakeProfitPeg",
-  "pegOffsetValueEp": -10000000,//retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign  
-  "clOrdID": "cl-order-id"
+    "symbol": "BTCUSD",
+    "side": "Sell",
+    "ordType": "Stop",
+    "orderQty": 0,
+    "priceEp": 0,
+    "triggerType": "ByLastPrice",
+    "stopPxEp": 340000000, // activation price of this trailing order, this value should be larger than last-price
+    "timeInForce": "ImmediateOrCancel",
+    "closeOnTrigger": true,
+    "pegPriceType": "TrailingTakeProfitPeg",
+    "pegOffsetValueEp": -10000000,//retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign  
+    "clOrdID": "cl-order-id"
   }
   ```
 
@@ -829,7 +829,6 @@ Linear long contract:  unRealizedPnl = (posSize * contractSize) * markPrice - (p
 Linear short contract:  unRealizedPnl = (posSize * contractSize) * avgEntryPrice - (posSize * contractSize) * markPrice
 
 posSize is a signed vaule. contractSize is a fixed value.
-
 ```
 
 #### Query trading account and positions with unrealized-pnl
@@ -843,7 +842,6 @@ its [ratelimit](/Generic-API-Info.en.md#contractAPIGroup) weight is very high.
 
 ```
 GET /accounts/positions?currency=<currency>
-
 ```
 
 * Response
@@ -925,10 +923,10 @@ PUT /positions/leverage?symbol=<symbol>&leverage=<leverage>&leverageEr=<leverage
 
 * Response
 
-```
+```json
 {
-    "code": 0,
-    "msg": "OK"
+  "code": 0,
+  "msg": "OK"
 }
 ```
 
@@ -958,7 +956,6 @@ PUT /positions/riskLimit?symbol=<symbol>&riskLimit=<riskLimit>&riskLimitEv=<risk
 
 ```
 POST /positions/assign?symbol=<symbol>&posBalance=<posBalance>&posBalanceEv=<posBalanceEv>
-
 ```
 
 | Field                | Type   | Description                                | Possible values |
@@ -1469,7 +1466,6 @@ NOTE:
 
 ```
 GET /exchange/public/md/v2/kline?symbol=<symbol>&resolution=<resolution>&limit=<limit>
-
 ```
 
 * Response
@@ -1915,7 +1911,7 @@ Body:
 
 * Request
 
-```
+```json
 POST: /exchange/wallets/transferIn
 
 Body:
@@ -1924,7 +1920,6 @@ Body:
     "currency":"BTC",
     "clientCnt":1
 }
-
 ```
 
 * Response

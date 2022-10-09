@@ -742,7 +742,6 @@ POST /spot/orders
 
 ```
 PUT /spot/orders?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clOrdID=<clOrdID>&priceEp=<priceEp>&baseQtyEV=<baseQtyEV>&quoteQtyEv=<quoteQtyEv>&stopPxEp=<stopPxEp> 
-
 ```
 
 * Http Response
@@ -977,12 +976,11 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
         "ordStatus": "enum",
         "ordType": "enum",
         "execInst": "enum",
-        "timeInForce": enum
-        ",
+        "timeInForce": "enum",
         "stopDirection": "enum",
         "tradeType": "enum",
         "stopPxEp": 0,
-        "execId": "0"
+        "execId": "0",
         "execPriceEp": 0,
         "execBaseQtyEv": 0,
         "execQuoteQtyEv": 0,
@@ -1067,8 +1065,8 @@ GET /exchange/public/cfg/chain-settings?currency=<currency>
 
 ```json
 {
-    "address": "1Cdxxxxxxxxxxxxxx",
-    "tag":null
+  "address": "1Cdxxxxxxxxxxxxxx",
+  "tag": null
 }
 ```
 
@@ -1089,16 +1087,16 @@ GET /exchange/wallets/depositList?currency=<currency>&offset=<offset>&limit=<lim
 * Response
 
 ```json
-{ 
-    address: "1xxxxxxxxxxxxxxxxxx"
-    amountEv: 1000000
-    confirmations: 1
-    createdAt: 1574685871000
-    currency: "BTC"
-    currencyCode: 1
-    status: "Success"
-    txHash: "9e84xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    type: "Deposit"
+{
+  "address": "1xxxxxxxxxxxxxxxxxx",
+  "amountEv": 1000000,
+  "confirmations": 1,
+  "createdAt": 1574685871000,
+  "currency": "BTC",
+  "currencyCode": 1,
+  "status": "Success",
+  "txHash": "9e84xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "type": "Deposit"
 }
 ```
 
