@@ -457,7 +457,7 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
       when price moves in profitable direction to order-side(buy/sell).
 
       | ordType                         | side | parameter requirements            | trigger condition |
-                                                            |---------------------------------|------|-----------------------------------|-------------------|
+      |---------------------------------|------|-----------------------------------|-------------------|
       | Stop/StopLimit                  | Sell |  stopPxEp < last-price/mark-price | last/mark-price <= stopPxEp  |
       | Stop/StopLimit                  | Buy  |  stopPxEp > last-price/mark-price | last/mark-price >= stopPxEp  |
       | MarketIfTouched/LimitIfTouched  | Sell |  stopPxEp > last-price/mark-price | last/mark-price >= stopPxEp  |
