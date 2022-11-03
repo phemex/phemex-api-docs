@@ -104,7 +104,7 @@
 
 * All restful API except ***starting*** with `/md` shares same response format.
 
-```json
+```javascript
 {
   "code": <code>,
   "msg": <msg>,
@@ -309,7 +309,7 @@ GET /md/orderbook?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -354,9 +354,11 @@ GET /md/orderbook?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /md/orderbook?symbol=sBTCUSDT
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -408,7 +410,7 @@ GET /md/trade?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -443,9 +445,11 @@ GET /md/trade?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /md/trade?symbol=sBTCUSDT
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -488,7 +492,7 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -522,9 +526,11 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /md/spot/ticker/24hr?symbol=sBTCUSDT
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -563,7 +569,7 @@ GET /v1/md/orderbook?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -608,9 +614,11 @@ GET /v1/md/orderbook?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /v1/md/orderbook?symbol=sBTCUSDT
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -673,7 +681,7 @@ PUT /spot/orders/create?symbol=<symbol>&trigger=<trigger>&clOrdID=<clOrdID>&pric
 
 * Http Response
 
-```json
+```javascript
 {
   "code": 0,
   "msg": "",
@@ -714,9 +722,11 @@ PUT /spot/orders/create?symbol=<symbol>&trigger=<trigger>&clOrdID=<clOrdID>&pric
 
 * Http Request:
 
-```json
+```
 POST /spot/orders
+```
 
+```json
 {
   "symbol": "sBTCUSDT",
   "clOrdID": "",
@@ -1438,7 +1448,7 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 
 * Request：
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "server.ping",
@@ -1448,7 +1458,7 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1458,7 +1468,7 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 
 * Sample：
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "server.ping",
@@ -1482,7 +1492,7 @@ authenticate the session.
 
 * Request
 
-```json
+```javascript
 {
   "method": "user.auth",
   "params": [
@@ -1504,7 +1514,7 @@ authenticate the session.
 
 * Sample:
 
-```json
+```javascript
 > {
   "method": "user.auth",
   "params": [
@@ -1534,7 +1544,7 @@ order book updates will be published.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "orderbook.subscribe",
@@ -1546,7 +1556,7 @@ order book updates will be published.
 
 * Response
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1558,7 +1568,7 @@ order book updates will be published.
 
 * Sample：
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "orderbook.subscribe",
@@ -1583,7 +1593,7 @@ interval. And snapshot messages are published with 60-second interval for client
 
 * Message Format：
 
-```json
+```javascript
 {
   "book": {
     "asks": [
@@ -1623,7 +1633,7 @@ interval. And snapshot messages are published with 60-second interval for client
 
 * Sample：
 
-```json
+```javascript
 < {"book":{"asks":[[892697000000,1781800],[892708000000,7543500],[892718000000,6552500],[892720000000,4714100],[892728000000,8431000],[892735000000,11644800],[892756000000,5909600],[892790000000,9053100],[892798000000,3336400],[892819000000,1689500],[892828000000,1616700],[892855000000,6484000],[892869000000,6873200],[892872000000,1919900],[892875000000,2373200],[892942000000,1875300],[892944000000,3117500],[892962000000,1353500],[892965000000,2589800],[892966000000,11169800],[892973000000,7829700],[892977000000,2697200],[892978000000,2110700],[892985000000,12563700],[892988000000,5374100],[893023000000,3816000],[893031000000,5852700],[893035000000,4990900],[893061000000,3479500],[893083000000,327900]],"bids":[[892376000000,6866500],[892354000000,14209000],[892353000000,5287200],[892348000000,6417800],[892340000000,8074400],[892334000000,3991900],[892303000000,4558000],[892295000000,10154700],[892280000000,16214500],[892277000000,11425300],[892270000000,39156500],[892268000000,13821100],[892260000000,32157500],[892257000000,5466100],[892252000000,11468700],[892241000000,13940300],[892226000000,33832300],[892220000000,3000000],[892171000000,4320400],[892165000000,4454000],[892152000000,5336400],[892144000000,4539200],[892134000000,7472200],[892127000000,5352700],[892087000000,10264400],[892082000000,4908000],[892038000000,1485500],[892031000000,4089200],[892030000000,4895500],[892014000000,3846600]]},"depth":30,"sequence":677996311,"symbol":"sBTCUSDT","timestamp":1590570810187570850,"type":"snapshot"}
 < {"book":{"asks":[[892696000000,1669700],[892697000000,10455500],[892728000000,0],[892735000000,0],[892748000000,1550900],[892790000000,0],[892819000000,19087900],[892860000000,17152500],[892882000000,11546100],[892893000000,10986500],[892973000000,0],[892985000000,0],[893004000000,8306500],[893061000000,0],[893065000000,5446400],[893073000000,0],[893083000000,0],[893073000000,0],[893083000000,0]],"bids":[]},"depth":30,"sequence":677996548,"symbol":"sBTCUSDT","timestamp":1590570810819505422,"type":"incremental"}
 < {"book":{"asks":[],"bids":[[892387000000,4792900],[892354000000,3170700],[892226000000,0],[892187000000,14425000],[892171000000,6366500],[892165000000,0],[892135000000,11511400],[892134000000,0],[892127000000,0],[892090000000,5446000],[892079000000,4687800],[892041000000,8590200],[892030000000,0],[892014000000,0]]},"depth":30,"sequence":677996941,"symbol":"sBTCUSDT","timestamp":1590570811244188841,"type":"incremental"}
@@ -1637,7 +1647,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "orderbook.unsubscribe",
@@ -1647,7 +1657,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1666,7 +1676,7 @@ the later trades will be published.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "trade.subscribe",
@@ -1678,7 +1688,7 @@ the later trades will be published.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1690,7 +1700,7 @@ the later trades will be published.
 
 * Sample:
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "trade.subscribe",
@@ -1713,7 +1723,7 @@ the later trades will be published.
 DataGW publishes trade message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
 And snapshot messages are published on connection initial setup for client recovery.
 
-```json
+```javascript
 {
   "trades": [
     [
@@ -1744,7 +1754,7 @@ And snapshot messages are published on connection initial setup for client recov
 
 * Sample
 
-```json
+```javascript
 < {
   "sequence": 1167852,
   "symbol": "sBTCUSDT",
@@ -1800,7 +1810,7 @@ It unsubscribes all trade subscriptions.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "trade.subscribe",
@@ -1812,7 +1822,7 @@ It unsubscribes all trade subscriptions.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1831,7 +1841,7 @@ the later kline update will be published in real-time.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "kline.subscribe",
@@ -1844,7 +1854,7 @@ the later kline update will be published in real-time.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -1856,7 +1866,7 @@ the later kline update will be published in real-time.
 
 * Sample:
 
-```json
+```javascript
 # subscribe 1-day kline
 > {
   "id": 1234,
@@ -1881,7 +1891,7 @@ the later kline update will be published in real-time.
 DataGW publishes kline message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
 And snapshot messages are published on connection initial setup for client recovery.
 
-```json
+```javascript
 {
   "kline": [
     [
@@ -1922,7 +1932,7 @@ And snapshot messages are published on connection initial setup for client recov
 
 * Sample
 
-```json
+```javascript
 < {
   "kline": [
     [
@@ -1992,7 +2002,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Request
 
-```json
+```javascript
 # unsubscribe all Kline subscriptions
 {
   "id": <id>,
@@ -2012,7 +2022,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2033,7 +2043,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "wo.subscribe",
@@ -2045,7 +2055,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2057,7 +2067,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Sample
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "wo.subscribe",
@@ -2075,7 +2085,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 #### Wallet-Order Message Sample:
 
-```json
+```javascript
 {"wallets":[],"orders":[{"userID":60463,...}],"sequence":11450, "timestamp":<timestamp>, "type":"<type>"}
 ```
 
@@ -2087,7 +2097,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Sample:
 
-```json
+```javascript
 < {"orders":{"closed":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"bizError":0,"clOrdID":"123456","createTimeNs":1587463924959744646,"cumBaseQtyEv":10000,"cumFeeEv":0,"cumQuoteQtyEv":66900000,"curBaseWalletQtyEv":899990000,"curQuoteWalletQtyEv":66900000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":0,"leavesQuoteQtyEv":0,"ordStatus":"Filled","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","pegOffsetValueEp":0,"priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587463924964876798,"triggerTimeNs":0,"userID":200076}],"fills":[{"avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"clOrdID":"123456","execBaseQtyEv":10000,"execFeeEv":0,"execID":"8135ebe3-f767-577b-b70d-1a839d5178e0","execPriceEp":669000000000,"execQuoteQtyEv":66900000,"feeCurrency":"BTC","lastLiquidityInd":"RemovedLiquidity","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","symbol":"sBTCUSDT","transactTimeNs":1587463924964876798,"userID":200076}],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"31f793f4-163d-aa3f-5994-0e1164719ba2","createTimeNs":1587547657438535949,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"b98b25c5-6aa4-4158-b9e5-477e37bd46d8","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587547657442752950,"triggerTimeNs":0,"userID":200076}]},"sequence":349,"timestamp":1587549121318737606,"type":"snapshot","wallets":[{"balanceEv":0,"currency":"LTC","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":100000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"ETH","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XRP","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"LINK","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XTZ","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 < {"orders":{"closed":[],"fills":[],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"0c1099e5-b900-5351-cf60-edb15ea2539c","createTimeNs":1587549529513521745,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"494a6cbb-32b3-4d6a-b9b7-196ea2506fb5","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587549529518394235,"triggerTimeNs":0,"userID":200076}]},"sequence":350,"timestamp":1587549529519959388,"type":"incremental","wallets":[{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":200000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 
@@ -2099,7 +2109,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Request：
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "wo.unsubscribe",
@@ -2109,7 +2119,7 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2127,7 +2137,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "spot_market24h.subscribe",
@@ -2137,7 +2147,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2149,7 +2159,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```json
+```javascript
 > {
   "method": "spot_market24h.subscribe",
   "params": [],
@@ -2167,7 +2177,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 #### Hours Ticker Message Format：
 
-```json
+```javascript
 {
   "spot_market24h": {
     "openEp": <open priceEp>,
@@ -2199,7 +2209,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```json
+```javascript
 < {
   "spot_market24h": {
     "askEp": 892100000000,
@@ -2327,7 +2337,7 @@ on subscription to investment account then you will get your investment informat
 
 * Request：
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "wm.subscribe",
@@ -2337,7 +2347,7 @@ on subscription to investment account then you will get your investment informat
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2349,7 +2359,7 @@ on subscription to investment account then you will get your investment informat
 
 * Sample：
 
-```json
+```javascript
 {
   "id": 1234,
   "method": "wm.subscribe",
@@ -2367,7 +2377,7 @@ on subscription to investment account then you will get your investment informat
 
 #### Investment Account Message Format：
 
-```json
+```javascript
 {
   "investments":[
     {
@@ -2394,7 +2404,7 @@ on subscription to investment account then you will get your investment informat
 
 * Sample：
 
-```json
+```javascript
 {
   "investments":[
     {

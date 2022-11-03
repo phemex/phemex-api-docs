@@ -113,7 +113,7 @@
 
 * All restful API except ***starting*** with `/md` shares same response format.
 
-```json
+```
 {
   "code": <code>,
   "msg": <msg>,
@@ -465,30 +465,30 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 
     * StopLoss Sell order, triggered order is placed as limit order (Assume current last-price is 30k)
 
-  ```json
+  ```javasript
   {
       "clOrdID": "stop-loss-order-then-limit",
       "symbol": "BTCUSD",
       "side": "Sell",
       "ordType": "StopLimit",
       "triggerType": "ByMarkPrice",
-      "stopPxEp": "299550000", // "trigger price, when ordType= Stop/StopLimit and side = Sell, stopPxEp must less than last-price"
-      "priceEp": "299650000", // "when ordType = StopLimit, priceEp is required, when ordType = Stop, priceEp is not required "
+      "stopPxEp": "299550000",         // "trigger price, when ordType= Stop/StopLimit and side = Sell, stopPxEp must less than last-price"
+      "priceEp": "299650000",          // "when ordType = StopLimit, priceEp is required, when ordType = Stop, priceEp is not required "
       "orderQty": 10000
   }
   ```
 
     * StopLoss Buy order, triggered order is placed as market order (Assume current last-price is 30k)
 
-  ```json
+  ```javasript
   {
       "clOrdID": "stop-loss-order-then-market",
       "symbol": "BTCUSD",
       "side": "Buy",
       "ordType": "Stop",
       "triggerType": "ByMarkPrice",
-      "stopPxEp": "333550000", // "trigger price, when ordType = Stop/StopLimit and side = Buy, stopPxEp must be larger than last-price"
-      "priceEp": "0",// not required 
+      "stopPxEp": "333550000",         // "trigger price, when ordType = Stop/StopLimit and side = Buy, stopPxEp must be larger than last-price"
+      "priceEp": "0",                  // not required 
       "orderQty": 10000
   }
 
@@ -496,37 +496,37 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 
     * Take-profit Sell order, triggered order is placed as limit order (Assume current last-price is 30k)
 
-  ```json
+  ```javasript
   {
       "clOrdID": "take-profit-order-then-limit",
       "symbol": "BTCUSD",
       "side": "Sell",
       "ordType": "LimitIfTouched",
       "triggerType": "ByMarkPrice",
-      "stopPxEp": "333550000", // "trigger price, when ordType = LimitIfTouched/MarketIfTouched and side = Sell, stopPxEp is larger than last-price"
-      "priceEp": "334550000", // "when ordType = LimitIfTouched, priceEp is required, when ordType = MarketIfTouched, priceEp is not required "
+      "stopPxEp": "333550000",         // "trigger price, when ordType = LimitIfTouched/MarketIfTouched and side = Sell, stopPxEp is larger than last-price"
+      "priceEp": "334550000",          // "when ordType = LimitIfTouched, priceEp is required, when ordType = MarketIfTouched, priceEp is not required "
       "orderQty": 10000
   }
   ```
 
     * Take-profit Buy order, triggered order is placed as market order (Assume current last-price is 30k)
 
-  ```json
+  ```javasript
   {
       "clOrdID": "take-profit-order-then-market",
       "symbol": "BTCUSD",
       "side": "Buy",
       "ordType": "MarketIfTouched",
       "triggerType": "ByLastPrice",
-      "stopPxEp": "299550000", // "when ordType = LimitIfTouched/MarketIfTouched and side = Buy, stopPxEp is less than last-price"
-      "priceEp": "0", // "not required"
+      "stopPxEp": "299550000",         // "when ordType = LimitIfTouched/MarketIfTouched and side = Buy, stopPxEp is less than last-price"
+      "priceEp": "0",                  // "not required"
       "orderQty": 10000
   }
   ```
 
     * Place a order with stop-loss and take-profit
 
-  ```json
+  ```javasript
   {
       "clOrdID": "order-with-take-profit-stop-loss",
       "symbol": "BTCUSD",
@@ -543,26 +543,26 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 
     * Trailing stop order(Assume current position is long, current last-price is 32k)
 
-  ```json
+  ```javasript
   {
     "symbol": "BTCUSD",
-    "side": "Sell", // assume current position is long
+    "side": "Sell",                    // assume current position is long
     "ordType": "Stop",
     "orderQty": 0,
     "priceEp": 0,
     "triggerType": "ByLastPrice",
-    "stopPxEp": 315000, // "if position is long, this value should be less than last-price; if position is short, this value is larger than last-price",
+    "stopPxEp": 315000,                // "if position is long, this value should be less than last-price; if position is short, this value is larger than last-price",
     "timeInForce": "ImmediateOrCancel",
     "closeOnTrigger": true, 
     "pegPriceType": "TrailingStopPeg",
-    "pegOffsetValueEp": -10000000, // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign
+    "pegOffsetValueEp": -10000000,     // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign
     "clOrdID": "cl-order-id"
   }
   ```
 
     * Trailing stop order with activiation price
 
-  ```json
+  ```javasript
   {
     "symbol": "BTCUSD",
     "side": "Sell",
@@ -570,11 +570,11 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
     "orderQty": 0,
     "priceEp": 0,
     "triggerType": "ByLastPrice",
-    "stopPxEp": 340000000, // activation price of this trailing order, this value should be larger than last-price
+    "stopPxEp": 340000000,             // activation price of this trailing order, this value should be larger than last-price
     "timeInForce": "ImmediateOrCancel",
     "closeOnTrigger": true,
     "pegPriceType": "TrailingTakeProfitPeg",
-    "pegOffsetValueEp": -10000000,//retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign  
+    "pegOffsetValueEp": -10000000,     // retraces by $1000.0 from the optimal price, sign is opposite to position side, i.e. Long Position => negative sign; Shot Position => positive sign  
     "clOrdID": "cl-order-id"
   }
   ```
@@ -585,9 +585,11 @@ PUT /orders/create?clOrdID=<clOrdID>&symbol=<symbol>&reduceOnly=<reduceOnly>&clo
 
 * HTTP Request:
 
-```json
+```
 POST /orders
+```
 
+```json
 {
   "actionBy": "FromOrderPlacement",
   "symbol": "BTCUSD",
@@ -1370,7 +1372,7 @@ GET /md/orderbook?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -1415,9 +1417,11 @@ GET /md/orderbook?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /md/orderbook?symbol=BTCUSD
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -1470,7 +1474,7 @@ GET /exchange/public/md/v2/kline?symbol=<symbol>&resolution=<resolution>&limit=<
 
 * Response
 
-```json
+```javascript
 {
   "code": 0,
   "msg": "OK",
@@ -1562,7 +1566,7 @@ GET /md/trade?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -1597,9 +1601,11 @@ GET /md/trade?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET /md/trade?symbol=BTCUSD
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -1641,7 +1647,7 @@ GET v1/md/ticker/24hr?symbol=<symbol>
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": 0,
@@ -1683,9 +1689,11 @@ GET v1/md/ticker/24hr?symbol=<symbol>
 
 * Sample：
 
-```json
+```
 GET v1/md/ticker/24hr?symbol=BTCUSD
+```
 
+```json
 {
   "error": null,
   "id": 0,
@@ -1800,7 +1808,7 @@ GET /exchange/public/nomics/trades?market=<symbol>&since=<since>
     "total": 87,
     "rows": [
       {
-        "userId": 6XXX12,
+        "userId": 612,
         "email": "x**@**.com",
         "nickName": "nickName",
         "passwordState": 1,
@@ -1874,14 +1882,15 @@ Margin fields
     * Sub-client can only transfer its wallet balance to its parent/main client.
     * When sub-client transfer its wallet balance, `clientCnt = 0`
 
-```json
+```
 POST: /exchange/wallets/transferOut
+```
 
-Body:
+```javascript
 {
-    "amount": 0, // unscaled amount
-    "amountEv": 0, // scaled amount, when both amount and amountEv are provided, amountEv wins.
-    "clientCnt": 0, // client number, this is from API in children list; when sub-client issues this API, client must be 0.
+    "amount": 0,                       // unscaled amount
+    "amountEv": 0,                     // scaled amount, when both amount and amountEv are provided, amountEv wins.
+    "clientCnt": 0,                    // client number, this is from API in children list; when sub-client issues this API, client must be 0.
     "currency": "string"
 }
 
@@ -1911,10 +1920,11 @@ Body:
 
 * Request
 
-```json
+```
 POST: /exchange/wallets/transferIn
+```
 
-Body:
+```json
 {
     "amountEv":10000000,
     "currency":"BTC",
@@ -2164,13 +2174,15 @@ GET /api-data/futures/trading-fees?symbol=<symbol>
 
 * Request
 
-```json
+```
 POST /exchange/wallets/createWithdraw?otpCode=<otpCode>
-Body: 
+```
+
+```javascript
 {
-      "address": <address>,// address must set before withdraw
-      "amountEv": <amountEv>, // scaled btc value
-      "currency": <currency> // fixed to BTC 
+  "address": <address>,                // address must set before withdraw
+  "amountEv": <amountEv>,              // scaled btc value
+  "currency": <currency>               // fixed to BTC 
 }
 ```
 
@@ -2201,7 +2213,7 @@ public void testAuth() {
 
 * Response
 
-```json
+```javascript
 {
     "code": 0,
     "msg" : "OK",
@@ -2238,7 +2250,7 @@ GET /exchange/wallets/confirm/withdraw?code=<withdrawConfirmCode>
 
 * Response
 
-```json
+```javascript
 {
     "code": 0,
     "msg" : "OK"
@@ -2255,7 +2267,9 @@ GET /exchange/wallets/confirm/withdraw?code=<withdrawConfirmCode>
 
 ```
 POST /exchange/wallets/cancelWithdraw
-Body:
+```
+
+```javascript
 {
     id: <withdrawRequestId>
 }
@@ -2282,9 +2296,11 @@ GET /exchange/wallets/withdrawList?currency=<currency>&limit=<limit>&offset=<off
 
 * Request
 
-```json
+```
 POST /exchange/wallets/createWithdrawAddress?otpCode={optCode}
-Body: 
+```
+
+```javascript
 {
     "address": <address>,
     "currency": <currency>
@@ -2300,11 +2316,11 @@ Body:
 
 * Response
 
-```json
+```javascript
 {
     "code": 0,
     "msg": "OK",
-    "data": 1 //subject to change
+    "data": 1                //subject to change
 }
 
 ```
@@ -2342,7 +2358,7 @@ Body:
 
 * Request：
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "server.ping",
@@ -2352,7 +2368,7 @@ Body:
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2362,7 +2378,7 @@ Body:
 
 * Sample：
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "server.ping",
@@ -2386,7 +2402,7 @@ authenticate the session.
 
 * Request
 
-```json
+```javascript
 {
   "method": "user.auth",
   "params": [
@@ -2408,7 +2424,7 @@ authenticate the session.
 
 * Sample:
 
-```json
+```javascript
 > {
   "method": "user.auth",
   "params": [
@@ -2438,7 +2454,7 @@ order book updates will be published.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "orderbook.subscribe",
@@ -2450,7 +2466,7 @@ order book updates will be published.
 
 * Response
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2462,7 +2478,7 @@ order book updates will be published.
 
 * Sample：
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "orderbook.subscribe",
@@ -2487,7 +2503,7 @@ interval. And snapshot messages are published with 60-second interval for client
 
 * Message Format：
 
-```json
+```javascript
 {
   "book": {
     "asks": [
@@ -2527,7 +2543,7 @@ interval. And snapshot messages are published with 60-second interval for client
 
 * Sample：
 
-```json
+```javascript
 < {"book":{"asks":[[86765000,19609],[86770000,7402],[86775000,3807],[86780000,7395],[86785000,3599],[86790000,7253],[86795000,4019],[86800000,4366],[86805000,3216],[86810000,3107],[86815000,7453],[86820000,1771],[86825000,895],[86830000,3420],[86835000,1818],[86840000,1272],[86845000,1064],[86850000,195],[86855000,1630],[86860000,1017],[86865000,3509],[86870000,1105],[86875000,1262],[86880000,893],[86885000,862],[86890000,1030],[86895000,2315],[86900000,2994],[86905000,2026],[86910000,3387],[86915000,1382],[86920000,1202],[86925000,3150],[86930000,1773],[86935000,1778],[86940000,1384],[86945000,1842],[86950000,1019],[86955000,2660],[86960000,1599],[86965000,920],[86970000,1834],[86975000,752],[86980000,1384],[86985000,2471],[86990000,2133],[86995000,2981],[87000000,1091],[87005000,994],[87010000,1217],[87015000,1098],[87020000,526],[87025000,1779],[87030000,1098],[87035000,892],[87040000,2168],[87045000,822],[87050000,2410],[87055000,630],[87060000,1684],[87065000,2556],[87070000,19],[87080000,1445],[87085000,29],[87105000,2002],[87115000,658],[87120000,660],[87905000,991]],"bids":[[86760000,18995],[86755000,6451],[86750000,5311],[86745000,6867],[86740000,6180],[86735000,3127],[86730000,4852],[86725000,6213],[86720000,3902],[86715000,4510],[86710000,10063],[86705000,1118],[86700000,1891],[86695000,767],[86690000,20920],[86685000,2535],[86680000,1105],[86675000,645],[86670000,1424],[86665000,1773],[86660000,1464],[86655000,1160],[86650000,1462],[86645000,2446],[86640000,538],[86635000,506],[86630000,2291],[86625000,2981],[86620000,1712],[86615000,984],[86610000,1058],[86605000,1261],[86600000,1074],[86595000,1408],[86590000,717],[86585000,1582],[86580000,1950],[86575000,1540],[86570000,2960],[86565000,598],[86560000,759],[86555000,1266],[86550000,1943],[86545000,259],[86540000,2106],[86535000,2365],[86530000,857],[86525000,1200],[86520000,2371],[86515000,2103],[86510000,1468],[86505000,747],[86500000,1369],[86495000,2121],[86490000,3674],[86485000,1345],[86480000,1290],[86475000,1716],[86470000,1851],[86465000,1861],[86460000,1092],[86435000,21],[86430000,986],[86420000,1202],[86415000,22],[86405000,1199],[86390000,470],[86365000,920],[86360000,192],[86355000,474],[86350000,1838],[86335000,1104],[86285000,2205],[86280000,2390],[86275000,95],[86255000,2836],[86250000,589],[86240000,424],[86235000,937],[86225000,374],[86220000,1591],[86215000,517],[86210000,559],[86205000,702],[86190000,54]]},"depth":30,"sequence":1191904,"symbol":"BTCUSD","type":"snapshot"}
 < {"book":{"asks":[[86775000,4621]],"bids":[]},"depth":30,"sequence":1191905,"symbol":"BTCUSD","type":"incremental"}
 < {"book":{"asks":[],"bids":[[86755000,8097]]},"depth":30,"sequence":1191906,"symbol":"BTCUSD","type":"incremental"}
@@ -2541,7 +2557,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "orderbook.unsubscribe",
@@ -2551,7 +2567,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2570,7 +2586,7 @@ the later trades will be published.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "trade.subscribe",
@@ -2582,7 +2598,7 @@ the later trades will be published.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2594,7 +2610,7 @@ the later trades will be published.
 
 * Sample:
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "trade.subscribe",
@@ -2617,7 +2633,7 @@ the later trades will be published.
 DataGW publishes trade message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
 And snapshot messages are published on connection initial setup for client recovery.
 
-```json
+```javascript
 {
   "trades": [
     [
@@ -2648,7 +2664,7 @@ And snapshot messages are published on connection initial setup for client recov
 
 * Sample
 
-```json
+```javascript
 < {
   "sequence": 1167852,
   "symbol": "BTCUSD",
@@ -2704,7 +2720,7 @@ It unsubscribes all trade subscriptions or for a symbol.
 
 * Request
 
-```json
+```javascript
 # unsubscribe all trade subsciptions
 {
   "id": <id>,
@@ -2725,7 +2741,7 @@ It unsubscribes all trade subscriptions or for a symbol.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2744,7 +2760,7 @@ the later kline update will be published in real-time.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "kline.subscribe",
@@ -2757,7 +2773,7 @@ the later kline update will be published in real-time.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2769,7 +2785,7 @@ the later kline update will be published in real-time.
 
 * Sample:
 
-```json
+```javascript
 # subscribe 1-day kline
 > {
   "id": 1234,
@@ -2794,7 +2810,7 @@ the later kline update will be published in real-time.
 DataGW publishes kline message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
 And snapshot messages are published on connection initial setup for client recovery.
 
-```json
+```javascript
 {
   "kline": [
     [
@@ -2835,7 +2851,7 @@ And snapshot messages are published on connection initial setup for client recov
 
 * Sample
 
-```json
+```javascript
 < {
   "kline": [
     [
@@ -2905,7 +2921,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Request
 
-```json
+```javascript
 # unsubscribe all Kline subscriptions
 {
   "id": <id>,
@@ -2925,7 +2941,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2947,7 +2963,7 @@ message history.
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "aop.subscribe",
@@ -2957,7 +2973,7 @@ message history.
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -2969,7 +2985,7 @@ message history.
 
 * Sample
 
-```json
+```javascript
 > {
   "id": 1234,
   "method": "aop.subscribe",
@@ -2987,7 +3003,7 @@ message history.
 
 #### Account-Order-Position (AOP) Message Sample:
 
-```json
+```javascript
 {
   "accounts": [
     {
@@ -3026,7 +3042,7 @@ message history.
 
 * Sample:
 
-```json
+```javascript
 < {"accounts":[{"accountBalanceEv":100000024,"accountID":675340001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":1222,"userID":67534}],"orders":[{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711481897337000,"addedSeq":1110523,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711480091","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":2,"cumValueEv":23018,"curAccBalanceEv":100000005,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":2,"curPosTerm":1,"curPosValueEv":23018,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":2,"execFeeEv":-5,"execID":"92301512-7a79-5138-b582-ac185223727d","execPriceEp":86885000,"execQty":2,"execSeq":1131034,"execStatus":"MakerFill","execValueEv":23018,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","ordStatus":"Filled","ordType":"Limit","orderID":"e9a45803-0af8-41b7-9c63-9b7c417715d9","orderQty":2,"pegOffsetValueEp":0,"priceEp":86885000,"relatedPosTerm":1,"relatedReqNum":2,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tradeType":"Trade","transactTimeNs":1573712555309040417,"userID":67534},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711490507067000,"addedSeq":1110980,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711488668","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":3,"cumValueEv":34530,"curAccBalanceEv":100000013,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":5,"curPosTerm":1,"curPosValueEv":57548,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":3,"execFeeEv":-8,"execID":"80899855-5b95-55aa-b84e-8d1052f19886","execPriceEp":86880000,"execQty":3,"execSeq":1131408,"execStatus":"MakerFill","execValueEv":34530,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","ordStatus":"Filled","ordType":"Limit","orderID":"7e03cd6b-e45e-48d9-8937-8c6628e7a79d","orderQty":3,"pegOffsetValueEp":0,"priceEp":86880000,"relatedPosTerm":1,"relatedReqNum":3,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tradeType":"Trade","transactTimeNs":1573712559100655668,"userID":67534},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573711499282604000,"addedSeq":1111025,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573711497265","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":4,"cumValueEv":46048,"curAccBalanceEv":100000024,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":9,"curPosTerm":1,"curPosValueEv":103596,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":-11,"execID":"0be06645-90b8-5abe-8eb0-dca8e852f82f","execPriceEp":86865000,"execQty":4,"execSeq":1132422,"execStatus":"MakerFill","execValueEv":46048,"feeRateEr":-25000,"lastLiquidityInd":"AddedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","ordStatus":"Filled","ordType":"Limit","orderID":"66753807-9204-443d-acf9-946d15d5bedb","orderQty":4,"pegOffsetValueEp":0,"priceEp":86865000,"relatedPosTerm":1,"relatedReqNum":4,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tradeType":"Trade","transactTimeNs":1573712618104628671,"userID":67534}],"positions":[{"accountID":675340001,"assignedPosBalanceEv":0,"avgEntryPriceEp":86875941,"bankruptCommEv":75022,"bankruptPriceEp":90000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":99998802,"cumClosedPnlEv":0,"cumFundingFeeEv":0,"cumTransactFeeEv":-24,"currency":"BTC","dataVer":4,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1132422,"freeCostEv":0,"freeQty":-9,"initMarginReqEr":1000000,"lastFundingTime":1573703858883133252,"lastTermEndTime":0,"leverageEr":0,"liquidationPriceEp":90000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":86786292,"orderCostEv":0,"posCostEv":1115,"positionMarginEv":99925002,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":9,"symbol":"BTCUSD","takerFeeRateEr":0,"term":1,"transactTimeNs":1573712618104628671,"unrealisedPnlEv":-107,"updatedAtNs":0,"usedBalanceEv":1222,"userID":67534,"valueEv":103596}],"sequence":1310812,"timestamp":1573716998131003833,"type":"snapshot"}
 < {"accounts":[{"accountBalanceEv":99999989,"accountID":675340001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":1803,"userID":67534}],"orders":[{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":0,"cumValueEv":0,"curAccBalanceEv":100000024,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":9,"curPosTerm":1,"curPosValueEv":103596,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":0,"execID":"00000000-0000-0000-0000-000000000000","execPriceEp":0,"execQty":0,"execSeq":1192303,"execStatus":"New","execValueEv":0,"feeRateEr":0,"leavesQty":4,"leavesValueEv":46098,"message":"No error","ordStatus":"New","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","transactTimeNs":1573717286765896560,"userID":67534},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":4,"cumValueEv":46098,"curAccBalanceEv":99999989,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":13,"curPosTerm":1,"curPosValueEv":149694,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":35,"execID":"8d1848a2-5faf-52dd-be71-9fecbc8926be","execPriceEp":86770000,"execQty":4,"execSeq":1192303,"execStatus":"TakerFill","execValueEv":46098,"feeRateEr":75000,"lastLiquidityInd":"RemovedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","ordStatus":"Filled","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tradeType":"Trade","transactTimeNs":1573717286765896560,"userID":67534}],"positions":[{"accountID":675340001,"assignedPosBalanceEv":0,"avgEntryPriceEp":86843828,"bankruptCommEv":75056,"bankruptPriceEp":130000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":99998186,"cumClosedPnlEv":0,"cumFundingFeeEv":0,"cumTransactFeeEv":11,"currency":"BTC","dataVer":5,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1192303,"freeCostEv":0,"freeQty":-13,"initMarginReqEr":1000000,"lastFundingTime":1573703858883133252,"lastTermEndTime":0,"leverageEr":0,"liquidationPriceEp":130000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":86732335,"orderCostEv":0,"posCostEv":1611,"positionMarginEv":99924933,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":13,"symbol":"BTCUSD","takerFeeRateEr":0,"term":1,"transactTimeNs":1573717286765896560,"unrealisedPnlEv":-192,"updatedAtNs":0,"usedBalanceEv":1803,"userID":67534,"valueEv":149694}],"sequence":1315725,"timestamp":1573717286767188294,"type":"incremental"}
 ```
@@ -3084,7 +3100,7 @@ AOP subscription v1 requires the session been authorized successfully. DataGW ex
 
 #### Account-Order-Position (AOP) Message Sample:
 
-```json
+```javascript
 {"accounts": [{ "accountBalanceEv": 999998500550, "accountID": 11324490004, "bonusBalanceEv": 0, "currency": "ETH",  "totalUsedBalanceEv": 302173448, "userID": 1132449  } ],"events": [],"orders": {"closed": [ { "accountID": 11324490004,...}], "fills": [ { "accountID": 11324490004,... } ],"open": [ { "accountID": 11324490004,... }   ]},"positions": [  {   "accountID": 11324490004,...}], "sequence": 115915989, "timestamp": <timestamp>, "type": "<type>", "version": "v1"}
 
 ```
@@ -3113,7 +3129,7 @@ AOP subscription v1 requires the session been authorized successfully. DataGW ex
 
 * Request：
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "aop.unsubscribe",
@@ -3123,7 +3139,7 @@ AOP subscription v1 requires the session been authorized successfully. DataGW ex
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -3141,7 +3157,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Request
 
-```json
+```javascript
 {
   "id": <id>,
   "method": "market24h.subscribe",
@@ -3151,7 +3167,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Response:
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -3163,7 +3179,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```json
+```javascript
 > {
   "method": "market24h.subscribe",
   "params": [],
@@ -3181,7 +3197,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 #### Hours Ticker Message Format：
 
-```json
+```javascript
 {
   "market24h": {
     "open": <open priceEp>,
@@ -3219,7 +3235,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```json
+```javascript
 {
   "market24h": {
     "close": 87425000,
@@ -3295,7 +3311,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
     * The symbol in params can be replaced by any symbol.
 
-```json
+```javascript
 {
   "method": "tick.subscribe",
   "params": [
@@ -3309,7 +3325,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 ack message
 
-```json
+```javascript
 {
   "error": null,
   "id": <id>,
@@ -3321,7 +3337,7 @@ ack message
 
 push event
 
-```json
+```javascript
 {
   "tick": {
     "last": <priceEp>,
@@ -3334,7 +3350,7 @@ push event
 
 * Sample
 
-```json
+```javascript
 {"method":"tick.subscribe","params":[".BTC"],"id":1580631267153}
 {"error":null,"id":1580631267153,"result":{"status":"success"}}
 {"tick":{"last":93385362,"scale":4,"symbol":".BTC","timestamp":1580635719408000000}}
