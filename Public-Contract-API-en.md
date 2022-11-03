@@ -3031,6 +3031,82 @@ message history.
 < {"accounts":[{"accountBalanceEv":99999989,"accountID":675340001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":1803,"userID":67534}],"orders":[{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":0,"cumValueEv":0,"curAccBalanceEv":100000024,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":9,"curPosTerm":1,"curPosValueEv":103596,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":0,"execID":"00000000-0000-0000-0000-000000000000","execPriceEp":0,"execQty":0,"execSeq":1192303,"execStatus":"New","execValueEv":0,"feeRateEr":0,"leavesQty":4,"leavesValueEv":46098,"message":"No error","ordStatus":"New","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","transactTimeNs":1573717286765896560,"userID":67534},{"accountID":675340001,"action":"New","actionBy":"ByUser","actionTimeNs":1573717286765750000,"addedSeq":1192303,"bonusChangedAmountEv":0,"clOrdID":"uuid-1573717284329","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":4,"cumValueEv":46098,"curAccBalanceEv":99999989,"curAssignedPosBalanceEv":0,"curBonusBalanceEv":0,"curLeverageEr":0,"curPosSide":"Buy","curPosSize":13,"curPosTerm":1,"curPosValueEv":149694,"curRiskLimitEv":10000000000,"currency":"BTC","cxlRejReason":0,"displayQty":4,"execFeeEv":35,"execID":"8d1848a2-5faf-52dd-be71-9fecbc8926be","execPriceEp":86770000,"execQty":4,"execSeq":1192303,"execStatus":"TakerFill","execValueEv":46098,"feeRateEr":75000,"lastLiquidityInd":"RemovedLiquidity","leavesQty":0,"leavesValueEv":0,"message":"No error","ordStatus":"Filled","ordType":"Limit","orderID":"e329ae87-ce80-439d-b0cf-ad65272ed44c","orderQty":4,"pegOffsetValueEp":0,"priceEp":86770000,"relatedPosTerm":1,"relatedReqNum":5,"side":"Buy","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tradeType":"Trade","transactTimeNs":1573717286765896560,"userID":67534}],"positions":[{"accountID":675340001,"assignedPosBalanceEv":0,"avgEntryPriceEp":86843828,"bankruptCommEv":75056,"bankruptPriceEp":130000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":99998186,"cumClosedPnlEv":0,"cumFundingFeeEv":0,"cumTransactFeeEv":11,"currency":"BTC","dataVer":5,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1192303,"freeCostEv":0,"freeQty":-13,"initMarginReqEr":1000000,"lastFundingTime":1573703858883133252,"lastTermEndTime":0,"leverageEr":0,"liquidationPriceEp":130000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":86732335,"orderCostEv":0,"posCostEv":1611,"positionMarginEv":99924933,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":13,"symbol":"BTCUSD","takerFeeRateEr":0,"term":1,"transactTimeNs":1573717286765896560,"unrealisedPnlEv":-192,"updatedAtNs":0,"usedBalanceEv":1803,"userID":67534,"valueEv":149694}],"sequence":1315725,"timestamp":1573717286767188294,"type":"incremental"}
 ```
 
+<a name="aopsubv1"/>
+
+### Subscribe Account-Order-Position (AOP) v1
+
+AOP subscription v1 requires the session been authorized successfully. DataGW extracts the user information from the given token and sends AOP messages back to client accordingly. 0 or more latest account snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a trading account information, holding positions, events, and open / limited closed / limited filled order event message history.
+
+* Request
+
+```
+{
+"id": <id>,
+"method": "aop_v1.subscribe",
+"params": [
+  <close/fills limit>,
+  <publish_0_size_positions>
+  <skip_0_fields>]
+}
+```
+
+* Response:
+
+```
+{
+"error": null,
+"id": <id>,
+"result": {
+  "status": "success"
+}
+}
+```
+
+* Sample
+```
+> {
+  "id": 1234,
+  "method": "aop_v1.subscribe",
+  "params": [5, true, false]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+
+
+
+#### Account-Order-Position (AOP) Message Sample:
+
+```json
+{"accounts": [{ "accountBalanceEv": 999998500550, "accountID": 11324490004, "bonusBalanceEv": 0, "currency": "ETH",  "totalUsedBalanceEv": 302173448, "userID": 1132449  } ],"events": [],"orders": {"closed": [ { "accountID": 11324490004,...}], "fills": [ { "accountID": 11324490004,... } ],"open": [ { "accountID": 11324490004,... }   ]},"positions": [  {   "accountID": 11324490004,...}], "sequence": 115915989, "timestamp": <timestamp>, "type": "<type>", "version": "v1"}
+
+```
+
+| Field       | Type   | Description      | Possible values |
+|-------------|--------|------------------|-----------------|
+| timestamp   | Integer| Transaction timestamp in nanoseconds | |
+| sequence    | Integer| Latest message sequence |          |
+| symbol      | String | Contract symbol name    |          |
+| type        | String | Message type     | snapshot, incremental |
+| version     | String | Message version  | v1 |
+
+
+
+* Sample:
+
+```
+{"accounts":[{"accountBalanceEv":304011000007611398,"accountID":11324490001,"bonusBalanceEv":0,"currency":"BTC","totalUsedBalanceEv":100032635,"userID":1132449}],"events":[],"orders":{"closed":[{"accountID":11324490001,"bonusChangedAmountEv":0,"clOrdID":"38a54851-f5a5-91a2-c86f-343caded0384","closedPnlEv":0,"closedSize":0,"code":0,"cumQty":1000000,"cumValueEv":2367167637,"currency":"BTC","cxlRejReason":0,"displayQty":0,"leavesQty":0,"leavesValueEv":0,"ordStatus":"Filled","ordType":"Limit","orderID":"06518c40-6fb2-4e95-9d91-e8342de6d2e1","orderQty":1000000,"pegOffsetValueEp":0,"priceEp":422455000,"side":"Buy","slTrigger":"ByMarkPrice","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tpTrigger":"ByLastPrice","transactTimeNs":1647935193813494272,"userID":1132449},{"accountID":11324490001,"bonusChangedAmountEv":0,"clOrdID":"6bb07b9c-c171-6c8d-eeb3-8f4ef870ae8e","closedPnlEv":0,"closedSize":0,"code":11081,"cumQty":0,"cumValueEv":0,"currency":"BTC","cxlRejReason":0,"displayQty":0,"leavesQty":1000000,"leavesValueEv":2367116024,"ordStatus":"Rejected","ordType":"Limit","orderID":"84682434-ac59-4a23-8915-193295f81913","orderQty":1000000,"pegOffsetValueEp":0,"priceEp":422455000,"side":"Buy","slTrigger":"ByMarkPrice","stopLossEp":0,"stopPxEp":0,"symbol":"BTCUSD","takeProfitEp":0,"timeInForce":"GoodTillCancel","tpTrigger":"ByLastPrice","transactTimeNs":1647935206668239427,"userID":1132449}],"fills":[{"accountID":11324490001,"bonusChangedAmountEv":0,"currency":"BTC","execFeeEv":1100230,"execID":"6b72f087-1bc4-5ad2-8de7-0fcb948e3238","execPriceEp":422445000,"execQty":619715,"execSeq":1045041976,"execStatus":"TakerFill","execValueEv":1466972031,"ordType":"Limit","orderID":"06518c40-6fb2-4e95-9d91-e8342de6d2e1","orderQty":1000000,"priceEp":422455000,"side":"Buy","symbol":"BTCUSD","tradeType":"Trade","transactTimeNs":1647935193813494272,"userID":1132449},{"accountID":11324490001,"bonusChangedAmountEv":0,"currency":"BTC","execFeeEv":535137,"execID":"659de6ab-e4dd-5e5d-b5c3-654a2db8b5cb","execPriceEp":422445000,"execQty":301421,"execSeq":1045041976,"execStatus":"TakerFill","execValueEv":713515368,"ordType":"Limit","orderID":"06518c40-6fb2-4e95-9d91-e8342de6d2e1","orderQty":1000000,"priceEp":422455000,"side":"Buy","symbol":"BTCUSD","tradeType":"Trade","transactTimeNs":1647935193813494272,"userID":1132449}],"open":[]},"positions":[{"accountID":11324490001,"assignedPosBalanceEv":100032635,"avgEntryPriceEp":419422835,"bankruptCommEv":585024000000,"bankruptPriceEp":5000,"buyLeavesQty":0,"buyLeavesValueEv":0,"buyValueToCostEr":1150750,"createdAtNs":0,"crossSharedBalanceEv":304010999907578763,"cumClosedPnlEv":18515572,"cumFundingFeeEv":0,"cumTransactFeeEv":10904174,"curTermRealisedPnlEv":7612065,"currency":"BTC","dataVer":27,"deleveragePercentileEr":0,"displayLeverageEr":1000000,"estimatedOrdLossEv":0,"execSeq":1045041976,"freeCostEv":0,"freeQty":-3900160,"initMarginReqEr":1000000,"lastFundingTime":1647415223469509283,"lastTermEndTime":1647423491682801920,"leverageEr":0,"liquidationPriceEp":5000,"maintMarginReqEr":500000,"makerFeeRateEr":0,"markPriceEp":422792875,"orderCostEv":0,"posCostEv":100032635,"positionMarginEv":304010414983611398,"positionStatus":"Normal","riskLimitEv":10000000000,"sellLeavesQty":0,"sellLeavesValueEv":0,"sellValueToCostEr":1149250,"side":"Buy","size":3900160,"symbol":"BTCUSD","takerFeeRateEr":0,"term":2,"transactTimeNs":1647935206668239427,"unrealisedPnlEv":74120406,"updatedAtNs":0,"usedBalanceEv":100032635,"userID":1132449,"valueEv":9298873779}],"sequence":849885032,"timestamp":1647949615819850918,"type":"snapshot","version":"v1"}
+
+```
+
+
 <a name="aopunsub"/>
 
 ### Unsubscribe Account-Order-Position (AOP)

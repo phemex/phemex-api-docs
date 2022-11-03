@@ -2037,7 +2037,9 @@ users' wallets and open / max 100 closed / max 100 filled order event message hi
 {
   "id": <id>,
   "method": "wo.subscribe",
-  "params": []
+  "params": [
+    "close/fills limits(default 0, means max 100)
+  ]
 }
 ```
 
