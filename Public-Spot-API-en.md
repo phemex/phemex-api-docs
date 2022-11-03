@@ -53,6 +53,7 @@
         * [Heartbeat](#heartbeat)
         * [API User Authentication](#apiuserauth)
         * [Subscribe OrderBook](#booksub)
+        * [Subscribe Full OrderBook](#booksub2)
         * [Unsubscribe OrderBook](#bookunsub)
         * [Subscribe Trade](#tradesub)
         * [Unsubscribe Trade](#tradeunsub)
@@ -1541,6 +1542,7 @@ authenticate the session.
 
 On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later
 order book updates will be published.
+Incremental messages are published with **depth=30 and 20ms interval**.
 
 * Request
 
@@ -1586,10 +1588,63 @@ order book updates will be published.
 }
 ```
 
+<a name="booksub2"/>
+
+### Subscribe Full OrderBook
+
+On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later
+order book updates will be published.
+Incremental messages are published with **full depth and 100ms interval**.
+
+* Request
+
+```javascript
+{
+  "id": <id>,
+  "method": "orderbook.subscribe",
+  "params": [
+    "<symbol>",
+    true
+  ]
+}
+```
+
+* Response
+
+```javascript
+{
+  "error": null,
+  "id": <id>,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
+* Sample：
+
+```javascript
+> {
+  "id": 1234,
+  "method": "orderbook.subscribe",
+  "params": [
+    "sBTCUSDT",
+    true
+  ]
+}
+
+< {
+  "error": null,
+  "id": 1234,
+  "result": {
+    "status": "success"
+  }
+}
+```
+
 #### OrderBook Message:
 
-DataGW publishes order book message with types: incremental, snapshot. Incremental messages are published with 20ms
-interval. And snapshot messages are published with 60-second interval for client self-verification.
+DataGW publishes order book message with types: incremental, snapshot. And snapshot messages are published with 60-second interval for client self-verification.
 
 * Message Format：
 
