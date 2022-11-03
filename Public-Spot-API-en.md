@@ -1,68 +1,69 @@
 ## Table of Contents
+
 * [Phemex Public API](#publicapi)
-  * [General Public API Information](#general)
+    * [General Public API Information](#general)
 * [REST API Standards](#restapi)
-  * [HTTP Restful Response](#restresponse)
-    * [HTTP Return Codes](#httpreturncodes)
-    * [HTTP Restful Response Format](#responseformat)
-    * [Restful Response Error Codes](#errorcode)
-  * [HTTP REST Request Header](#httprestheader)
-  * [API Rate Limits](#apiratelimits)
-  * [Endpoint security type](#securitytype)
-    * [Signature Example 1: HTTP GET Request](#signatureexample1)
-    * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
-    * [Signature Example 3: HTTP POST Request](#signatureexample3)
-  * [Request/Response field explained](#fieldexplained)
-    * [Spot currency and Symbol](#spotCurrencySym)
-    * [Common constants](#commconsts)
-  * [REST API List](#restapilist)
-    * [Market API List](#marketapilist)
-      * [Query Product Information](#queryproductinfo)
-    * [Market Data API List ](#mdapilist)
-      * [Query Order Book](#queryorderbook)
-      * [Query Recent Trades](#querytrades)
-      * [Query 24 Hours Ticker](#query24hrsticker)
-    * [Spot Trading Api List](#spotTradingApi)
-      * [Place Order With PUT method, *Preferred*](#spotPutPlaceOrder)
-      * [Place Order](#spotPlaceOrder)
-      * [Amend Order](#spotAmendOrder)
-      * [Cancel Order](#spotCancelOrder)
-      * [Cancel All Order by Symbol](#spotCancelAll)
-      * [Query Open Order by clOrdID or orderID](#spotQueryOpenOrder)
-      * [List all Open Orders by Symbol](#spotListAllOpenOrder)
-      * [Query Wallets](#spotQueryWallet)
-      * [Query Closed orders, *Deprecated*](#spotQueryClosedOrder)
-      * [Query history trades, *Deprecated*](#spotQueryHistTrade)
-    * [Spot Asset Api List](#spotAssetAPIList)
-      * [Query Deposit address](#depositAddr)
-      * [Query Deposit history](#depositHist)
-      * [Query withdraw history](#withdrawHist)
-    * [Spot Data Api List](#spotDataAPIList)
-      * [Query Funds History](#spotDataFundsHist)
-      * [Query Orders History](#spotDataOrdersHist)
-      * [Query Orders By Ids](#spotDataOrdersByIds)
-      * [Query PNLs](#spotDataPnls)
-      * [Query Trades](#spotDataTradesHist)
-      * [Query Trades By Ids](#spotDataTradesByIds)
-      
+    * [HTTP Restful Response](#restresponse)
+        * [HTTP Return Codes](#httpreturncodes)
+        * [HTTP Restful Response Format](#responseformat)
+        * [Restful Response Error Codes](#errorcode)
+    * [HTTP REST Request Header](#httprestheader)
+    * [API Rate Limits](#apiratelimits)
+    * [Endpoint security type](#securitytype)
+        * [Signature Example 1: HTTP GET Request](#signatureexample1)
+        * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
+        * [Signature Example 3: HTTP POST Request](#signatureexample3)
+    * [Request/Response field explained](#fieldexplained)
+        * [Spot currency and Symbol](#spotCurrencySym)
+        * [Common constants](#commconsts)
+    * [REST API List](#restapilist)
+        * [Market API List](#marketapilist)
+            * [Query Product Information](#queryproductinfo)
+        * [Market Data API List ](#mdapilist)
+            * [Query Order Book](#queryorderbook)
+            * [Query Recent Trades](#querytrades)
+            * [Query 24 Hours Ticker](#query24hrsticker)
+        * [Spot Trading Api List](#spotTradingApi)
+            * [Place Order With PUT method, *Preferred*](#spotPutPlaceOrder)
+            * [Place Order](#spotPlaceOrder)
+            * [Amend Order](#spotAmendOrder)
+            * [Cancel Order](#spotCancelOrder)
+            * [Cancel All Order by Symbol](#spotCancelAll)
+            * [Query Open Order by clOrdID or orderID](#spotQueryOpenOrder)
+            * [List all Open Orders by Symbol](#spotListAllOpenOrder)
+            * [Query Wallets](#spotQueryWallet)
+            * [Query Closed orders, *Deprecated*](#spotQueryClosedOrder)
+            * [Query history trades, *Deprecated*](#spotQueryHistTrade)
+        * [Spot Asset Api List](#spotAssetAPIList)
+            * [Query Deposit address](#depositAddr)
+            * [Query Deposit history](#depositHist)
+            * [Query withdraw history](#withdrawHist)
+        * [Spot Data Api List](#spotDataAPIList)
+            * [Query Funds History](#spotDataFundsHist)
+            * [Query Orders History](#spotDataOrdersHist)
+            * [Query Orders By Ids](#spotDataOrdersByIds)
+            * [Query PNLs](#spotDataPnls)
+            * [Query Trades](#spotDataTradesHist)
+            * [Query Trades By Ids](#spotDataTradesByIds)
+
 * [Websocket API Standards](#wsapi)
-  * [Session Management](#sessionmanagement)
-  * [API Rate Limits](#wsapiratelimits)
-  * [WebSocket API List](#wsapilist)
-    * [Heartbeat](#heartbeat)
-    * [API User Authentication](#apiuserauth)
-    * [Subscribe OrderBook](#booksub)
-    * [Unsubscribe OrderBook](#bookunsub)
-    * [Subscribe Trade](#tradesub)
-    * [Unsubscribe Trade](#tradeunsub)
-    * [Subscribe Kline](#klinesub)
-    * [Unsubscribe Kline](#klinesub)
-    * [Subscribe Wallet-Order](#wosub)
-    * [Unsubscribe Wallet-Order](#wounsub)
-    * [Subscribe 24 Hours Ticker](#tickersub)
-    * [All Spot trading currencies](#currencyinfo)
-    * [All Spot trading products](#productinfo)
-    * [Subscribe Investment Account](#investmentaccount)
+    * [Session Management](#sessionmanagement)
+    * [API Rate Limits](#wsapiratelimits)
+    * [WebSocket API List](#wsapilist)
+        * [Heartbeat](#heartbeat)
+        * [API User Authentication](#apiuserauth)
+        * [Subscribe OrderBook](#booksub)
+        * [Unsubscribe OrderBook](#bookunsub)
+        * [Subscribe Trade](#tradesub)
+        * [Unsubscribe Trade](#tradeunsub)
+        * [Subscribe Kline](#klinesub)
+        * [Unsubscribe Kline](#klinesub)
+        * [Subscribe Wallet-Order](#wosub)
+        * [Unsubscribe Wallet-Order](#wounsub)
+        * [Subscribe 24 Hours Ticker](#tickersub)
+        * [All Spot trading currencies](#currencyinfo)
+        * [All Spot trading products](#productinfo)
+        * [Subscribe Investment Account](#investmentaccount)
 
 <a name="publicapi"/>
 
@@ -73,9 +74,11 @@
 ## General Public API Information
 
 * Phemex provides HTTP Rest API for client to operate Orders, all endpoints return a JSON object.
-* The default Rest API base endpoint is: **https://api.phemex.com**. The High rate limit Rest API base endpoint is: **https://vapi.phemex.com**. Or for the testnet is:  **https://testnet-api.phemex.com** 
+* The default Rest API base endpoint is: **https://api.phemex.com**. The High rate limit Rest API base endpoint
+  is: **https://vapi.phemex.com**. Or for the testnet is:  **https://testnet-api.phemex.com**
 * Phemex provides WebSocket API for client to receive market data, order and position updates.
-* The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss://vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws** 
+* The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss:
+  //vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws**
 
 <a name="restapi"/>
 
@@ -92,21 +95,21 @@
 * HTTP `401` return code is used when unauthenticated
 * HTTP `403` return code is used when lack of priviledge.
 * HTTP `429` return code is used when breaking a request rate limit.
-* HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the execution status is **UNKNOWN** and could be Succeed.
+* HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the
+  execution status is **UNKNOWN** and could be Succeed.
 
 <a name="responseformat"/>
 
 ### Rest Response format
 
-   * All restful API except ***starting*** with `/md` shares same response format.
+* All restful API except ***starting*** with `/md` shares same response format.
 
-```
+```json
 {
-    "code": <code>,
-    "msg": <msg>,
-    "data": <data>
+  "code": <code>,
+  "msg": <msg>,
+  "data": <data>
 }
-
 ```
 
 | Field | Description | 
@@ -121,22 +124,27 @@
 
 [Trading Error Codes](TradingErrorCode.md)
 
-## HTTP REST Request Header 
+## HTTP REST Request Header
 
 Every HTTP Rest Request must have the following Headers:
+
 * x-phemex-access-token : This is ***API-KEY*** (id field) from Phemex site.
-* x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (Now() + 1 minute)
-* x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
+* x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (
+  Now() + 1 minute)
+* x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its
+  formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 Optional Headers:
-* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in resolving latency issues.
+
+* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in
+  resolving latency issues.
 
 <a name="apiratelimits"/>
 
 ## API Rate Limits
 
 * [Order spamming limitations](https://phemex.com/user-guides/order-spamming-limitations)
-* RateLimit group of contract trading api is ***SPOTORDER***.  
+* RateLimit group of contract trading api is ***SPOTORDER***.
 * RateLimit Explained [phemex ratelimite docs](/Generic-API-Info.en.md)
 * Contract trading api response carries following headers.
 
@@ -151,7 +159,9 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ## Endpoint security type
 
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
-* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
+* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use
+  your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC
+  operation.
 * `apiSecret` = `Base64::urlDecode(API Secret)`
 * The `signature` is **case sensitive**.
 
@@ -159,23 +169,25 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 ### Signature Example 1: HTTP GET Request
 
-* API REST Request URL: https://api.phemex.com/spot/wallets?currency=BTC 
-   * Request Path: /spot/wallets
-   * Request Query: currency=BTC
-   * Request Body: <null>
-   * Request Expiry: 1587552406
-   * Signature: HMacSha256( /spot/wallets + currency=BTC + 1587552406 )
+* API REST Request URL: https://api.phemex.com/spot/wallets?currency=BTC
+    * Request Path: /spot/wallets
+    * Request Query: currency=BTC
+    * Request Body: <null>
+    * Request Expiry: 1587552406
+    * Signature: HMacSha256( /spot/wallets + currency=BTC + 1587552406 )
 
 <a name="signatureexample2"/>
 
 ### Singature Example 2: HTTP GET Request with multiple query string
 
-* API REST Request URL: https://api.phemex.com/spot/orders/active?symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc 
+* API REST Request
+  URL: https://api.phemex.com/spot/orders/active?symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc
     * Request Path: /spot/orders/active
-    * Request Query: symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc 
+    * Request Query: symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc
     * Request Body: <null>
     * Request Expire: 1587552407
-    * Signature: HMacSha256(/spot/orders/active + symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc + 1587552407)
+    * Signature: HMacSha256(/spot/orders/active + symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc +
+      1587552407)
     * signed string is `/spot/orders/activesymbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc1587552407`
 
 <a name="signatureexample3"/>
@@ -183,21 +195,19 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ### Signature Example 3: HTTP POST Request
 
 * API REST Request URL: https://api.phemex.com/spot/orders
-   * Request Path: /spot/orders
-   * Request Query: <null>
-   * Request Body: 
-   ```
+    * Request Path: /spot/orders
+    * Request Query: <null>
+    * Request Body:
+   ```json
    {"symbol":"sBTCUSDT","clOrdID":"ece0187f-7e02-44b5-a778-404125f124fa","side":"Buy","qtyType":"ByBase","quoteQtyEv":"0","baseQtyEv":"100000","priceEp":"700000000","stopPxEp":"0","execInst":"","ordType":"Limit","timeInForce":"","text":""}
    ```
-   * Request Expiry: 1587552407 
-   * signed string is 
+    * Request Expiry: 1587552407
+    * signed string is
    ```
     /spot/orders1587552407{"symbol":"sBTCUSDT","clOrdID":"ece0187f-7e02-44b5-a778-404125f124fa","side":"Buy","qtyType":"ByBase","quoteQtyEv":"0","baseQtyEv":"100000","priceEp":"700000000","stopPxEp":"0","execInst":"","ordType":"Limit","timeInForce":"","text":""}
-
    ```
 
 ## Request/response field explained
-
 
 <a name="spotCurrencySym"/>
 
@@ -206,8 +216,7 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ### Spot Currency and Symbols
 
 * Spot Currency and its scale factor
-See [all spot trading currencies](#currencyinfo) for details.
-
+  See [all spot trading currencies](#currencyinfo) for details.
 
 <a name="spotSymList"/>
 
@@ -235,7 +244,6 @@ See [all spot trading products](#productinfo) for details.
 | StopAsLimit | -- |
 | MarketIfTouchedAsLimit | -- |
 
-
 * order Status
 
 | order status | description | 
@@ -257,13 +265,11 @@ See [all spot trading products](#productinfo) for details.
 | ImmediateOrCancel | -- |
 | FillOrKill | -- |
 
-
 * Trigger source
 
 | trigger | description |
 |------------|-------------|
 | ByLastPrice | trigger by last price |
-
 
 <a name="restapilist"/>
 
@@ -271,19 +277,17 @@ See [all spot trading products](#productinfo) for details.
 
 <a name="marketapilist"/>
 
-### Market API List 
+### Market API List
 
 <a name="queryproductinfo"/>
 
-#### Query Product Information 
+#### Query Product Information
 
 * Request：
 
 ```
 GET /public/products
 ```
-
-
 
 <a name="mdapilist"/>
 
@@ -294,6 +298,7 @@ GET /public/products
 #### Query Order Book
 
 * Request：
+
 ```
 GET /md/orderbook?symbol=<symbol>
 ```
@@ -303,7 +308,8 @@ GET /md/orderbook?symbol=<symbol>
 | symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": 0,
@@ -347,7 +353,8 @@ GET /md/orderbook?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
-```
+
+```json
 GET /md/orderbook?symbol=sBTCUSDT
 
 {
@@ -385,12 +392,12 @@ GET /md/orderbook?symbol=sBTCUSDT
 }
 ```
 
-
 <a name="querytrades"/>
 
 #### Query Recent Trades
 
 * Request：
+
 ```
 GET /md/trade?symbol=<symbol>
 ```
@@ -400,7 +407,8 @@ GET /md/trade?symbol=<symbol>
 | symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": 0,
@@ -434,7 +442,8 @@ GET /md/trade?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
-```
+
+```json
 GET /md/trade?symbol=sBTCUSDT
 
 {
@@ -468,6 +477,7 @@ GET /md/trade?symbol=sBTCUSDT
 #### Query 24 Hours Ticker
 
 * Request：
+
 ```
 GET /md/spot/ticker/24hr?symbol=<symbol>
 ```
@@ -477,7 +487,8 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 | symbol      | String | symbol name                                | [Trading symbols](#productinfo) |
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": 0,
@@ -510,7 +521,8 @@ GET /md/spot/ticker/24hr?symbol=<symbol>
 | volumeEv      | Integer| The scaled trade volume in last 24 hours   |              |
 
 * Sample：
-```
+
+```json
 GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 
 {
@@ -540,6 +552,7 @@ GET /md/spot/ticker/24hr?symbol=sBTCUSDT
 #### Query Order Book
 
 * Request：
+
 ```
 GET /v1/md/orderbook?symbol=<symbol>
 ```
@@ -549,7 +562,8 @@ GET /v1/md/orderbook?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": 0,
@@ -593,7 +607,8 @@ GET /v1/md/orderbook?symbol=<symbol>
 | symbol      | String | Spot symbol name                       | [Trading symbols](#productinfo) |
 
 * Sample：
-```
+
+```json
 GET /v1/md/orderbook?symbol=sBTCUSDT
 
 {
@@ -658,39 +673,38 @@ PUT /spot/orders/create?symbol=<symbol>&trigger=<trigger>&clOrdID=<clOrdID>&pric
 
 * Http Response
 
-```
-
+```json
 {
-    "code": 0,
-        "msg": "",
-        "data": {
-            "orderID": "d1d09454-cabc-4a23-89a7-59d43363f16d",
-            "clOrdID": "309bcd5c-9f6e-4a68-b775-4494542eb5cb",
-            "priceEp": 0,
-            "action": "New",
-            "trigger": "UNSPECIFIED",
-            "pegPriceType": "UNSPECIFIED",
-            "stopDirection": "UNSPECIFIED",
-            "bizError": 0,
-            "symbol": "sBTCUSDT",
-            "side": "Buy",
-            "baseQtyEv": 0,
-            "ordType": "Limit",
-            "timeInForce": "GoodTillCancel",
-            "ordStatus": "Created",
-            "cumFeeEv": 0,
-            "cumBaseQtyEv": 0,
-            "cumQuoteQtyEv": 0,
-            "leavesBaseQtyEv": 0,
-            "leavesQuoteQtyEv": 0,
-            "avgPriceEp": 0,
-            "cumBaseAmountEv": 0,
-            "cumQuoteAmountEv": 0,
-            "quoteQtyEv": 0,
-            "qtyType": "ByBase",
-            "stopPxEp": 0,
-            "pegOffsetValueEp": 0
-        }
+  "code": 0,
+  "msg": "",
+  "data": {
+    "orderID": "d1d09454-cabc-4a23-89a7-59d43363f16d",
+    "clOrdID": "309bcd5c-9f6e-4a68-b775-4494542eb5cb",
+    "priceEp": 0,
+    "action": "New",
+    "trigger": "UNSPECIFIED",
+    "pegPriceType": "UNSPECIFIED",
+    "stopDirection": "UNSPECIFIED",
+    "bizError": 0,
+    "symbol": "sBTCUSDT",
+    "side": "Buy",
+    "baseQtyEv": 0,
+    "ordType": "Limit",
+    "timeInForce": "GoodTillCancel",
+    "ordStatus": "Created",
+    "cumFeeEv": 0,
+    "cumBaseQtyEv": 0,
+    "cumQuoteQtyEv": 0,
+    "leavesBaseQtyEv": 0,
+    "leavesQuoteQtyEv": 0,
+    "avgPriceEp": 0,
+    "cumBaseAmountEv": 0,
+    "cumQuoteAmountEv": 0,
+    "quoteQtyEv": 0,
+    "qtyType": "ByBase",
+    "stopPxEp": 0,
+    "pegOffsetValueEp": 0
+  }
 }
 ```
 
@@ -700,26 +714,25 @@ PUT /spot/orders/create?symbol=<symbol>&trigger=<trigger>&clOrdID=<clOrdID>&pric
 
 * Http Request:
 
-```
+```json
 POST /spot/orders
 
-{  
-    "symbol":"sBTCUSDT",
-    "clOrdID":"",
-    "side":"Buy/Sell",
-    "qtyType":"ByBase/ByQuote",
-    "quoteQtyEv":0,
-    "baseQtyEv":0,
-    "priceEp":0,
-    "stopPxEp":0,
-    "trigger":"UNSPECIFIED",
-    "ordType":"Limit",
-    "timeInForce":"GoodTillCancel"
+{
+  "symbol": "sBTCUSDT",
+  "clOrdID": "",
+  "side": "Buy/Sell",
+  "qtyType": "ByBase/ByQuote",
+  "quoteQtyEv": 0,
+  "baseQtyEv": 0,
+  "priceEp": 0,
+  "stopPxEp": 0,
+  "trigger": "UNSPECIFIED",
+  "ordType": "Limit",
+  "timeInForce": "GoodTillCancel"
 }
-
 ```
 
-  * Fields are the same as [above place-order](#spotPutPlaceOrder)
+* Fields are the same as [above place-order](#spotPutPlaceOrder)
 
 <a name="spotAmendOrder"/>
 
@@ -729,12 +742,11 @@ POST /spot/orders
 
 ```
 PUT /spot/orders?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clOrdID=<clOrdID>&priceEp=<priceEp>&baseQtyEV=<baseQtyEV>&quoteQtyEv=<quoteQtyEv>&stopPxEp=<stopPxEp> 
-
 ```
 
 * Http Response
 
-   * amended order
+    * amended order
 
 <a name="spotCancelOrder"/>
 
@@ -743,11 +755,10 @@ PUT /spot/orders?symbol=<symbol>&orderID=<orderID>&origClOrdID=<origClOrdID>&clO
 ```
 DELETE /spot/orders?symbol=<symbol>&orderID=<orderID>
 DELETE /spot/orders?symbol=<symbol>&clOrdID=<clOrdID>
-
 ```
 
 * Http Response
-   * Canceled order
+    * Canceled order
 
 <a name="spotCancelAll"/>
 
@@ -763,7 +774,7 @@ DELETE /spot/orders/all?symbol=<symbol>&untriggered=<untriggered>
 | untriggered | Boolean | No | set false to cancel non-conditiaonal order, true to conditional order |
 
 * Http Response
-  * Total orders canceled
+    * Total orders canceled
 
 <a name="spotQueryOpenOrder"/>
 
@@ -774,33 +785,30 @@ DELETE /spot/orders/all?symbol=<symbol>&untriggered=<untriggered>
 ```
 GET /spot/orders/active?symbol=<symbol>&orderID=<orderID>
 GET /spot/orders/active?symbol=<symbol>&clOrDID=<clOrdID>
-
 ```
 
 * Http Response
 
-   * Order object
-
+    * Order object
 
 <a name="spotListAllOpenOrder"/>
 
 #### Query all open orders by symbol
 
-
 * Http Request
 
 ```
 GET /spot/orders?symbol=<symbol>
-
 ```
 
 * Http Response
-   * List of orders
+    * List of orders
 
 <a name="spotQueryWallet"/>
 
 #### Query wallets
-   * Query spot wallet by currency
+
+* Query spot wallet by currency
 
 * Http Request
 
@@ -810,32 +818,34 @@ GET /spot/wallets?currency=<currency>
 
 * Http Response
 
-```
+```json
 {
-    "code": 0,
-        "msg": "",
-        "data": [{
-            "currency": "BTC",
-            "balanceEv": 0,
-            "lockedTradingBalanceEv": 0,
-            "lockedWithdrawEv": 0,
-            "lastUpdateTimeNs": 0,
-        }]
+  "code": 0,
+  "msg": "",
+  "data": [
+    {
+      "currency": "BTC",
+      "balanceEv": 0,
+      "lockedTradingBalanceEv": 0,
+      "lockedWithdrawEv": 0,
+      "lastUpdateTimeNs": 0
+    }
+  ]
 }
 ```
 
 <a name="spotQueryClosedOrder"/>
 
 #### Query spot closed orders
+
     * Query closed orders by symbol
 
-**NOTE:** deprecated, recommend [Query Orders by IDs](#spotDataOrdersByIds) 
+**NOTE:** deprecated, recommend [Query Orders by IDs](#spotDataOrdersByIds)
 
 * Http Request
 
 ```
 GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordType=<ordType1,orderType2>&start=<start>&end=<end>&limit=<limit>&offset=<offset>
-
 ```
 
 | Field      | Type | Required | Description |  Possible Values |
@@ -846,90 +856,87 @@ GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordT
 | start     | integer | No    | Epoch millisecond, start of time range    |  within 3 month        |
 | end       | integer | No    | Epoch millisecond, end of time range      | within 3 months |
 
-
 * Http Response
 
-   * return a list of spot order model.
+    * return a list of spot order model.
 
-```
+```json
 {
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "total": 2,
-            "rows": [
-            {
-                "orderID": "string",
-                "stopPxEp": 0,
-                "avgPriceEp": 0,
-                "qtyType": "<ByQuote/ByBase>",
-                "leavesBaseQtyEv": 0,
-                "leavesQuoteQtyEv": 0,
-                "baseQtyEv": "0",
-                "feeCurrency": "string",
-                "stopDirection": "UNSPECIFIED",
-                "symbol": "string",
-                "side": "enum",
-                "quoteQtyEv": 0,
-                "priceEp": 0,
-                "ordType": "enum",
-                "timeInForce": "enum",
-                "ordStatus": "enum",
-                "execStatus": "enum",
-                "createTimeNs": 0,
-                "cumFeeEv": 0,
-                "cumBaseValueEv": 0,
-                "cumQuoteValueEv": 0 
-            }]
-        }
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "total": 2,
+    "rows": [
+      {
+        "orderID": "string",
+        "stopPxEp": 0,
+        "avgPriceEp": 0,
+        "qtyType": "<ByQuote/ByBase>",
+        "leavesBaseQtyEv": 0,
+        "leavesQuoteQtyEv": 0,
+        "baseQtyEv": "0",
+        "feeCurrency": "string",
+        "stopDirection": "UNSPECIFIED",
+        "symbol": "string",
+        "side": "enum",
+        "quoteQtyEv": 0,
+        "priceEp": 0,
+        "ordType": "enum",
+        "timeInForce": "enum",
+        "ordStatus": "enum",
+        "execStatus": "enum",
+        "createTimeNs": 0,
+        "cumFeeEv": 0,
+        "cumBaseValueEv": 0,
+        "cumQuoteValueEv": 0
+      }
+    ]
+  }
 }
-
 ```
 
 * Sample Response
 
-```
+```json
 {
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "total": 2,
-            "rows": [
-            {
-                "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
-                "stopPxEp": 0,
-                "avgPriceEp": 970056000000,
-                "qtyType": "ByQuote",
-                "leavesBaseQtyEv": 0,
-                "leavesQuoteQtyEv": 0,
-                "baseQtyEv": "0",
-                "feeCurrency": "1",
-                "stopDirection": "UNSPECIFIED",
-                "symbol": "sBTCUSDT",
-                "side": "Buy",
-                "quoteQtyEv": 1000000000,
-                "priceEp": 970056000000,
-                "ordType": "Limit",
-                "timeInForce": "GoodTillCancel",
-                "ordStatus": "Filled",
-                "execStatus": "MakerFill",
-                "createTimeNs": 1589449348601287000,
-                "cumFeeEv": 0,
-                "cumBaseValueEv": 103000,
-                "cumQuoteValueEv": 999157680
-            }
-            ]
-        }
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "total": 2,
+    "rows": [
+      {
+        "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
+        "stopPxEp": 0,
+        "avgPriceEp": 970056000000,
+        "qtyType": "ByQuote",
+        "leavesBaseQtyEv": 0,
+        "leavesQuoteQtyEv": 0,
+        "baseQtyEv": "0",
+        "feeCurrency": "1",
+        "stopDirection": "UNSPECIFIED",
+        "symbol": "sBTCUSDT",
+        "side": "Buy",
+        "quoteQtyEv": 1000000000,
+        "priceEp": 970056000000,
+        "ordType": "Limit",
+        "timeInForce": "GoodTillCancel",
+        "ordStatus": "Filled",
+        "execStatus": "MakerFill",
+        "createTimeNs": 1589449348601287000,
+        "cumFeeEv": 0,
+        "cumBaseValueEv": 103000,
+        "cumQuoteValueEv": 999157680
+      }
+    ]
+  }
 }
-
 ```
-
 
 <a name="spotQueryHistTrade"/>
 
 #### Query spot history trades
-   
-   * Query spot history trades by symbol
+
+* Query spot history trades by symbol
 
 **NOTE:**  Deprecated, recommend [Query Trades](#spotDataTradesHist)
 
@@ -937,7 +944,6 @@ GET /exchange/spot/order?symbol=<symbol>&ordStatus=<ordStatus1,orderStatus2>ordT
 
 ```
 GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<limit>&offset=<offset>
-
 ```
 
 | Field | Type | Required | Description | Possible values |
@@ -948,90 +954,86 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
 
 * Http Response
 
-```
-
+```json
 {
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "total": 1,
-            "rows": [
-            {
-                "qtyType": "ByQuote/ByBase",
-                "transactTimeNs": 0,
-                "clOrdID": "string"
-                "orderID": "string",
-                "symbol": "string",
-                "side": "enum",
-                "priceEP": 0,
-                "baseQtyEv": 0,
-                "quoteQtyEv": 0,
-                "action": "enum",
-                "execStatus": "enum",
-                "ordStatus": "enum",
-                "ordType": "enum",
-                "execInst": "enum",
-                "timeInForce": enum",
-                "stopDirection": "enum",
-                "tradeType": "enum",
-                "stopPxEp": 0,
-                "execId": "0"
-                "execPriceEp": 0,
-                "execBaseQtyEv": 0,
-                "execQuoteQtyEv": 0,
-                "leavesBaseQtyEv": 0,
-                "leavesQuoteQtyEv": 0,
-                "execFeeEv": 0,
-                "feeRateEr": 0
-            }
-            ]
-        }
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "total": 1,
+    "rows": [
+      {
+        "qtyType": "ByQuote/ByBase",
+        "transactTimeNs": 0,
+        "clOrdID": "string"
+        "orderID": "string",
+        "symbol": "string",
+        "side": "enum",
+        "priceEP": 0,
+        "baseQtyEv": 0,
+        "quoteQtyEv": 0,
+        "action": "enum",
+        "execStatus": "enum",
+        "ordStatus": "enum",
+        "ordType": "enum",
+        "execInst": "enum",
+        "timeInForce": "enum",
+        "stopDirection": "enum",
+        "tradeType": "enum",
+        "stopPxEp": 0,
+        "execId": "0",
+        "execPriceEp": 0,
+        "execBaseQtyEv": 0,
+        "execQuoteQtyEv": 0,
+        "leavesBaseQtyEv": 0,
+        "leavesQuoteQtyEv": 0,
+        "execFeeEv": 0,
+        "feeRateEr": 0
+      }
+    ]
+  }
 }
-
 ```
 
 * Sample Response
 
-```
-
+```json
 {
-    "code": 0,
-        "msg": "OK",
-        "data": {
-            "total": 1,
-            "rows": [
-            {
-                "qtyType": "ByQuote",
-                "transactTimeNs": 1589450974800550100,
-                "clOrdID": "8ba59d40-df25-d4b0-14cf-0703f44e9690",
-                "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
-                "symbol": "sBTCUSDT",
-                "side": "Buy",
-                "priceEP": 970056000000,
-                "baseQtyEv": 0,
-                "quoteQtyEv": 1000000000,
-                "action": "New",
-                "execStatus": "MakerFill",
-                "ordStatus": "Filled",
-                "ordType": "Limit",
-                "execInst": "None",
-                "timeInForce": "GoodTillCancel",
-                "stopDirection": "UNSPECIFIED",
-                "tradeType": "Trade",
-                "stopPxEp": 0,
-                "execId": "c6bd8979-07ba-5946-b07e-f8b65135dbb1",
-                "execPriceEp": 970056000000,
-                "execBaseQtyEv": 103000,
-                "execQuoteQtyEv": 999157680,
-                "leavesBaseQtyEv": 0,
-                "leavesQuoteQtyEv": 0,
-                "execFeeEv": 0,
-                "feeRateEr": 0
-            }
-            ]
-        }
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "total": 1,
+    "rows": [
+      {
+        "qtyType": "ByQuote",
+        "transactTimeNs": 1589450974800550100,
+        "clOrdID": "8ba59d40-df25-d4b0-14cf-0703f44e9690",
+        "orderID": "b2b7018d-f02f-4c59-b4cf-051b9c2d2e83",
+        "symbol": "sBTCUSDT",
+        "side": "Buy",
+        "priceEP": 970056000000,
+        "baseQtyEv": 0,
+        "quoteQtyEv": 1000000000,
+        "action": "New",
+        "execStatus": "MakerFill",
+        "ordStatus": "Filled",
+        "ordType": "Limit",
+        "execInst": "None",
+        "timeInForce": "GoodTillCancel",
+        "stopDirection": "UNSPECIFIED",
+        "tradeType": "Trade",
+        "stopPxEp": 0,
+        "execId": "c6bd8979-07ba-5946-b07e-f8b65135dbb1",
+        "execPriceEp": 970056000000,
+        "execBaseQtyEv": 103000,
+        "execQuoteQtyEv": 999157680,
+        "leavesBaseQtyEv": 0,
+        "leavesQuoteQtyEv": 0,
+        "execFeeEv": 0,
+        "feeRateEr": 0
+      }
+    ]
+  }
 }
-
 ```
 
 <a name="spotAssetApiList"/>
@@ -1046,7 +1048,6 @@ GET /exchange/spot/order/trades?symbol=<symbol>&start=<start>&end=<end>&limit=<l
 
 ```
 GET /exchange/wallets/v2/depositAddress?currency=<currency>&chainName=<chainName>
-
 ```
 
 | Field    | Type   | Required  | Description| Possible Values |
@@ -1062,14 +1063,12 @@ GET /exchange/public/cfg/chain-settings?currency=<currency>
 
 * Response
 
-```
+```json
 {
-    "address": "1Cdxxxxxxxxxxxxxx",
-    "tag":null
+  "address": "1Cdxxxxxxxxxxxxxx",
+  "tag": null
 }
-
 ```
-
 
 <a name="depositHist"/>
 
@@ -1085,20 +1084,19 @@ GET /exchange/wallets/depositList?currency=<currency>&offset=<offset>&limit=<lim
 |----------|--------|-----------|------------|-----------------|
 | currency | String | True      | the currency to query | BTC,ETH, ... |
 
-
 * Response
 
-```
-{ 
-    address: "1xxxxxxxxxxxxxxxxxx"
-    amountEv: 1000000
-    confirmations: 1
-    createdAt: 1574685871000
-    currency: "BTC"
-    currencyCode: 1
-    status: "Success"
-    txHash: "9e84xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    type: "Deposit"
+```json
+{
+  "address": "1xxxxxxxxxxxxxxxxxx",
+  "amountEv": 1000000,
+  "confirmations": 1,
+  "createdAt": 1574685871000,
+  "currency": "BTC",
+  "currencyCode": 1,
+  "status": "Success",
+  "txHash": "9e84xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "type": "Deposit"
 }
 ```
 
@@ -1114,18 +1112,18 @@ GET /exchange/wallets/withdrawList?currency=<currency>&offset=<offset>&limit=<li
 
 * Response
 
-```
+```json
 {
-    address: "1Lxxxxxxxxxxx"
-    amountEv: 200000
-    currency: "BTC"
-    currencyCode: 1
-    expiredTime: 0
-    feeEv: 50000
-    rejectReason: null
-    status: "Succeed"
-    txHash: "44exxxxxxxxxxxxxxxxxxxxxx"
-    withdrawStatus: ""
+  "address": "1Lxxxxxxxxxxx",
+  "amountEv": 200000,
+  "currency": "BTC",
+  "currencyCode": 1,
+  "expiredTime": 0,
+  "feeEv": 50000,
+  "rejectReason": null,
+  "status": "Succeed",
+  "txHash": "44exxxxxxxxxxxxxxxxxxxxxx",
+  "withdrawStatus": ""
 }
 ```
 
@@ -1153,7 +1151,7 @@ GET /api-data/spots/funds?currency=<currency>
 
 * Response
 
-```
+```json
 [
   {
     "action": "string",
@@ -1193,7 +1191,7 @@ GET /api-data/spots/orders?symbol=<symbol>
 
 * Response
 
-```
+```json
 [
   {
     "avgPriceEp": 0,
@@ -1238,10 +1236,9 @@ GET /api-data/spots/orders/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 | orderID  | String | False    | order id              | orderID and clOrdID can not be both empty. If both IDs are given, it will return orderID if there is any, otherwise will try to find clOrdID |
 | clOrdID  | String | False    | client order id       | refer to orderID                                                                                                                          |
 
-
 * Response
 
-```
+```json
 [
   {
     "avgPriceEp": 0,
@@ -1287,7 +1284,7 @@ GET /api-data/spots/pnls
 
 * Response
 
-```
+```json
 [
   {
     "collectTime": 0,
@@ -1297,6 +1294,7 @@ GET /api-data/spots/pnls
   }
 ]
 ```
+
 <a name="spotDataTradesHist"/>
 
 #### Query Trades History
@@ -1317,7 +1315,7 @@ GET /api-data/spots/trades?symbol=<symbol>
 
 * Response
 
-```
+```json
 [
   {
     "action": "string",
@@ -1369,10 +1367,9 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 | orderID  | String | False    | order id              | orderID and clOrdID can not be both empty. If both IDs are given, it will return orderID if there is any, otherwise will try to find clOrdID |
 | clOrdID  | String | False    | client order id       | refer to orderID                                                                                                                          |
 
-
 * Response
 
-```
+```json
 [
   {
     "action": "string",
@@ -1408,7 +1405,6 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 ]
 ```
 
-
 <a name="wsapi"/>
 
 # Websocket API Standards
@@ -1417,8 +1413,12 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 
 ## Session Management
 
-* Each client is required to actively send heartbeat (ping) message to Phemex data gateway ('DataGW' in short) with interval less than 30 seconds, otherwise DataGW will drop the connection. If a client sends a ping message, DataGW will reply with a pong message.
-* Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3 heartbeat intervals*.
+* Each client is required to actively send heartbeat (ping) message to Phemex data gateway ('DataGW' in short) with
+  interval less than 30 seconds, otherwise DataGW will drop the connection. If a client sends a ping message, DataGW
+  will reply with a pong message.
+* Clients can use WS built-in ping message or the application level ping message to DataGW as heartbeat. The heartbeat
+  interval is recommended to be set as *5 seconds*, and actively reconnect to DataGW if don't receive messages in *3
+  heartbeat intervals*.
 
 <a name="wsapiratelimits"/>
 
@@ -1437,7 +1437,8 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 ### Heartbeat
 
 * Request：
-```
+
+```json
 {
   "id": <id>,
   "method": "server.ping",
@@ -1446,7 +1447,8 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 ```
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": <id>,
@@ -1455,7 +1457,8 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 ```
 
 * Sample：
-```
+
+```json
 > {
   "id": 1234,
   "method": "server.ping",
@@ -1474,11 +1477,12 @@ GET /api-data/spots/trades/by-order-id?symbol=<symbol>&oderId=<orderID>&clOrdID=
 ### API User Authentication
 
 Market trade/orderbook are published publicly without user authentication.
-While for client private account/position/order data, the client should send user.auth message to Data Gateway to authenticate the session.
+While for client private account/position/order data, the client should send user.auth message to Data Gateway to
+authenticate the session.
 
 * Request
 
-```
+```json
 {
   "method": "user.auth",
   "params": [
@@ -1500,7 +1504,7 @@ While for client private account/position/order data, the client should send use
 
 * Sample:
 
-```
+```json
 > {
   "method": "user.auth",
   "params": [
@@ -1521,15 +1525,16 @@ While for client private account/position/order data, the client should send use
 }
 ```
 
-
 <a name="booksub"/>
 
-### Subscribe OrderBook 
+### Subscribe OrderBook
 
-On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later order book updates will be published. 
+On each successful subscription, DataGW will immediately send the current Order Book snapshot to client and all later
+order book updates will be published.
 
-* Request 
-```
+* Request
+
+```json
 {
   "id": <id>,
   "method": "orderbook.subscribe",
@@ -1540,7 +1545,8 @@ On each successful subscription, DataGW will immediately send the current Order 
 ```
 
 * Response
-```
+
+```json
 {
   "error": null,
   "id": <id>,
@@ -1551,7 +1557,8 @@ On each successful subscription, DataGW will immediately send the current Order 
 ```
 
 * Sample：
-```
+
+```json
 > {
   "id": 1234,
   "method": "orderbook.subscribe",
@@ -1569,14 +1576,14 @@ On each successful subscription, DataGW will immediately send the current Order 
 }
 ```
 
-
 #### OrderBook Message:
 
-DataGW publishes order book message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published with 60-second interval for client self-verification.
+DataGW publishes order book message with types: incremental, snapshot. Incremental messages are published with 20ms
+interval. And snapshot messages are published with 60-second interval for client self-verification.
 
 * Message Format：
- 
-```
+
+```json
 {
   "book": {
     "asks": [
@@ -1601,8 +1608,8 @@ DataGW publishes order book message with types: incremental, snapshot. Increment
   "depth": <depth>,
   "sequence": <sequence>,
   "timestamp": <timestamp>,
-  "symbol": "<symbol>",
-
+  "symbol": "<symbol>"
+}
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -1613,11 +1620,10 @@ DataGW publishes order book message with types: incremental, snapshot. Increment
 | sequence    | Integer| Latest message sequence |          |
 | depth       | Integer| Market depth     | 30              |
 | type        | String | Message type     | snapshot, incremental |
-  
 
 * Sample：
- 
-```
+
+```json
 < {"book":{"asks":[[892697000000,1781800],[892708000000,7543500],[892718000000,6552500],[892720000000,4714100],[892728000000,8431000],[892735000000,11644800],[892756000000,5909600],[892790000000,9053100],[892798000000,3336400],[892819000000,1689500],[892828000000,1616700],[892855000000,6484000],[892869000000,6873200],[892872000000,1919900],[892875000000,2373200],[892942000000,1875300],[892944000000,3117500],[892962000000,1353500],[892965000000,2589800],[892966000000,11169800],[892973000000,7829700],[892977000000,2697200],[892978000000,2110700],[892985000000,12563700],[892988000000,5374100],[893023000000,3816000],[893031000000,5852700],[893035000000,4990900],[893061000000,3479500],[893083000000,327900]],"bids":[[892376000000,6866500],[892354000000,14209000],[892353000000,5287200],[892348000000,6417800],[892340000000,8074400],[892334000000,3991900],[892303000000,4558000],[892295000000,10154700],[892280000000,16214500],[892277000000,11425300],[892270000000,39156500],[892268000000,13821100],[892260000000,32157500],[892257000000,5466100],[892252000000,11468700],[892241000000,13940300],[892226000000,33832300],[892220000000,3000000],[892171000000,4320400],[892165000000,4454000],[892152000000,5336400],[892144000000,4539200],[892134000000,7472200],[892127000000,5352700],[892087000000,10264400],[892082000000,4908000],[892038000000,1485500],[892031000000,4089200],[892030000000,4895500],[892014000000,3846600]]},"depth":30,"sequence":677996311,"symbol":"sBTCUSDT","timestamp":1590570810187570850,"type":"snapshot"}
 < {"book":{"asks":[[892696000000,1669700],[892697000000,10455500],[892728000000,0],[892735000000,0],[892748000000,1550900],[892790000000,0],[892819000000,19087900],[892860000000,17152500],[892882000000,11546100],[892893000000,10986500],[892973000000,0],[892985000000,0],[893004000000,8306500],[893061000000,0],[893065000000,5446400],[893073000000,0],[893083000000,0],[893073000000,0],[893083000000,0]],"bids":[]},"depth":30,"sequence":677996548,"symbol":"sBTCUSDT","timestamp":1590570810819505422,"type":"incremental"}
 < {"book":{"asks":[],"bids":[[892387000000,4792900],[892354000000,3170700],[892226000000,0],[892187000000,14425000],[892171000000,6366500],[892165000000,0],[892135000000,11511400],[892134000000,0],[892127000000,0],[892090000000,5446000],[892079000000,4687800],[892041000000,8590200],[892030000000,0],[892014000000,0]]},"depth":30,"sequence":677996941,"symbol":"sBTCUSDT","timestamp":1590570811244188841,"type":"incremental"}
@@ -1631,7 +1637,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "orderbook.unsubscribe",
@@ -1641,7 +1647,7 @@ It unsubscribes all orderbook related subscriptions.
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -1651,16 +1657,16 @@ It unsubscribes all orderbook related subscriptions.
 }
 ```
 
-
 <a name="tradesub"/>
 
 ### Subscribe Trade
 
-On each successful subscription, DataGW will send the 200 history trades immediately for the subscribed symbol and all the later trades will be published.
+On each successful subscription, DataGW will send the 200 history trades immediately for the subscribed symbol and all
+the later trades will be published.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "trade.subscribe",
@@ -1672,7 +1678,7 @@ On each successful subscription, DataGW will send the 200 history trades immedia
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -1684,7 +1690,7 @@ On each successful subscription, DataGW will send the 200 history trades immedia
 
 * Sample:
 
-```
+```json
 > {
   "id": 1234,
   "method": "trade.subscribe",
@@ -1704,10 +1710,10 @@ On each successful subscription, DataGW will send the 200 history trades immedia
 
 #### Trade Message Format：
 
-DataGW publishes trade message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published on connection initial setup for client recovery.
+DataGW publishes trade message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
+And snapshot messages are published on connection initial setup for client recovery.
 
-
-```
+```json
 {
   "trades": [
     [
@@ -1735,10 +1741,10 @@ DataGW publishes trade message with types: incremental, snapshot. Incremental me
 | sequence    | Integer| Latest message sequence ||
 | symbol      | String | Spot symbol name     ||
 | type        | String | Message type     |snapshot, incremental |
-  
 
 * Sample
-```
+
+```json
 < {
   "sequence": 1167852,
   "symbol": "sBTCUSDT",
@@ -1794,7 +1800,7 @@ It unsubscribes all trade subscriptions.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "trade.subscribe",
@@ -1806,7 +1812,7 @@ It unsubscribes all trade subscriptions.
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -1820,11 +1826,12 @@ It unsubscribes all trade subscriptions.
 
 ### Subscribe Kline
 
-On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all the later kline update will be published in real-time.
+On each successful subscription, DataGW will send the 1000 history klines immediately for the subscribed symbol and all
+the later kline update will be published in real-time.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "kline.subscribe",
@@ -1837,7 +1844,7 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -1849,7 +1856,7 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 * Sample:
 
-```
+```json
 # subscribe 1-day kline
 > {
   "id": 1234,
@@ -1871,9 +1878,10 @@ On each successful subscription, DataGW will send the 1000 history klines immedi
 
 #### Kline Message Format：
 
-DataGW publishes kline message with types: incremental, snapshot. Incremental messages are published with 20ms interval. And snapshot messages are published on connection initial setup for client recovery.
+DataGW publishes kline message with types: incremental, snapshot. Incremental messages are published with 20ms interval.
+And snapshot messages are published on connection initial setup for client recovery.
 
-```
+```json
 {
   "kline": [
     [
@@ -1911,10 +1919,10 @@ DataGW publishes kline message with types: incremental, snapshot. Incremental me
 | sequence    | Integer| Latest message sequence  ||
 | symbol      | String | Contract symbol name     ||
 | type        | String | Message type     |snapshot, incremental |
-  
 
 * Sample
-```
+
+```json
 < {
   "kline": [
     [
@@ -1984,7 +1992,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Request
 
-```
+```json
 # unsubscribe all Kline subscriptions
 {
   "id": <id>,
@@ -2004,7 +2012,7 @@ It unsubscribes all kline subscriptions or for a symbol.
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -2014,16 +2022,18 @@ It unsubscribes all kline subscriptions or for a symbol.
 }
 ```
 
-
 <a name="wosub"/>
 
 ### Subscribe Wallet-Order messages
 
-WO subscription requires the session been authorized successfully. DataGW extracts the user information from the given token and sends WO messages back to client accordingly. 0 or more latest WO snapshot messages will be sent to client immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a users' wallets and open / max 100 closed / max 100 filled order event message history.
+WO subscription requires the session been authorized successfully. DataGW extracts the user information from the given
+token and sends WO messages back to client accordingly. 0 or more latest WO snapshot messages will be sent to client
+immediately on subscription, and incremental messages will be sent for later updates. Each account snapshot contains a
+users' wallets and open / max 100 closed / max 100 filled order event message history.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "wo.subscribe",
@@ -2033,7 +2043,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -2044,7 +2054,8 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 ```
 
 * Sample
-```
+
+```json
 > {
   "id": 1234,
   "method": "wo.subscribe",
@@ -2060,14 +2071,10 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 }
 ```
 
-
-
-
 #### Wallet-Order Message Sample:
 
-```
+```json
 {"wallets":[],"orders":[{"userID":60463,...}],"sequence":11450, "timestamp":<timestamp>, "type":"<type>"}
-
 ```
 
 | Field       | Type   | Description      | Possible values |
@@ -2076,23 +2083,21 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 | sequence    | Integer| Latest message sequence |          |
 | type        | String | Message type     | snapshot, incremental |
 
-
-
 * Sample:
 
-```
+```json
 < {"orders":{"closed":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"bizError":0,"clOrdID":"123456","createTimeNs":1587463924959744646,"cumBaseQtyEv":10000,"cumFeeEv":0,"cumQuoteQtyEv":66900000,"curBaseWalletQtyEv":899990000,"curQuoteWalletQtyEv":66900000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":0,"leavesQuoteQtyEv":0,"ordStatus":"Filled","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","pegOffsetValueEp":0,"priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587463924964876798,"triggerTimeNs":0,"userID":200076}],"fills":[{"avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":10000,"clOrdID":"123456","execBaseQtyEv":10000,"execFeeEv":0,"execID":"8135ebe3-f767-577b-b70d-1a839d5178e0","execPriceEp":669000000000,"execQuoteQtyEv":66900000,"feeCurrency":"BTC","lastLiquidityInd":"RemovedLiquidity","ordType":"Limit","orderID":"35217ade-3c6b-48c7-a280-8a1edb88013e","priceEp":68000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":66900000,"side":"Sell","symbol":"sBTCUSDT","transactTimeNs":1587463924964876798,"userID":200076}],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"31f793f4-163d-aa3f-5994-0e1164719ba2","createTimeNs":1587547657438535949,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"b98b25c5-6aa4-4158-b9e5-477e37bd46d8","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587547657442752950,"triggerTimeNs":0,"userID":200076}]},"sequence":349,"timestamp":1587549121318737606,"type":"snapshot","wallets":[{"balanceEv":0,"currency":"LTC","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":100000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"ETH","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XRP","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"LINK","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":0,"currency":"XTZ","lastUpdateTimeNs":1587481897840503662,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 < {"orders":{"closed":[],"fills":[],"open":[{"action":"New","avgPriceEp":0,"baseCurrency":"BTC","baseQtyEv":100000000,"bizError":0,"clOrdID":"0c1099e5-b900-5351-cf60-edb15ea2539c","createTimeNs":1587549529513521745,"cumBaseQtyEv":0,"cumFeeEv":0,"cumQuoteQtyEv":0,"curBaseWalletQtyEv":630000005401500000,"curQuoteWalletQtyEv":351802500000,"cxlRejReason":0,"feeCurrency":"BTC","leavesBaseQtyEv":100000000,"leavesQuoteQtyEv":0,"ordStatus":"New","ordType":"Limit","orderID":"494a6cbb-32b3-4d6a-b9b7-196ea2506fb5","pegOffsetValueEp":0,"priceEp":666500000000,"qtyType":"ByBase","quoteCurrency":"USDT","quoteQtyEv":0,"side":"Sell","stopPxEp":0,"symbol":"sBTCUSDT","timeInForce":"GoodTillCancel","transactTimeNs":1587549529518394235,"triggerTimeNs":0,"userID":200076}]},"sequence":350,"timestamp":1587549529519959388,"type":"incremental","wallets":[{"balanceEv":630000005401500000,"currency":"BTC","lastUpdateTimeNs":1587547210089640382,"lockedTradingBalanceEv":200000000,"lockedWithdrawEv":0,"userID":200076},{"balanceEv":351802500000,"currency":"USDT","lastUpdateTimeNs":1587543489127498121,"lockedTradingBalanceEv":0,"lockedWithdrawEv":0,"userID":200076}]}
 
 ```
 
-
 <a name="wounsub"/>
 
 ### Unsubscribe Wallet-Order
+
 * Request：
 
-```
+```json
 {
   "id": <id>,
   "method": "wo.unsubscribe",
@@ -2102,7 +2107,7 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -2112,15 +2117,15 @@ WO subscription requires the session been authorized successfully. DataGW extrac
 }
 ```
 
-
 <a name="tickersub"/>
 
 ### Subscribe 24 Hours Ticker
+
 On each successful subscription, DataGW will publish 24-hour ticker metrics for all symbols every 1 second.
 
 * Request
 
-```
+```json
 {
   "id": <id>,
   "method": "spot_market24h.subscribe",
@@ -2130,7 +2135,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Response:
 
-```
+```json
 {
   "error": null,
   "id": <id>,
@@ -2142,7 +2147,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 * Sample:
 
-```
+```json
 > {
   "method": "spot_market24h.subscribe",
   "params": [],
@@ -2160,7 +2165,7 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 
 #### Hours Ticker Message Format：
 
-```
+```json
 {
   "spot_market24h": {
     "openEp": <open priceEp>,
@@ -2189,10 +2194,10 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 | symbol        | String | Spot Symbol name                       | [Trading symbols](#productinfo) |
 | turnoverEv    | Integer| The scaled turnover value in last 24 hours |              |
 | volumeEv      | Integer| The scaled trade volume in last 24 hours   |              |
-  
+
 * Sample:
 
-```
+```json
 < {
   "spot_market24h": {
     "askEp": 892100000000,
@@ -2315,10 +2320,12 @@ On each successful subscription, DataGW will publish 24-hour ticker metrics for 
 <a name="investmentaccount"/>
 
 ### Subscribe Investment Account
+
 on subscription to investment account then you will get your investment information of each currency type.
 
 * Request：
-```
+
+```json
 {
   "id": <id>,
   "method": "wm.subscribe",
@@ -2327,7 +2334,8 @@ on subscription to investment account then you will get your investment informat
 ```
 
 * Response:
-```
+
+```json
 {
   "error": null,
   "id": <id>,
@@ -2337,9 +2345,9 @@ on subscription to investment account then you will get your investment informat
 }
 ```
 
-
 * Sample：
-```
+
+```json
 {
   "id": 1234,
   "method": "wm.subscribe",
@@ -2357,7 +2365,7 @@ on subscription to investment account then you will get your investment informat
 
 #### Investment Account Message Format：
 
-```
+```json
 {
   "investments":[
     {
@@ -2383,7 +2391,8 @@ on subscription to investment account then you will get your investment informat
 | currentTimeMillis              | Long |   time in milli    | 1653972360166 |
 
 * Sample：
-```
+
+```json
 {
   "investments":[
     {
@@ -2407,4 +2416,3 @@ on subscription to investment account then you will get your investment informat
   ]
 }
 ```
-

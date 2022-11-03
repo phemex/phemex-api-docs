@@ -1,35 +1,35 @@
 ## Table of Contents
-* [Phemex Public API](#publicapi)
-  * [General Public API Information](#general)
-* [REST API Standards](#restapi)
-  * [HTTP Restful Response](#restresponse)
-    * [HTTP Return Codes](#httpreturncodes)
-    * [HTTP Restful Response Format](#responseformat)
-    * [Restful Response Error Codes](#errorcode)
-  * [HTTP REST Request Header](#httprestheader)
-  * [API Rate Limits](#apiratelimits)
-  * [Endpoint security type](#securitytype)
-    * [Signature Example 1: HTTP GET Request](#signatureexample1)
-    * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
-    * [Signature Example 3: HTTP POST Request](#signatureexample3)
-  * [Request/Response field explained](#fieldexplained)
-    * [Spot currency and Symbol](#spotCurrencySym)
-    * [Common constants](#commconsts)
-  * [REST API List](#restapilist)
-    * [Transfer Api List](#transferApiList)
-      * [Transfer Between Spot and Futures](#assetsTransfer)
-      * [Query Transfer History](#assetsTransferQuery)
-      * [Spot Sub To Main Transfer](#spotSubToMainTransfer)
-      * [Query Spot Sub To Main Transfer](#spotSubToMainTransferQuery)
-      * [Futures Sub To Main Transfer](#futuresSubToMainTransfer)
-      * [Query Futures Sub To Main Transfer](#futuresSubToMainTransferQuery)
-      * [Universal Transfer](#universalTransfer)
-    * [Convert Api List](#convertApiList)
-      * [RFQ Quote](#rfqQuote)
-      * [Convert](#convert)
-      * [Query Convert History](#convertQuery)
 
-      
+* [Phemex Public API](#publicapi)
+    * [General Public API Information](#general)
+* [REST API Standards](#restapi)
+    * [HTTP Restful Response](#restresponse)
+        * [HTTP Return Codes](#httpreturncodes)
+        * [HTTP Restful Response Format](#responseformat)
+        * [Restful Response Error Codes](#errorcode)
+    * [HTTP REST Request Header](#httprestheader)
+    * [API Rate Limits](#apiratelimits)
+    * [Endpoint security type](#securitytype)
+        * [Signature Example 1: HTTP GET Request](#signatureexample1)
+        * [Singature Example 2: HTTP GET Request with multiple query string](#signatureexample2)
+        * [Signature Example 3: HTTP POST Request](#signatureexample3)
+    * [Request/Response field explained](#fieldexplained)
+        * [Spot currency and Symbol](#spotCurrencySym)
+        * [Common constants](#commconsts)
+    * [REST API List](#restapilist)
+        * [Transfer Api List](#transferApiList)
+            * [Transfer Between Spot and Futures](#assetsTransfer)
+            * [Query Transfer History](#assetsTransferQuery)
+            * [Spot Sub To Main Transfer](#spotSubToMainTransfer)
+            * [Query Spot Sub To Main Transfer](#spotSubToMainTransferQuery)
+            * [Futures Sub To Main Transfer](#futuresSubToMainTransfer)
+            * [Query Futures Sub To Main Transfer](#futuresSubToMainTransferQuery)
+            * [Universal Transfer](#universalTransfer)
+        * [Convert Api List](#convertApiList)
+            * [RFQ Quote](#rfqQuote)
+            * [Convert](#convert)
+            * [Query Convert History](#convertQuery)
+
 <a name="publicapi"/>
 
 # Phemex Public API
@@ -39,9 +39,11 @@
 ## General Public API Information
 
 * Phemex provides HTTP Rest API for client to operate Orders, all endpoints return a JSON object.
-* The default Rest API base endpoint is: **https://api.phemex.com**. The High rate limit Rest API base endpoint is: **https://vapi.phemex.com**. Or for the testnet is:  **https://testnet-api.phemex.com** 
+* The default Rest API base endpoint is: **https://api.phemex.com**. The High rate limit Rest API base endpoint
+  is: **https://vapi.phemex.com**. Or for the testnet is:  **https://testnet-api.phemex.com**
 * Phemex provides WebSocket API for client to receive market data, order and position updates.
-* The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss://vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws** 
+* The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss:
+  //vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws**
 
 <a name="restapi"/>
 
@@ -58,21 +60,21 @@
 * HTTP `401` return code is used when unauthenticated
 * HTTP `403` return code is used when lack of priviledge.
 * HTTP `429` return code is used when breaking a request rate limit.
-* HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the execution status is **UNKNOWN** and could be Succeed.
+* HTTP `5XX` return codes are used for Phemex internal errors. Note: This doesn't means the operation failed, the
+  execution status is **UNKNOWN** and could be Succeed.
 
 <a name="responseformat"/>
 
 ### Rest Response format
 
-   * All restful API except ***starting*** with `/md` shares same response format.
+* All restful API except ***starting*** with `/md` shares same response format.
 
-```
+```json
 {
     "code": <code>,
     "msg": <msg>,
     "data": <data>
 }
-
 ```
 
 | Field | Description | 
@@ -87,22 +89,27 @@
 
 [Trading Error Codes](TradingErrorCode.md)
 
-## HTTP REST Request Header 
+## HTTP REST Request Header
 
 Every HTTP Rest Request must have the following Headers:
+
 * x-phemex-access-token : This is ***API-KEY*** (id field) from Phemex site.
-* x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (Now() + 1 minute)
-* x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its formula is : HMacSha256( URL Path + QueryString + Expiry + body )
+* x-phemex-request-expiry : This describes the Unix ***EPoch SECONDS*** to expire the request, normally it should be (
+  Now() + 1 minute)
+* x-phemex-request-signature : This is HMAC SHA256 signature of the http request. Secret is ***API Secret***, its
+  formula is : HMacSha256( URL Path + QueryString + Expiry + body )
 
 Optional Headers:
-* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in resolving latency issues.
+
+* x-phemex-request-tracing: a unique string to trace http-request, less than 40 bytes. This header is a must in
+  resolving latency issues.
 
 <a name="apiratelimits"/>
 
 ## API Rate Limits
 
 * [Order spamming limitations](https://phemex.com/user-guides/order-spamming-limitations)
-* RateLimit group of contract trading api is ***SPOTORDER***.  
+* RateLimit group of contract trading api is ***SPOTORDER***.
 * RateLimit Explained [phemex ratelimite docs](/Generic-API-Info.en.md)
 * Contract trading api response carries following headers.
 
@@ -117,7 +124,9 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ## Endpoint security type
 
 * Each API call must be signed and pass to server in HTTP header `x-phemex-request-signature`.
-* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC operation.
+* Endpoints use `HMAC SHA256` signatures. The `HMAC SHA256 signature` is a keyed `HMAC SHA256` operation. Use
+  your `apiSecret` as the key and the string `URL Path + QueryString + Expiry + body )` as the value for the HMAC
+  operation.
 * `apiSecret` = `Base64::urlDecode(API Secret)`
 * The `signature` is **case sensitive**.
 
@@ -125,23 +134,25 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 
 ### Signature Example 1: HTTP GET Request
 
-* API REST Request URL: https://api.phemex.com/spot/wallets?currency=BTC 
-   * Request Path: /spot/wallets
-   * Request Query: currency=BTC
-   * Request Body: <null>
-   * Request Expiry: 1587552406
-   * Signature: HMacSha256( /spot/wallets + currency=BTC + 1587552406 )
+* API REST Request URL: https://api.phemex.com/spot/wallets?currency=BTC
+    * Request Path: /spot/wallets
+    * Request Query: currency=BTC
+    * Request Body: <null>
+    * Request Expiry: 1587552406
+    * Signature: HMacSha256( /spot/wallets + currency=BTC + 1587552406 )
 
 <a name="signatureexample2"/>
 
 ### Singature Example 2: HTTP GET Request with multiple query string
 
-* API REST Request URL: https://api.phemex.com/spot/orders/active?symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc 
+* API REST Request
+  URL: https://api.phemex.com/spot/orders/active?symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc
     * Request Path: /spot/orders/active
-    * Request Query: symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc 
+    * Request Query: symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc
     * Request Body: <null>
     * Request Expire: 1587552407
-    * Signature: HMacSha256(/spot/orders/active + symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc + 1587552407)
+    * Signature: HMacSha256(/spot/orders/active + symbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc +
+      1587552407)
     * signed string is `/spot/orders/activesymbol=sBTCUSDT&orderID=bc2b8ff1-a73b-4673-aa5b-fda632285fcc1587552407`
 
 <a name="signatureexample3"/>
@@ -149,21 +160,19 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 ### Signature Example 3: HTTP POST Request
 
 * API REST Request URL: https://api.phemex.com/spot/orders
-   * Request Path: /spot/orders
-   * Request Query: <null>
-   * Request Body: 
-   ```
+    * Request Path: /spot/orders
+    * Request Query: <null>
+    * Request Body:
+   ```json
    {"symbol":"sBTCUSDT","clOrdID":"ece0187f-7e02-44b5-a778-404125f124fa","side":"Buy","qtyType":"ByBase","quoteQtyEv":"0","baseQtyEv":"100000","priceEp":"700000000","stopPxEp":"0","execInst":"","ordType":"Limit","timeInForce":"","text":""}
    ```
-   * Request Expiry: 1587552407 
-   * signed string is 
+    * Request Expiry: 1587552407
+    * signed string is
    ```
     /spot/orders1587552407{"symbol":"sBTCUSDT","clOrdID":"ece0187f-7e02-44b5-a778-404125f124fa","side":"Buy","qtyType":"ByBase","quoteQtyEv":"0","baseQtyEv":"100000","priceEp":"700000000","stopPxEp":"0","execInst":"","ordType":"Limit","timeInForce":"","text":""}
-
    ```
 
 ## Request/response field explained
-
 
 <a name="spotCurrencySym"/>
 
@@ -220,7 +229,6 @@ X-RateLimit-Retry-After-SPOTORDER, # Reset timeout in seconds for current rateli
 |FTM|8|1|5e+18|0|
 |DYDX|8|1|5e+18|0|
 
-
 <a name="spotSymList"/>
 
 * Spot symbol and its scale factor
@@ -272,7 +280,6 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 |sFTMUSDT|Spot|8|8|0.01 FTM|1000000|0.00001 USDT|1000|2|2|5|10 USDT|1000000000|200000 FTM|20000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
 |sDYDXUSDT|Spot|8|8|0.001 DYDX|100000|0.001 USDT|100000|3|2|3|10 USDT|1000000000|30000 DYDX|3000000000000|5000000 USDT|500000000000000|0.001|100000|0.001|100000|
 
-
 <a name="commconsts"/>
 
 ### Common constants
@@ -290,7 +297,6 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 | MarketAsLimit | -- |
 | StopAsLimit | -- |
 | MarketIfTouchedAsLimit | -- |
-
 
 * order Status
 
@@ -313,7 +319,6 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 | ImmediateOrCancel | -- |
 | FillOrKill | -- |
 
-
 * Trigger source
 
 | trigger | description |
@@ -330,7 +335,6 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 | 11              | Failed                          |
 | others          | Under processing                |
 
-
 <a name="restapilist"/>
 
 ## REST API List
@@ -341,7 +345,7 @@ All spot symbols use the same price and ratio scale factors (price scale facor(E
 
 <a name="assetsTransfer"/>
 
-#### Transfer Between Spot and Futures 
+#### Transfer Between Spot and Futures
 
 * Http Request
 
@@ -357,7 +361,7 @@ POST /assets/transfer
 
 * Request
 
-```
+```json
 {
   "amountEv": 0,
   "currency": "string",
@@ -367,7 +371,7 @@ POST /assets/transfer
 
 * Response
 
-```
+```json
 {
   "amountEv": 0,
   "currency": "string",
@@ -398,7 +402,7 @@ GET /assets/transfer?currency=BTC
 
 * Response
 
-```
+```json
 [
   {
     "amountEv": 0,
@@ -430,7 +434,8 @@ POST /assets/spots/sub-accounts/transfer
 | requestKey | String  | False    | unique request key   | Unique request Key, system will generate if its empty |
 
 * Request
-```
+
+```json
 {
   "amountEv": 0,
   "currency": "string",
@@ -440,7 +445,7 @@ POST /assets/spots/sub-accounts/transfer
 
 * Response
 
-```
+```json
 {
   "amountEv": 0,
   "currency": "string",
@@ -470,7 +475,7 @@ GET /assets/spots/sub-accounts/transfer?currency=BTC
 
 * Response
 
-```
+```json
 [
   {
     "amountEv": 0,
@@ -484,7 +489,6 @@ GET /assets/spots/sub-accounts/transfer?currency=BTC
   }
 ]
 ```
-
 
 <a name="futuresSubToMainTransfer"/>
 
@@ -503,7 +507,8 @@ POST /assets/futures/sub-accounts/transfer
 | requestKey | String  | False    | unique request key   | Unique request Key, system will generate if its empty |
 
 * Request
-```
+
+```json
 {
   "amountEv": 0,
   "currency": "string",
@@ -513,7 +518,7 @@ POST /assets/futures/sub-accounts/transfer
 
 * Response
 
-```
+```json
 {
   "amountEv": 0,
   "bizCode": 0,
@@ -544,7 +549,7 @@ GET /assets/futures/sub-accounts/transfer?currency=BTC
 
 * Response
 
-```
+```json
 [
   {
     "fromUserId": 0,
@@ -557,6 +562,7 @@ GET /assets/futures/sub-accounts/transfer?currency=BTC
   }
 ]
 ```
+
 <a name="universalTransfer"/>
 
 #### Universal Transfer(Main account only) - Transfer between sub to main, main to sub or sub to sub
@@ -576,7 +582,8 @@ POST /assets/universal-transfer
 | requestKey  | String  | False    | unique request key          | Unique request Key, system will generate if its empty |
 
 * Request
-```
+
+```json
 {
   "amountEv": 0,
   "bizType": "string",
@@ -588,7 +595,7 @@ POST /assets/universal-transfer
 
 * Response
 
-```
+```json
 {
   "requestKey"
 }
@@ -614,10 +621,9 @@ GET /assets/quote
 | toCurrency   | String | True     | to currency          | BTC,USD ...     |
 | fromAmountEv | Long   | True     | amountEv to transfer | 100000 ...      |
 
-
 * Response
 
-```
+```json
 {
   "code": "string",
   "quoteArgs": {
@@ -631,7 +637,6 @@ GET /assets/quote
   }
 }
 ```
-
 
 <a name="convert"/>
 
@@ -651,7 +656,8 @@ POST /assets/convert
 | code         | String | True     | encrypted convert args | xxxxxxxx ...    |
 
 * Request
-```
+
+```json
 {
   "code": "string",
   "fromAmountEv": 0,
@@ -662,7 +668,7 @@ POST /assets/convert
 
 * Response
 
-```
+```json
 {
   "fromAmountEv": 0,
   "fromCurrency": "string",
@@ -676,7 +682,7 @@ POST /assets/convert
 
 <a name="convertQuery"/>
 
-#### Query Convert History 
+#### Query Convert History
 
 * Http Request
 
@@ -695,7 +701,7 @@ GET /assets/convert
 
 * Response
 
-```
+```json
 [
   {
     "conversionRate": 0,
