@@ -25,6 +25,8 @@
       * [Query History Trades](#queryhisttrades)
     * [Asset API List](#assetapilist)
     * [Future Data Api List](#futureDataAPIList)
+      * [Query Orders History](#futureDataOrdersHist)
+      * [Query Trades History](#futureDataTradesHist)
     * [Withdraw](#withdraw)
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -1176,6 +1178,105 @@ GET /exchange/public/md/v2/kline/list?symbol=<symbol>&to=<to>&from=<from>&resolu
 }
 ```
 
+### Future Data API List
+
+<a name="futureDataOrdersHist"/>
+
+#### Query Orders History
+
+* Http Request
+
+```
+GET /api-data/g-futures/orders?symbol=<symbol>
+```
+
+| Field    | Type           | Required | Description               | Possible Values                 |
+|----------|----------------|----------|---------------------------|---------------------------------|
+| symbol   | String         | True     | the currency to query     | BTCUSDT ...                     |
+| start    | Long           | False    | start time in millisecond | default 2 days ago from the end |
+| end      | Long           | False    | end time in millisecond   | default now                     |
+| offset   | Integer        | False    | page start from 0         | start from 0, default 0         |
+| limit    | Integer        | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```
+[
+    {
+        "actionTimeNs": 1667562110213260743,
+        "bizError": 0,
+        "clOrdId": "cfffa744-712d-867a-e397-9888eec3f6d1",
+        "closedPnlRv": "0",
+        "closedSizeRq": "0",
+        "cumQtyRq": "0.001",
+        "cumValueRv": "20.5795",
+        "displayQtyRq": "0.001",
+        "leavesQtyRq": "0",
+        "leavesValueRv": "0",
+        "orderId": "743fc923-cb01-4261-88d1-b35dba2cdac0",
+        "orderQtyRq": "0.001",
+        "ordStatus": "Filled",
+        "ordType": "Market",
+        "priceRp": "21206.7",
+        "reduceOnly": false,
+        "side": "Buy",
+        "stopDirection": "UNSPECIFIED",
+        "stopLossRp": "0",
+        "symbol": "BTCUSDT",
+        "takeProfitRp": "0",
+        "timeInForce": "ImmediateOrCancel",
+        "transactTimeNs": 1667562110221077395
+    }
+]
+```
+
+
+<a name="futureDataTradesHist"/>
+
+#### Query Trades History
+
+* Http Request
+
+```
+GET /api-data/g-futures/trades?symbol=<symbol>
+```
+
+| Field    | Type           | Required | Description               | Possible Values                 |
+|----------|----------------|----------|---------------------------|---------------------------------|
+| symbol   | String         | True     | the currency to query     | BTCUSDT ...                     |
+| start    | Long           | False    | start time in millisecond | default 2 days ago from the end |
+| end      | Long           | False    | end time in millisecond   | default now                     |
+| offset   | Integer        | False    | page start from 0         | start from 0, default 0         |
+| limit    | Integer        | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```
+[
+    {
+        "action": "New",
+        "clOrdID": "",
+        "closedPnlRv": "0",
+        "closedSizeRq": "0",
+        "currency": "USDT",
+        "execFeeRv": "0.00166",
+        "execID": "5c3d96e1-8874-53b6-b6e5-9dcc4d28b4ab",
+        "execPriceRp": "16600",
+        "execQtyRq": "0.001",
+        "execStatus": "MakerFill",
+        "execValueRv": "16.6",
+        "feeRateRr": "0.0001",
+        "orderID": "fcdfeafa-ed68-45d4-b2bd-7bc27f2b2b0b",
+        "orderQtyRq": "0.001",
+        "ordType": "LimitIfTouched",
+        "priceRp": "16600",
+        "side": "Sell",
+        "symbol": "BTCUSDT",
+        "tradeType": "Trade",
+        "transactTimeNs": 1669407633926215067
+    }
+]
+```
 
 <a name="wsapi"/>
 
