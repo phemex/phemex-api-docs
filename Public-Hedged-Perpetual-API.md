@@ -1,6 +1,8 @@
 ## Table of Contents * [Phemex Public API](#publicapi) * [General Public API Information](#general)
 * [REST API Standards](#restapi)
   * [REST API List](#restapilist)
+    * [Market API List](#marketapilist)
+      * [Query Product Information](#queryproductinfo)
     * [Trade API List](#orderapilist)
       * [Place Order With Put Method, *Prefered*](#placeorderwithput)
       * [Place Order](#placeorder)
@@ -57,6 +59,28 @@
 * Phemex provides WebSocket API for client to receive market data, order and position updates.
 * The WebSocket API url is: **wss://phemex.com/ws**. The High rate limit WebSocket API url is: **wss://vapi.phemex.com/ws**. Or for the testnet is:  **wss://testnet.phemex.com/ws**
 
+
+
+<a name="marketapilist"/>
+
+### Market API List
+
+<a name="queryproductinfo"/>
+
+#### Query Product Information
+
+* Request：
+
+```
+GET /public/products
+```
+
+you can find products info with hedged mode under node 'perpProductsV2'
+
+
+<a name="orderapilist"/>
+
+### Trade API List
 
 
 <a name="placeorderwithput"/>
