@@ -316,10 +316,13 @@ Fields with post-fix "Ep", "Er" or "Ev" have been scaled based on symbol setting
 
 | order status | description | 
 |------------|-------------|
+| Created | order acked from order request, a transient state |
+| Init | Same as `Created`, order acked from order request, a transient state |
 | Untriggered | Conditional order waiting to be triggered |
 | Triggered | Conditional order being triggered|
+| Deactivated | untriggered conditonal order being removed |
 | Rejected | Order rejected |
-| New | Order placed in cross engine |
+| New | Order placed into orderbook |
 | PartiallyFilled | Order partially filled |
 | Filled | Order fully filled |
 | Canceled | Order canceled |
