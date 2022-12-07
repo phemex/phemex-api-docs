@@ -28,6 +28,7 @@
     * [Asset API List](#assetapilist)
     * [Future Data Api List](#futureDataAPIList)
       * [Query Orders History](#futureDataOrdersHist)
+      * [Query Orders By Ids](#futureDataOrdersByIds)
       * [Query Trades History](#futureDataTradesHist)
     * [Withdraw](#withdraw)
 * [Websocket API Standards](#wsapi)
@@ -1254,6 +1255,53 @@ GET /api-data/g-futures/orders?symbol=<symbol>
 ]
 ```
 
+<a name="futureDataOrdersByIds"/>
+
+#### Query Orders By Ids
+
+* Http Request
+
+```
+GET /api-data/g-futures/orders/by-order-id?symbol=<symbol>
+```
+
+| Field    | Type     | Required | Description            | Possible Values                                                                                                                     |
+|----------|----------|----------|------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| symbol   | String   | True     | the currency to query  | BTCUSDT ...                                                                                                                         |
+| orderID  | String   | False    | order id               | orderID and clOrdID can not be both empty. If both IDs are given, it will return list of orders which match both orderID or clOrdID |
+| clOrdID  | String   | False    | client order id        | refer to orderID                                                                                                                    |
+
+* Response
+
+```json
+[
+    {
+        "orderId": "743fc923-cb01-4261-88d1-b35dba2cdac0",
+        "clOrdId": "cfffa744-712d-867a-e397-9888eec3f6d1",
+        "symbol": "BTCUSDT",
+        "side": "Buy",
+        "ordType": "Market",
+        "actionTimeNs": 1667562110213260743,
+        "priceRp": "21206.7",
+        "orderQtyRq": "0.001",
+        "displayQtyRq": "0.001",
+        "timeInForce": "ImmediateOrCancel",
+        "reduceOnly": false,
+        "takeProfitRp": "0",
+        "stopLossRp": "0",
+        "closedPnlRv": "0",
+        "closedSizeRq": "0",
+        "cumQtyRq": "0.001",
+        "cumValueRv": "20.5795",
+        "leavesQtyRq": "0",
+        "leavesValueRv": "0",
+        "stopDirection": "UNSPECIFIED",
+        "ordStatus": "Filled",
+        "transactTimeNs": 1667562110221077395,
+        "bizError": 0
+    }
+]
+```
 
 <a name="futureDataTradesHist"/>
 
