@@ -27,9 +27,11 @@
       * [Query History Trades](#queryhisttrades)
     * [Asset API List](#assetapilist)
     * [Future Data Api List](#futureDataAPIList)
+      * [Query Funding Fees History](#futureDataFundingFeesHist)
       * [Query Orders History](#futureDataOrdersHist)
       * [Query Orders By Ids](#futureDataOrdersByIds)
       * [Query Trades History](#futureDataTradesHist)
+      * [Query Trading Fees History](#futureDataTradingFeesHist)
     * [Withdraw](#withdraw)
 * [Websocket API Standards](#wsapi)
   * [Session Management](#sessionmanagement)
@@ -1205,6 +1207,39 @@ GET /exchange/public/md/v2/kline/list?symbol=<symbol>&to=<to>&from=<from>&resolu
 
 ### Future Data API List
 
+#### Query Funding Fees History
+
+* Http Request
+
+```
+GET /api-data/g-futures/funding-fees?symbol=<symbol>
+```
+
+| Field    | Type           | Required | Description               | Possible Values         |
+|----------|----------------|----------|---------------------------|-------------------------|
+| symbol   | String         | True     | the currency to query     | BTCUSDT ...             |
+| offset   | Integer        | False    | page start from 0         | start from 0, default 0 |
+| limit    | Integer        | False    | page size                 | default 20, max 200     |
+
+* Response
+
+```json
+[
+  {
+    "symbol": "ETHUSDT",
+    "currency": "USDT",
+    "execQtyRq": "0.16",
+    "side": "Buy",
+    "execPriceRp": "1322.84500459",
+    "execValueRv": "211.65520073",
+    "fundingRateRr": "0.0001",
+    "feeRateRr": "0.0001",
+    "execFeeRv": "0.02116552",
+    "createTime": 1671004800021
+  }
+]
+```
+
 <a name="futureDataOrdersHist"/>
 
 #### Query Orders History
@@ -1347,6 +1382,41 @@ GET /api-data/g-futures/trades?symbol=<symbol>
         "tradeType": "Trade",
         "transactTimeNs": 1669407633926215067
     }
+]
+```
+
+<a name="futureDataTradingFeesHist"/>
+
+#### Query Trading Fees History
+
+* Http Request
+
+```
+GET /api-data/g-futures/trading-fees?symbol=<symbol>
+```
+
+| Field    | Type           | Required | Description               | Possible Values         |
+|----------|----------------|----------|---------------------------|-------------------------|
+| symbol   | String         | True     | the currency to query     | BTCUSDT ...             |
+| offset   | Integer        | False    | page start from 0         | start from 0, default 0 |
+| limit    | Integer        | False    | page size                 | default 20, max 200     |
+
+* Response
+
+```json
+[
+  {
+    "id": 295,
+    "userId": 939565,
+    "symbol": "ETHUSDT",
+    "currency": "USDT",
+    "takerValueRv": "97.1104",
+    "takerFeeRateRr": "0.0006",
+    "makerValueRv": "97.164",
+    "makerFeeRateRr": "0",
+    "exchangeFeeRv": "0.06798264",
+    "createTime": 1669766400000
+  }
 ]
 ```
 
