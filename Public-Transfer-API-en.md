@@ -392,13 +392,15 @@ POST /assets/transfer
 GET /assets/transfer?currency=BTC
 ```
 
-| Field    | Type    | Required | Description               | Possible Values                 |
-|----------|---------|----------|---------------------------|---------------------------------|
-| currency | String  | True     | the currency to query     | BTC,ETH ...                     |
-| start    | Long    | False    | start time in millisecond | default 2 days ago from the end |
-| end      | Long    | False    | end time in millisecond   | default now                     |
-| offset   | Integer | False    | page start from 0         | start from 0, default 0         |
-| limit    | Integer | False    | page size                 | default 20, max 200             |
+| Field    | Type    | Required | Description               | Possible Values                            |
+|----------|---------|----------|---------------------------|--------------------------------------------|
+| currency | String  | True     | the currency to query     | BTC,ETH ...                                |
+| start    | Long    | False    | start time in millisecond | default 2 days ago from the end            |
+| end      | Long    | False    | end time in millisecond   | default now                                |
+| offset   | Integer | False    | page start from 0         | start from 0, default 0                    |
+| limit    | Integer | False    | page size                 | default 20, max 200                        |
+| side     | Integer | True     | direction                 | 1 - futures to spot, 2 - spot to futures   |
+| bizType  | Integer | True     | business type             | 11 - futures to spot, 10 - spot to futures |
 
 * Response
 
