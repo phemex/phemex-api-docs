@@ -51,6 +51,7 @@
             * [Query Orders By Ids](#futureDataOrdersByIds)
             * [Query Trades History](#futureDataTradesHist)
             * [Query Trading Fees History](#futureDataTradingFeesHist)
+            * [Query Trading Account Detail](#futureDataTradingAccountDetail)
         * [Withdraw](#withdraw)
             * [Request withdraw](#requestwithdraw)
             * [Confirm withdraw](#confirmwithdraw)
@@ -2145,6 +2146,46 @@ GET /api-data/futures/trading-fees?symbol=<symbol>
 | symbol   | String         | True     | the currency to query     | uBTCUSD ...                     |
 | offset   | Integer        | False    | page start from 0         | start from 0, default 0         |
 | limit    | Integer        | False    | page size                 | default 20, max 200             |
+
+* Response
+
+```json
+[
+  {
+    "createTime": 0,
+    "currency": "string",
+    "exchangeFeeValueEv": 0,
+    "id": 0,
+    "makerRateEr": 0,
+    "makerValueEv": 0,
+    "symbol": "string",
+    "takerRateEr": 0,
+    "takerValueEv": 0,
+    "userId": 0
+  }
+]
+```
+
+
+<a name="futureDataTradingAccountDetail"/>
+
+#### Query Trading Account Detail
+
+* Http Request
+
+```
+GET /api-data/futures/v2/tradeAccountDetail?currency=<currecny>&type=<type>&limit=<limit>&offset=<offset>&start=<start>&end=<end>&withCount=<withCount>
+```
+
+| Field     | Type      | Required | Description                    | Possible Values    |
+|-----------|-----------|----------|--------------------------------|--------------------|
+| currency  | String    | False    | the currency to query          | USDT、USD、BTC、ETH |
+| type      | Integer   | False    | TradeAccountBizType Enum       |                    |
+| start     | Integer   | False    | start time range, Epoch millis | default 0          |
+| end       | Integer   | False    | end time range, Epoch millis   | default 0          |
+| offset    | Integer   | False    | offset to resultset, max 1000  | default 0          |
+| limit     | Integer   | False    | limit of resultset             | default 20         |
+| withCount | Integer   | False    | result with total count        | default false      |
 
 * Response
 
