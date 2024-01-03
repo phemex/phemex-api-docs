@@ -682,29 +682,50 @@ PUT /g-positions/leverage?leverageRr=<leverage>&longLeverageRr=<longLeverageRr>&
 <a name="setrisklimit"/>
 
 #### Set RiskLimit
+Risk Limit Modification Notice:
+For Hedged contracts, the Set Position Risk Limit API has been deprecated. It is no longer possible to manually set the Risk Limit. Instead, simply adjust the leverage multiplier as required, and the Risk Limit will be 
+automatically adjusted.
 
-* Request
-
-```
-PUT /g-positions/riskLimit?posSide=<posSide>&riskLimitRv=<riskLimitRv>&symbol=<symbol>
-```
-
-| Field       | Type   | Required | Description                        |
-| ----------- | ------ | -------- | ---------------------------------- |
-| symbol      | String | Yes      | symbol to be set risk limt         |
-| riskLimitRv | String | Yes      | real value of risk limit to be set |
-| posSide     | String | Yes      | position side to set risk limit    |
-
-* Response
-
+New Risk Limit Configuration Explanation:
+A new attribute called leverageMargin has been added to the properties of symbol pairs. By locating the corresponding index_id within the leverageMargins node, one can find the associated Risk Limit information. The 
+configuration is as follows:
 ```json
 {
-  "code": 0,
-  "data": "string",
-  "msg": "string"
+  "index_id": 1,
+  "items": [
+    {
+      "notionalValueRv": 50000,
+      "maxLeverage": 20,
+      "maintenanceMarginRateRr": "0.01",
+      "maintenanceAmountRv": "0"
+    },
+    {
+      "notionalValueRv": 100000,
+      "maxLeverage": 10,
+      "maintenanceMarginRateRr": "0.06",
+      "maintenanceAmountRv": "0"
+    },
+    {
+      "notionalValueRv": 200000,
+      "maxLeverage": 5,
+      "maintenanceMarginRateRr": "0.16",
+      "maintenanceAmountRv": "0"
+    },
+    {
+      "notionalValueRv": 300000,
+      "maxLeverage": 2,
+      "maintenanceMarginRateRr": "0.46",
+      "maintenanceAmountRv": "0"
+    },
+    {
+      "notionalValueRv": 500000,
+      "maxLeverage": 1,
+      "maintenanceMarginRateRr": "0.5",
+      "maintenanceAmountRv": "0"
+    }
+  ]
 }
 ```
-
 
 
 <a name="assignpositionbalance"/>
